@@ -435,7 +435,7 @@ function HomeStyleFooter() {
   );
 }
 
-const HERO_IMG = "/Mobile call Management.png";
+const HERO_IMG = "/MobileCall.png";
 
 function IconCell({ icon: Icon }) {
   return (
