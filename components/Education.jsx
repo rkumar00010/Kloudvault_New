@@ -181,7 +181,7 @@ function Navbar() {
                       <Link
                         key={label}
                         href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-slate-50"
+                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
                       >
                         {label}
                       </Link>
@@ -251,7 +251,7 @@ function Navbar() {
                           <Link
                             key={label}
                             href={href}
-                            className="block py-1 text-base text-slate-600"
+                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
                             onClick={() => setOpen(false)}
                           >
                             {label}

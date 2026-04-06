@@ -192,7 +192,7 @@ function Navbar() {
                       <Link
                         key={label}
                         href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-slate-50"
+                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
                       >
                         {label}
                       </Link>
@@ -262,7 +262,7 @@ function Navbar() {
                           <Link
                             key={label}
                             href={href}
-                            className="block py-1 text-base text-slate-600"
+                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
                             onClick={() => setOpen(false)}
                           >
                             {label}
@@ -457,6 +457,18 @@ const faqs = [
   },
 ];
 
+const statCards = [
+  { big: "13+", small: "Years of Trust" },
+  { big: "Zero", small: "Integration Hassle" },
+  { big: "100%", small: "Free Support" },
+  { big: "No Code", small: "Telephony Solution" },
+  { big: "Salesforce-Native", small: "Telephony" },
+  { big: "100%", small: "Data Security" },
+];
+
+const statBg = (i) =>
+  i % 2 === 0 ? "bg-sky-50 ring-1 ring-sky-100" : "bg-sky-300/40 ring-1 ring-sky-400/30";
+
 export default function InboundOutbound() {
   const [faqOpen, setFaqOpen] = useState(0);
 
@@ -500,15 +512,6 @@ export default function InboundOutbound() {
       title: "Improved CX",
       body: "Superior call handling, smooth call transfers, and better call controls lead to more engaging and satisfying customer interactions.",
     },
-  ];
-
-  const statCards = [
-    { big: "13+", small: "Years of Trust" },
-    { big: "Zero", small: "Integration Hassle" },
-    { big: "100%", small: "Free Support" },
-    { big: "No Code", small: "Telephony Solution" },
-    { big: "Salesforce-Native", small: "Telephony" },
-    { big: "100%", small: "Data Security" },
   ];
 
   const testimonials = [
@@ -686,11 +689,11 @@ export default function InboundOutbound() {
         </div>
       </section>
 
-      {/* 6 — AI-led stats */}
+      {/* 6 — Trusted partner stats */}
       <section
         className="py-14 sm:py-20"
         style={{
-          backgroundColor: "#f1f5f9",
+          backgroundColor: "#eef2ff",
           backgroundImage: `
             linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
             linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px)`,
@@ -699,11 +702,11 @@ export default function InboundOutbound() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-led 360 CTI, Built to Deliver Results
+            Your Trusted Partner for Service Excellence
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {statCards.map((s) => (
-              <div key={s.small} className="rounded-2xl bg-sky-50/90 p-6 shadow-sm ring-1 ring-sky-100">
+            {statCards.map((s, i) => (
+              <div key={`${s.big}-${s.small}-${i}`} className={`rounded-2xl p-6 shadow-sm ${statBg(i)}`}>
                 <p className="text-2xl font-bold text-slate-900">{s.big}</p>
                 <p className="mt-1 text-sm text-slate-600">{s.small}</p>
               </div>

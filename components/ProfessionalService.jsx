@@ -181,7 +181,7 @@ function Navbar() {
                       <Link
                         key={label}
                         href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-slate-50"
+                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
                       >
                         {label}
                       </Link>
@@ -251,7 +251,7 @@ function Navbar() {
                           <Link
                             key={label}
                             href={href}
-                            className="block py-1 text-base text-slate-600"
+                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
                             onClick={() => setOpen(false)}
                           >
                             {label}
@@ -669,7 +669,7 @@ export default function ProfessionalService() {
       </section>
 
       {/* 5 — Resolve.png left + cards */}
-      <section className="bg-white py-14 sm:py-20">
+      <section className="bg-white pt-14 sm:pt-20 pb-0">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
             <div className="hero-content-from-left order-2 -mt-2 flex justify-center opacity-0 sm:-mt-3 lg:order-1 lg:-mt-4 lg:justify-start">

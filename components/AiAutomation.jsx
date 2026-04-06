@@ -192,7 +192,7 @@ function Navbar() {
                       <Link
                         key={label}
                         href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-slate-50"
+                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
                       >
                         {label}
                       </Link>
@@ -262,7 +262,7 @@ function Navbar() {
                           <Link
                             key={label}
                             href={href}
-                            className="block py-1 text-base text-slate-600"
+                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
                             onClick={() => setOpen(false)}
                           >
                             {label}
@@ -513,6 +513,9 @@ export default function AiAutomation() {
     { big: "100%", small: "Data Security" },
   ];
 
+  const statBg = (i) =>
+    i % 2 === 0 ? "bg-sky-50 ring-1 ring-sky-100" : "bg-sky-300/40 ring-1 ring-sky-400/30";
+
   const testimonials = [
     {
       title: "Fully native CTI app for Salesforce.",
@@ -689,7 +692,7 @@ export default function AiAutomation() {
       <section
         className="py-14 sm:py-20"
         style={{
-          backgroundColor: "#f0f4ff",
+          backgroundColor: "#eef2ff",
           backgroundImage: `
             linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
             linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px)`,
@@ -697,10 +700,12 @@ export default function AiAutomation() {
         }}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">AI-Led CTI, Built for Success</h2>
+          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
+            AI-Led CTI, Built for Success
+          </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {statCards.map((s) => (
-              <div key={`${s.big}-${s.small}`} className="rounded-2xl bg-sky-100/90 p-6 shadow-sm ring-1 ring-sky-200/80">
+            {statCards.map((s, i) => (
+              <div key={`${s.big}-${s.small}-${i}`} className={`rounded-2xl p-6 shadow-sm ${statBg(i)}`}>
                 <p className="text-2xl font-bold text-slate-900">{s.big}</p>
                 <p className="mt-1 text-sm text-slate-600">{s.small}</p>
               </div>

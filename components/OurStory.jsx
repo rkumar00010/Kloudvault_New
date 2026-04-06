@@ -101,7 +101,7 @@ function Navbar() {
                     const label = typeof d === "string" ? d : d.label;
                     const href = typeof d === "string" ? item.href : d.href;
                     return (
-                      <Link key={label} href={href} className="block px-4 py-2 text-base text-slate-600 hover:bg-slate-50">
+                      <Link key={label} href={href} className="block px-4 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600">
                         {label}
                       </Link>
                     );
@@ -145,7 +145,7 @@ function Navbar() {
                         const label = typeof d === "string" ? d : d.label;
                         const href = typeof d === "string" ? item.href : d.href;
                         return (
-                          <Link key={label} href={href} className="block py-1 text-base text-slate-600" onClick={() => setOpen(false)}>
+                          <Link key={label} href={href} className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600" onClick={() => setOpen(false)}>
                             {label}
                           </Link>
                         );

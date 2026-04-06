@@ -181,7 +181,7 @@ function Navbar() {
                       <Link
                         key={label}
                         href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-slate-50"
+                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
                       >
                         {label}
                       </Link>
@@ -251,7 +251,7 @@ function Navbar() {
                           <Link
                             key={label}
                             href={href}
-                            className="block py-1 text-base text-slate-600"
+                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
                             onClick={() => setOpen(false)}
                           >
                             {label}
@@ -535,24 +535,26 @@ export default function RealEstate() {
           className="absolute inset-0 bg-gradient-to-b from-slate-950/75 via-slate-950/88 to-slate-950"
           aria-hidden
         />
-        <div className="relative z-10 mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 sm:py-24">
-          <span className="inline-block rounded-full border border-white/40 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-white">
-            360 CTI for Real Estate
-          </span>
-          <h1 className="mx-auto mt-8 max-w-4xl text-[45px] font-bold leading-[1.12] tracking-tight text-white">
-            Close More Property Deals with AI-led Salesforce CTI
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
-            Automate outreach, personalize every call, and manage property conversations seamlessly within Salesforce.
-          </p>
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-10 inline-flex rounded-lg bg-sky-600 px-8 py-3.5 text-sm font-semibold text-white hover:bg-sky-700"
-          >
-            Book a 1:1 Demo
-          </Link>
+        <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-4 py-20 text-center sm:px-6 sm:py-24">
+          <div className="hero-content-from-left flex w-full max-w-5xl flex-col items-center opacity-0">
+            <span className="inline-block rounded-full border border-white/50 bg-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white">
+              360 CTI for Real Estate
+            </span>
+            <h1 className="mx-auto mt-8 max-w-4xl text-[45px] font-bold leading-[1.12] tracking-tight text-white">
+              Close More Property Deals with AI-led Salesforce CTI
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/95 sm:text-lg">
+              Automate outreach, personalize every call, and manage property conversations seamlessly within Salesforce.
+            </p>
+            <Link
+              href="https://360cti.com/contact/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-10 inline-flex rounded-full bg-sky-600 px-10 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-700"
+            >
+              Book a 1:1 Demo
+            </Link>
+          </div>
         </div>
       </section>
 
