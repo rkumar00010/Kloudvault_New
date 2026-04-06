@@ -3,16 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Menu,
-  X,
-  ChevronDown,
-  MessageCircle,
-  CalendarClock,
-  Mic2,
-  MapPinCheck,
-  Star,
-} from "lucide-react";
+import { Menu, X, ChevronDown, MessageCircle, Star } from "lucide-react";
 
 function LogoMark({ className = "h-16 w-16" }) {
   return (
@@ -428,75 +419,77 @@ function HomeStyleFooter() {
   );
 }
 
-const faqs = [
-  {
-    q: "Can the system automatically redistribute leads when an agent is unavailable or overloaded?",
-    a: "Yes. Rules can reassign or queue work so inbound demand stays balanced and leads don’t sit idle when agents change status or hit capacity.",
-  },
-  {
-    q: "How does the system prevent lead leakage and ensure timely follow-ups?",
-    a: "Every interaction can create or update Salesforce records with tasks and SLAs, so teams see follow-ups in one place and managers get visibility into missed steps.",
-  },
-  {
-    q: "Does it integrate smoothly with existing Salesforce lead, contact, and opportunity workflows?",
-    a: "Native CTI keeps calls, tasks, and records in sync with standard Salesforce objects—so your existing processes and automations keep working.",
-  },
-  {
-    q: "Is it scalable for high-volume lead management across large sales teams?",
-    a: "Queues, skills, and reporting scale with your org. High-volume teams can add capacity without losing structure or auditability.",
-  },
-  {
-    q: "What happens to existing Salesforce leads during migration — is there any data disruption?",
-    a: "Migration is typically planned in phases: map fields, validate with a pilot, then cut over. Historical leads stay in Salesforce when you align telephony with your existing data model.",
-  },
-  {
-    q: "How can managers track agent performance and lead response times in Salesforce?",
-    a: "Dashboards and reports can combine call metrics, lead status, and task completion—so managers see response times, conversion, and workload by team or agent.",
-  },
+const HERO_PATHS = ["/ProfessionalServices-Hero.png", "/ProfessionalServices-Hero.jpg"];
+const ENHANCE_IMG_PATHS = ["/Enhance.png", "/Enhance.jpg", "/enhance.png"];
+const RESOLVE_IMG_PATHS = ["/Resolve.png", "/Resolve.jpg", "/resolve.png"];
+
+const statCards = [
+  { big: "13+", small: "Years of Trust" },
+  { big: "Zero", small: "Integration Hassle" },
+  { big: "100%", small: "Free Support" },
+  { big: "No Code", small: "Telephony Solution" },
+  { big: "Salesforce-Native", small: "Telephony" },
+  { big: "100%", small: "Data Security" },
 ];
 
-const HERO_IMG = "/Agent.png";
+function statCardClass(i) {
+  return i % 2 === 0
+    ? "border border-slate-300/50 bg-[#D1E3F2] shadow-sm"
+    : "border border-slate-400/40 bg-[#A6CCE1] shadow-sm";
+}
 
-export default function AgentAndLead() {
-  const [faqOpen, setFaqOpen] = useState(0);
+export default function ProfessionalService() {
+  const [heroBgIndex, setHeroBgIndex] = useState(0);
+  const heroBgFailed = heroBgIndex >= HERO_PATHS.length;
+  const [enhanceImgIndex, setEnhanceImgIndex] = useState(0);
+  const [resolveImgIndex, setResolveImgIndex] = useState(0);
 
-  const featureCards = [
+  const impactStats = [
     {
-      title: "Availability Management",
-      body: "Enable agents to set availability (Online, Away, Offline) to control call flow and display real-time status for efficient handling and balanced workloads.",
-      icon: CalendarClock,
-      bg: "bg-white border border-slate-200",
+      pct: "35%",
+      title: "Faster Issue Resolution",
+      body: "Smart routing, live call transfers, and call conferencing for collaboration reduce delays in dispute handling and service delivery.",
     },
     {
-      title: "Automated records creation",
-      body: "Salesforce automated lead capture helps generate lead records for new inbound calls, eliminating manual entry and ensuring no potential opportunity is missed.",
-      icon: Mic2,
-      bg: "bg-violet-50/80 border border-violet-100",
+      pct: "42%",
+      title: "More Efficient Client Communication",
+      body: "Automated follow-ups, AI-driven transcripts, and seamless call handling cut manual tasks and ensure consistent, timely updates.",
+    },
+    {
+      pct: "28%",
+      title: "Higher Client Satisfaction",
+      body: "Improved personalization, reduced no-shows, and enhanced service quality lead to stronger client trust and long-term relationships.",
     },
   ];
 
-  const whyCards = [
+  const enhanceCards = [
     {
-      title: "No Missed Opportunities",
-      body: "Automated lead creation captures every new inbound call instantly, eliminating the need for manual record creation and accelerating call operations.",
+      title: "Improve Service Calls with AI",
+      body: "Understand client tone and intent with live AI transcripts and sentiment analysis to personalize follow-ups and deliver consistent, trust-building communication.",
     },
     {
-      title: "Higher Customer Satisfaction",
-      body: "Callers are quickly redirected to the best-suited available agent based on their availability status, reducing wait times and improving their experience.",
+      title: "Automate Follow-Ups and Updates",
+      body: "Automate follow-up calls, reminders, and status updates to clients, ensuring timely communication, boosting engagement, and reducing manual workload efficiently.",
     },
     {
-      title: "Optimized Workflows",
-      body: "Automating lead capture and agent availability management minimizes manual tasks, allowing teams to focus on meaningful customer interactions.",
+      title: "Connect Quickly to the Right Expert",
+      body: "Use smart Salesforce call routing for professional services to instantly direct clients to the right consultant, advisor, or support agent without transfers or confusion.",
     },
   ];
 
-  const statCards = [
-    { big: "13+", small: "Years of Trust" },
-    { big: "Zero", small: "Integration Hassle" },
-    { big: "100%", small: "Free Support" },
-    { big: "No-Code", small: "Telephony Solution" },
-    { big: "Salesforce-Native", small: "CTI" },
-    { big: "100%", small: "Data Security" },
+  const resolveCards = [
+    {
+      title: "Resolve Client Disputes Faster",
+      body: "Efficiently resolve client disputes by instantly routing calls to the right expert, enabling seamless call transfers and conferencing for real-time collaboration and support.",
+    },
+    {
+      title: "Schedule Appointments Seamlessly",
+      body: "Automate appointment booking and confirmations through Salesforce IVR for client appointments—available 24/7, reducing back-and-forth and no-shows.",
+    },
+    {
+      title: "Enhance Service Team Efficiency",
+      body: "Record and review calls, and monitor live interactions to uphold service standards and boost team performance with Salesforce Call Monitoring & Recording for more revenue.",
+    },
   ];
 
   const testimonials = [
@@ -520,35 +513,42 @@ export default function AgentAndLead() {
       <Navbar />
 
       {/* 1 — Hero */}
-      <section className="bg-slate-50 py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
-            <div className="hero-content-from-left opacity-0">
-              <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] xl:text-6xl">
-                Improve Sales with Salesforce Lead &amp; Agent Management
-              </h1>
-              <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
-                Capture every lead instantly in Salesforce while enabling agent management for efficient call handling and
-                engagement.
-              </p>
-              <Link
-                href="https://360cti.com/contact/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex rounded-lg bg-sky-600 px-8 py-3 text-sm font-semibold text-white hover:bg-sky-700"
-              >
-                Contact our Experts
-              </Link>
-            </div>
-            <div className="mt-10 flex justify-center lg:mt-0 lg:justify-end">
-              <img
-                src={HERO_IMG}
-                alt="Salesforce agent and lead management"
-                className="h-auto w-full max-w-xl object-contain sm:max-w-2xl xl:max-w-3xl"
-                loading="eager"
-                decoding="async"
-              />
-            </div>
+      <section className="relative flex min-h-[min(85vh,640px)] items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-slate-950" aria-hidden />
+        {!heroBgFailed && (
+          <img
+            key={HERO_PATHS[heroBgIndex]}
+            src={encodeURI(HERO_PATHS[heroBgIndex])}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover opacity-45"
+            onError={() => setHeroBgIndex((i) => i + 1)}
+            decoding="async"
+          />
+        )}
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-slate-950/78 via-slate-900/85 to-slate-950"
+          aria-hidden
+        />
+        <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-4 py-20 text-center sm:px-6 sm:py-24">
+          <div className="hero-content-from-left flex w-full max-w-5xl flex-col items-center opacity-0">
+            <span className="inline-block rounded-full border border-white/50 bg-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white">
+              360 CTI for Professional Services
+            </span>
+            <h1 className="mx-auto mt-8 max-w-5xl text-[40px] font-bold leading-[1.12] tracking-tight text-white">
+              Strengthen Client Relationships with Salesforce CTI
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/95 sm:text-lg">
+              Enable smarter client conversations and faster resolutions to improve experience, retention, and ongoing
+              engagement.
+            </p>
+            <Link
+              href="https://360cti.com/contact/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-10 inline-flex rounded-full bg-sky-600 px-10 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-700"
+            >
+              Book a 1:1 Demo
+            </Link>
           </div>
         </div>
       </section>
@@ -556,9 +556,11 @@ export default function AgentAndLead() {
       {/* 2 — Trusted + marquee */}
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-w-3xl justify-center">
-            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-600 shadow-sm sm:text-base">
-              Trusted by the <span className="font-semibold text-sky-600">Best</span> Worldwide
+          <div className="hero-content-from-left mx-auto flex max-w-4xl justify-center opacity-0">
+            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-800 shadow-sm sm:text-base">
+              <span className="font-medium text-slate-700">Trusted by </span>
+              <span className="font-semibold text-sky-600">Client-Centric Professional Service</span>
+              <span className="font-medium text-slate-700"> Brands</span>
             </p>
           </div>
           <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
@@ -602,78 +604,135 @@ export default function AgentAndLead() {
         </div>
       </section>
 
-      {/* 3 — Smarter agent & lead */}
-      <section className="bg-white py-14 sm:py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="relative text-center">
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-              Smarter Salesforce Agent and Lead Management
-            </h2>
-            <div className="pointer-events-none absolute left-1/2 top-full mt-2 hidden h-8 w-px bg-slate-200 lg:block" style={{ marginLeft: "-1px" }} />
-            <div className="pointer-events-none absolute left-[15%] right-[15%] top-[calc(100%+2.25rem)] hidden h-px bg-slate-200 lg:block" />
-          </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
-            {featureCards.map((c) => (
-              <div key={c.title} className={`flex min-h-[260px] flex-col rounded-2xl p-6 shadow-sm ${c.bg}`}>
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
-                  <c.icon className="h-6 w-6" />
-                </div>
-                <h3 className="mt-4 text-lg font-bold text-slate-900">{c.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4 — Pill CTA */}
-      <section className="px-4 pb-10 sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-4xl flex-col items-stretch justify-between gap-4 rounded-full border border-slate-200 bg-white px-6 py-4 shadow-sm sm:flex-row sm:items-center sm:px-8">
-          <p className="text-center text-base font-bold text-slate-900 sm:text-left">Want to upgrade calls with AI?</p>
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-8 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#0a2449]"
-          >
-            Contact Us
-          </Link>
-        </div>
-      </section>
-
-      {/* 5 — Why intelligent lead management */}
-      <section className="px-4 py-12 sm:px-6 lg:px-8">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-b from-sky-500 to-sky-400 px-4 py-12 sm:px-8 sm:py-14">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-25"
-            style={{
-              backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)`,
-              backgroundSize: "18px 18px",
-            }}
-            aria-hidden
-          />
-          <h2 className="relative text-center text-2xl font-bold text-white sm:text-3xl">
-            Why Intelligent Salesforce Lead Management?
+      {/* 3 — Proven impact */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl md:text-4xl">
+            Proven Impact: Better Call Handling, Happier Clients
           </h2>
-          <div className="relative mt-10 grid gap-6 md:grid-cols-3">
-            {whyCards.map((c) => (
-              <div key={c.title} className="relative rounded-2xl bg-white p-6 pt-10 text-center shadow-md">
-                <div className="absolute -top-5 left-1/2 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full bg-sky-600 text-white shadow">
-                  <MapPinCheck className="h-5 w-5" strokeWidth={2.25} />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900">{c.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
+          <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+            {impactStats.map((s) => (
+              <div key={s.title} className="text-center">
+                <p className="text-4xl font-bold text-slate-900 sm:text-5xl">{s.pct}</p>
+                <p className="mt-2 text-lg font-medium text-slate-900">{s.title}</p>
+                <p className="mt-4 text-sm leading-relaxed text-slate-600">{s.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 6 — Stats */}
+      {/* 4 — Enhance + image right */}
+      <section className="bg-slate-50 py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mx-auto max-w-5xl text-center text-2xl font-bold leading-tight text-slate-900 sm:text-3xl md:text-[2.5rem] md:leading-tight">
+            Enhance the Client Journey with AI-Driven Salesforce Calling
+          </h2>
+          <p className="mx-auto mt-5 max-w-3xl text-center text-sm leading-relaxed text-slate-600 sm:text-base">
+            Streamline client communication—connect efficiently, manage conversations, and support faster responses with
+            AI-driven calling in Salesforce.
+          </p>
+          <div className="mt-14 grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
+            <div className="hero-content-from-left space-y-4 opacity-0">
+              {enhanceCards.map((c) => (
+                <div
+                  key={c.title}
+                  className="rounded-2xl border border-slate-200/80 bg-[#f0f4f8] p-5 shadow-sm sm:p-6"
+                >
+                  <h3 className="text-lg font-bold text-slate-900">{c.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
+                </div>
+              ))}
+            </div>
+            <div className="-mt-14 flex justify-center sm:-mt-16 lg:-mt-20 lg:justify-end">
+              {enhanceImgIndex < ENHANCE_IMG_PATHS.length ? (
+                <img
+                  key={ENHANCE_IMG_PATHS[enhanceImgIndex]}
+                  src={encodeURI(ENHANCE_IMG_PATHS[enhanceImgIndex])}
+                  alt="Enhance the client journey with AI-driven Salesforce calling"
+                  className="hero-content-from-right h-auto w-full max-w-xl rounded-2xl object-contain"
+                  loading="lazy"
+                  decoding="async"
+                  onError={() => setEnhanceImgIndex((i) => i + 1)}
+                />
+              ) : (
+                <div className="flex min-h-[200px] w-full max-w-xl flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-8 text-center text-sm text-slate-600">
+                  <LogoMark className="h-12 w-12 opacity-40" />
+                  <p>
+                    Add <span className="font-mono text-xs">public/Enhance.png</span>
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5 — Resolve.png left + cards */}
+      <section className="bg-white py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
+            <div className="hero-content-from-left order-2 -mt-2 flex justify-center opacity-0 sm:-mt-3 lg:order-1 lg:-mt-4 lg:justify-start">
+              {resolveImgIndex < RESOLVE_IMG_PATHS.length ? (
+                <img
+                  key={RESOLVE_IMG_PATHS[resolveImgIndex]}
+                  src={encodeURI(RESOLVE_IMG_PATHS[resolveImgIndex])}
+                  alt="Resolve client disputes and schedule appointments"
+                  className="h-auto w-full max-w-xl rounded-2xl object-contain"
+                  loading="lazy"
+                  decoding="async"
+                  onError={() => setResolveImgIndex((i) => i + 1)}
+                />
+              ) : (
+                <div className="flex min-h-[200px] w-full max-w-xl flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center text-sm text-slate-600">
+                  <LogoMark className="h-12 w-12 opacity-40" />
+                  <p>
+                    Add <span className="font-mono text-xs">public/Resolve.png</span>
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="order-1 space-y-4 lg:order-2">
+              {resolveCards.map((c) => (
+                <div
+                  key={c.title}
+                  className="rounded-2xl border border-sky-100 bg-[#eff6ff] p-5 shadow-sm sm:p-6"
+                >
+                  <h3 className="text-lg font-bold text-slate-900">{c.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6 — Case study CTA */}
+      <section className="bg-white py-10 sm:py-12">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <div className="flex flex-col items-stretch justify-between gap-6 rounded-2xl bg-[#3B8DEB] px-6 py-8 shadow-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-9">
+            <p className="text-center text-lg font-semibold leading-snug text-white sm:max-w-[55%] sm:text-left sm:text-xl">
+              Want to see results
+              <br />
+              from actual use cases?
+            </p>
+            <Link
+              href="https://360cti.com/contact/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 rounded-md bg-white px-5 py-3 text-center text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50 sm:px-6"
+            >
+              Download the Case Study Now!
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 7 — Stats */}
       <section
         className="py-14 sm:py-20"
         style={{
-          backgroundColor: "#f0f4ff",
+          backgroundColor: "#eef2ff",
           backgroundImage: `
             linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
             linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px)`,
@@ -682,11 +741,11 @@ export default function AgentAndLead() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-Led CTI Built to Rule Lead Management
+            Your Trusted Partner for Service Excellence
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {statCards.map((s) => (
-              <div key={`${s.big}-${s.small}`} className="rounded-2xl bg-sky-100/90 p-6 shadow-sm ring-1 ring-sky-200/80">
+            {statCards.map((s, i) => (
+              <div key={`${s.big}-${s.small}-${i}`} className={`rounded-2xl p-6 text-left ${statCardClass(i)}`}>
                 <p className="text-2xl font-bold text-slate-900">{s.big}</p>
                 <p className="mt-1 text-sm text-slate-600">{s.small}</p>
               </div>
@@ -695,15 +754,17 @@ export default function AgentAndLead() {
         </div>
       </section>
 
-      {/* 7 — Testimonials */}
-      <section className="py-14 sm:py-20">
+      {/* 8 — Testimonials */}
+      <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">Hear What Our Customers Say</h2>
+          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
+            Trusted by Service Firms Across Industries
+          </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {testimonials.map((t) => (
               <article
                 key={t.name}
-                className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 p-8"
+                className="hero-content-from-left relative flex min-h-[260px] flex-col overflow-hidden rounded-xl border border-slate-200 bg-[#f8f8f8] p-8 shadow-md"
               >
                 <div className="flex gap-0.5 text-amber-400">
                   {[...Array(5)].map((_, i) => (
@@ -711,70 +772,19 @@ export default function AgentAndLead() {
                   ))}
                 </div>
                 <p className="mt-3 font-bold text-slate-900">{t.title}</p>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t.quote}</p>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{t.quote}</p>
                 <div className="relative z-[1] mt-8">
                   <p className="font-bold text-slate-900">{t.name}</p>
                   <p className="text-sm text-slate-500">{t.role}</p>
                 </div>
                 <span
-                  className="pointer-events-none absolute bottom-4 right-4 text-8xl font-serif leading-none text-white/80"
+                  className="pointer-events-none absolute bottom-4 right-4 text-8xl font-serif leading-none text-white/90"
                   aria-hidden
                 >
                   &ldquo;
                 </span>
               </article>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8 — FAQ */}
-      <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
-          <p className="mt-3 text-center text-slate-600">FAQs About Salesforce Agent &amp; Lead Management</p>
-          <div className="mt-10 space-y-3">
-            {faqs.map((item, i) => {
-              const isOpen = faqOpen === i;
-              return (
-                <div
-                  key={i}
-                  className={`overflow-hidden rounded-xl border shadow-sm ${
-                    isOpen ? "border-slate-400 bg-slate-100" : "border-slate-200 bg-white"
-                  }`}
-                >
-                  <button
-                    type="button"
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
-                    onClick={() => setFaqOpen(isOpen ? null : i)}
-                  >
-                    <span className="text-sm font-semibold text-slate-900 sm:text-base">{item.q}</span>
-                    <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-lg font-bold ${
-                        isOpen ? "bg-sky-600 text-white" : "border-2 border-slate-300 text-slate-800"
-                      }`}
-                    >
-                      {isOpen ? "−" : "+"}
-                    </span>
-                  </button>
-                  {isOpen && (
-                    <div className="border-t border-slate-200 px-5 pb-4 pt-0">
-                      <p className="pt-3 text-sm leading-relaxed text-slate-600">{item.a}</p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          <div className="mt-10 text-center">
-            <Link
-              href="https://360cti.com/contact/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex rounded-full bg-[#0c2d5c] px-10 py-3.5 text-sm font-semibold text-white hover:bg-[#0a2449]"
-            >
-              Need more Info ?
-            </Link>
           </div>
         </div>
       </section>
@@ -790,18 +800,23 @@ export default function AgentAndLead() {
           backgroundSize: "24px 24px",
         }}
       >
-        <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="whitespace-nowrap text-base font-bold tracking-tight text-slate-900 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
-            Turn Every Lead into Action with Salesforce Agent Management
-          </h2>
+        <div className="mx-auto max-w-[min(100%,1200px)] px-4 text-center">
+          <div className="flex justify-center overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <h2
+              className="font-bold tracking-tight text-slate-900 whitespace-nowrap"
+              style={{ fontSize: "clamp(11px, 2.1vw, 1.875rem)" }}
+            >
+              Standout Service. Trusted Relationships. Higher Retention.
+            </h2>
+          </div>
           <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-powered 360 CTI?
+            Have questions or want to know more about AI-led 360 CTI?
           </p>
           <Link
             href="https://360cti.com/contact/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-flex rounded-lg bg-sky-500 px-8 py-3 font-semibold text-white hover:bg-sky-600"
+            className="mt-8 inline-flex rounded-lg bg-[#008ecc] px-8 py-3 font-semibold text-white hover:bg-sky-700"
           >
             Contact our Experts
           </Link>

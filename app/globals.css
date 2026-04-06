@@ -52,12 +52,33 @@ body {
   animation: heroContentFromLeft 0.65s ease-out forwards;
 }
 
+@keyframes heroContentFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero-content-from-right {
+  animation: heroContentFromRight 0.65s ease-out forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .partner-marquee-track {
     animation: none;
   }
 
   .hero-content-from-left {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-content-from-right {
     animation: none;
     opacity: 1;
     transform: none;

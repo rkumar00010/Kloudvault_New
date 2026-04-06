@@ -3,16 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Menu,
-  X,
-  ChevronDown,
-  MessageCircle,
-  CalendarClock,
-  Mic2,
-  MapPinCheck,
-  Star,
-} from "lucide-react";
+import { Menu, X, ChevronDown, MessageCircle, Star } from "lucide-react";
 
 function LogoMark({ className = "h-16 w-16" }) {
   return (
@@ -428,75 +419,84 @@ function HomeStyleFooter() {
   );
 }
 
-const faqs = [
-  {
-    q: "Can the system automatically redistribute leads when an agent is unavailable or overloaded?",
-    a: "Yes. Rules can reassign or queue work so inbound demand stays balanced and leads don’t sit idle when agents change status or hit capacity.",
-  },
-  {
-    q: "How does the system prevent lead leakage and ensure timely follow-ups?",
-    a: "Every interaction can create or update Salesforce records with tasks and SLAs, so teams see follow-ups in one place and managers get visibility into missed steps.",
-  },
-  {
-    q: "Does it integrate smoothly with existing Salesforce lead, contact, and opportunity workflows?",
-    a: "Native CTI keeps calls, tasks, and records in sync with standard Salesforce objects—so your existing processes and automations keep working.",
-  },
-  {
-    q: "Is it scalable for high-volume lead management across large sales teams?",
-    a: "Queues, skills, and reporting scale with your org. High-volume teams can add capacity without losing structure or auditability.",
-  },
-  {
-    q: "What happens to existing Salesforce leads during migration — is there any data disruption?",
-    a: "Migration is typically planned in phases: map fields, validate with a pilot, then cut over. Historical leads stay in Salesforce when you align telephony with your existing data model.",
-  },
-  {
-    q: "How can managers track agent performance and lead response times in Salesforce?",
-    a: "Dashboards and reports can combine call metrics, lead status, and task completion—so managers see response times, conversion, and workload by team or agent.",
-  },
+const HERO_BG = "/Real-Estate-Hero.jpg";
+const IMG_PROPERTIES_FASTER = "/Properties Faster.png";
+/** Try common filename variants (spaces vs hyphens, casing). */
+const SCHEDULE_IMG_PATHS = [
+  "/Schedule More Proeperty.png",
+  "/Schedule-More-Proeperty.png",
+  "/Schedule More Property.png",
+  "/Schedule-More-Property.png",
+  "/ScheduleMoreProperty.png",
+  "/schedule more property.png",
 ];
 
-const HERO_IMG = "/Agent.png";
+const statCards = [
+  { big: "13+", small: "Years of Trust" },
+  { big: "Zero", small: "Integration Hassle" },
+  { big: "100%", small: "Free Support" },
+  { big: "No Code", small: "Telephony Solution" },
+  { big: "Salesforce-Native", small: "Telephony" },
+  { big: "100%", small: "Data Security" },
+];
 
-export default function AgentAndLead() {
-  const [faqOpen, setFaqOpen] = useState(0);
+/** Alternating card colors like reference: pale blue / sky-200 checkerboard (3×2 grid). */
+function statCardClass(i) {
+  return i % 2 === 0
+    ? "border border-slate-200/90 bg-[#EFF6FF] shadow-sm"
+    : "border border-sky-300/80 bg-[#BAE6FD] shadow-sm";
+}
 
-  const featureCards = [
+export default function RealEstate() {
+  const [heroBgFailed, setHeroBgFailed] = useState(false);
+  const [scheduleImgIndex, setScheduleImgIndex] = useState(0);
+
+  const impactStats = [
     {
-      title: "Availability Management",
-      body: "Enable agents to set availability (Online, Away, Offline) to control call flow and display real-time status for efficient handling and balanced workloads.",
-      icon: CalendarClock,
-      bg: "bg-white border border-slate-200",
+      pct: "35%",
+      title: "More Property Deals Closed",
+      body: "Boosted outreach efficiency, faster follow-ups, smarter buyer targeting, and trust-building conversations lead to more conversions from qualified leads.",
     },
     {
-      title: "Automated records creation",
-      body: "Salesforce automated lead capture helps generate lead records for new inbound calls, eliminating manual entry and ensuring no potential opportunity is missed.",
-      icon: Mic2,
-      bg: "bg-violet-50/80 border border-violet-100",
+      pct: "42%",
+      title: "Higher Lead Engagement",
+      body: "Live AI-driven insights, reduced no-shows, and consistent agent interactions keep prospects warm and connected throughout their buyer journey.",
+    },
+    {
+      pct: "38%",
+      title: "Faster Sales Cycles",
+      body: "Automated scheduling, intelligent call routing, and accelerated property viewings speed up decision-making with less back-and-forth.",
     },
   ];
 
-  const whyCards = [
+  const propertiesCards = [
     {
-      title: "No Missed Opportunities",
-      body: "Automated lead creation captures every new inbound call instantly, eliminating the need for manual record creation and accelerating call operations.",
+      title: "Reach More Buyers in Less Time",
+      body: "Reach more buyers in less time by managing bulk dialing with better controls using Salesforce Power Dialer for Real Estate, and boost outreach efficiency.",
     },
     {
-      title: "Higher Customer Satisfaction",
-      body: "Callers are quickly redirected to the best-suited available agent based on their availability status, reducing wait times and improving their experience.",
+      title: "Never Miss Follow-Ups Again",
+      body: "Schedule calls with a communication solution for Real Estate to automate follow-ups, reduce lead drop-off, and generate more property leads.",
     },
     {
-      title: "Optimized Workflows",
-      body: "Automating lead capture and agent availability management minimizes manual tasks, allowing teams to focus on meaningful customer interactions.",
+      title: "Personalize Buyer Experiences",
+      body: "Connect returning prospects with the same realtor using Sticky Agent for Real Estate in Salesforce to build trust, personalize interactions, and boost deal conversions.",
     },
   ];
 
-  const statCards = [
-    { big: "13+", small: "Years of Trust" },
-    { big: "Zero", small: "Integration Hassle" },
-    { big: "100%", small: "Free Support" },
-    { big: "No-Code", small: "Telephony Solution" },
-    { big: "Salesforce-Native", small: "CTI" },
-    { big: "100%", small: "Data Security" },
+  const scheduleCards = [
+    {
+      title: "Schedule More Property Visits",
+      body: "Automate scheduling and confirmations with Salesforce IVR for Real Estate Appointments, reducing no-shows and back-and-forth to streamline property visit coordination.",
+    },
+    {
+      title: "Engage New Leads Instantly with AI",
+      body: "AI voice bots in a telephony solution instantly engage new leads, capture key details, resolve queries, and schedule demos with agents to drive faster deal closures.",
+    },
+    {
+      title: "Analyze and Nurture Serious Buyers",
+      body: "Unlock a deeper understanding of buyer sentiment with live AI Salesforce Call Insights for Real Estate. Let agents prioritize the right conversations at the right time.",
+    },
   ];
 
   const testimonials = [
@@ -520,45 +520,48 @@ export default function AgentAndLead() {
       <Navbar />
 
       {/* 1 — Hero */}
-      <section className="bg-slate-50 py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
-            <div className="hero-content-from-left opacity-0">
-              <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] xl:text-6xl">
-                Improve Sales with Salesforce Lead &amp; Agent Management
-              </h1>
-              <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
-                Capture every lead instantly in Salesforce while enabling agent management for efficient call handling and
-                engagement.
-              </p>
-              <Link
-                href="https://360cti.com/contact/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex rounded-lg bg-sky-600 px-8 py-3 text-sm font-semibold text-white hover:bg-sky-700"
-              >
-                Contact our Experts
-              </Link>
-            </div>
-            <div className="mt-10 flex justify-center lg:mt-0 lg:justify-end">
-              <img
-                src={HERO_IMG}
-                alt="Salesforce agent and lead management"
-                className="h-auto w-full max-w-xl object-contain sm:max-w-2xl xl:max-w-3xl"
-                loading="eager"
-                decoding="async"
-              />
-            </div>
-          </div>
+      <section className="relative flex min-h-[min(85vh,640px)] items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-slate-950" aria-hidden />
+        {!heroBgFailed && (
+          <img
+            src={encodeURI(HERO_BG)}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover opacity-45"
+            onError={() => setHeroBgFailed(true)}
+            decoding="async"
+          />
+        )}
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-slate-950/75 via-slate-950/88 to-slate-950"
+          aria-hidden
+        />
+        <div className="relative z-10 mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 sm:py-24">
+          <span className="inline-block rounded-full border border-white/40 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-white">
+            360 CTI for Real Estate
+          </span>
+          <h1 className="mx-auto mt-8 max-w-4xl text-[45px] font-bold leading-[1.12] tracking-tight text-white">
+            Close More Property Deals with AI-led Salesforce CTI
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
+            Automate outreach, personalize every call, and manage property conversations seamlessly within Salesforce.
+          </p>
+          <Link
+            href="https://360cti.com/contact/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-10 inline-flex rounded-lg bg-sky-600 px-8 py-3.5 text-sm font-semibold text-white hover:bg-sky-700"
+          >
+            Book a 1:1 Demo
+          </Link>
         </div>
       </section>
 
       {/* 2 — Trusted + marquee */}
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-w-3xl justify-center">
-            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-600 shadow-sm sm:text-base">
-              Trusted by the <span className="font-semibold text-sky-600">Best</span> Worldwide
+          <div className="mx-auto flex max-w-4xl justify-center">
+            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-800 shadow-sm sm:text-base">
+              Trusted by <span className="font-semibold text-sky-600">Leading Real Estate</span> Brands
             </p>
           </div>
           <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
@@ -602,78 +605,128 @@ export default function AgentAndLead() {
         </div>
       </section>
 
-      {/* 3 — Smarter agent & lead */}
+      {/* 3 — Driving impact */}
       <section className="bg-white py-14 sm:py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="relative text-center">
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-              Smarter Salesforce Agent and Lead Management
-            </h2>
-            <div className="pointer-events-none absolute left-1/2 top-full mt-2 hidden h-8 w-px bg-slate-200 lg:block" style={{ marginLeft: "-1px" }} />
-            <div className="pointer-events-none absolute left-[15%] right-[15%] top-[calc(100%+2.25rem)] hidden h-px bg-slate-200 lg:block" />
-          </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
-            {featureCards.map((c) => (
-              <div key={c.title} className={`flex min-h-[260px] flex-col rounded-2xl p-6 shadow-sm ${c.bg}`}>
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
-                  <c.icon className="h-6 w-6" />
-                </div>
-                <h3 className="mt-4 text-lg font-bold text-slate-900">{c.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4 — Pill CTA */}
-      <section className="px-4 pb-10 sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-4xl flex-col items-stretch justify-between gap-4 rounded-full border border-slate-200 bg-white px-6 py-4 shadow-sm sm:flex-row sm:items-center sm:px-8">
-          <p className="text-center text-base font-bold text-slate-900 sm:text-left">Want to upgrade calls with AI?</p>
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-8 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#0a2449]"
-          >
-            Contact Us
-          </Link>
-        </div>
-      </section>
-
-      {/* 5 — Why intelligent lead management */}
-      <section className="px-4 py-12 sm:px-6 lg:px-8">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-b from-sky-500 to-sky-400 px-4 py-12 sm:px-8 sm:py-14">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-25"
-            style={{
-              backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)`,
-              backgroundSize: "18px 18px",
-            }}
-            aria-hidden
-          />
-          <h2 className="relative text-center text-2xl font-bold text-white sm:text-3xl">
-            Why Intelligent Salesforce Lead Management?
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl md:text-4xl">
+            Driving Impact: Close More. Sell Faster
           </h2>
-          <div className="relative mt-10 grid gap-6 md:grid-cols-3">
-            {whyCards.map((c) => (
-              <div key={c.title} className="relative rounded-2xl bg-white p-6 pt-10 text-center shadow-md">
-                <div className="absolute -top-5 left-1/2 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full bg-sky-600 text-white shadow">
-                  <MapPinCheck className="h-5 w-5" strokeWidth={2.25} />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900">{c.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
+          <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+            {impactStats.map((s) => (
+              <div key={s.title} className="text-center">
+                <p className="text-4xl font-bold text-slate-900 sm:text-5xl">{s.pct}</p>
+                <p className="mt-2 text-lg font-medium text-slate-900">{s.title}</p>
+                <p className="mt-4 text-sm leading-relaxed text-slate-600">{s.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 6 — Stats */}
+      {/* 4 — Close properties faster + image right */}
+      <section className="bg-white py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mx-auto max-w-5xl text-center text-[45px] font-bold leading-tight text-slate-900">
+            Close Properties Faster with{" "}
+            <span className="text-sky-600">AI-led Salesforce Telephony</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-3xl text-center text-sm leading-relaxed text-slate-600 sm:text-base">
+            Transform client outreach—connect with more buyers, handle inbound and outbound calls efficiently, and move
+            deals faster using AI-driven calling inside Salesforce.
+          </p>
+          <div className="mt-14 grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
+            <div className="hero-content-from-left space-y-4 opacity-0">
+              {propertiesCards.map((c) => (
+                <div
+                  key={c.title}
+                  className="rounded-2xl border border-sky-100 bg-sky-50/90 p-5 shadow-sm sm:p-6"
+                >
+                  <h3 className="text-lg font-bold text-slate-900">{c.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
+                </div>
+              ))}
+            </div>
+            <div className="flex shrink-0 justify-center self-start lg:-mt-28 lg:justify-end">
+              <img
+                src={encodeURI(IMG_PROPERTIES_FASTER)}
+                alt="Close properties faster with Salesforce telephony"
+                className="h-auto w-full max-w-xl rounded-2xl object-contain"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5 — Image left + cards right */}
+      <section className="bg-white py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
+            <div className="hero-content-from-left order-2 mt-4 flex justify-center self-start opacity-0 sm:mt-5 lg:order-1 lg:mt-0 lg:justify-start">
+              {scheduleImgIndex < SCHEDULE_IMG_PATHS.length ? (
+                <img
+                  key={SCHEDULE_IMG_PATHS[scheduleImgIndex]}
+                  src={encodeURI(SCHEDULE_IMG_PATHS[scheduleImgIndex])}
+                  alt="Schedule more property visits with Salesforce"
+                  className="h-auto w-full max-w-md rounded-2xl object-contain sm:max-w-lg"
+                  loading="lazy"
+                  decoding="async"
+                  onError={() => setScheduleImgIndex((i) => i + 1)}
+                />
+              ) : (
+                <div className="flex min-h-[200px] w-full max-w-md flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center text-sm text-slate-600">
+                  <LogoMark className="h-12 w-12 opacity-40" />
+                  <p>
+                    Add image as{" "}
+                    <span className="rounded bg-white px-1 font-mono text-xs">
+                      Schedule More Proeperty.png
+                    </span>{" "}
+                    /{" "}
+                    <span className="font-mono text-xs">Schedule More Property.png</span>
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="order-1 space-y-4 lg:order-2">
+              {scheduleCards.map((c) => (
+                <div
+                  key={c.title}
+                  className="rounded-2xl border border-sky-100 bg-sky-50/90 p-5 shadow-sm sm:p-6"
+                >
+                  <h3 className="text-lg font-bold text-slate-900">{c.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6 — Case study CTA (narrow centered card) */}
+      <section className="bg-white py-10 sm:py-12">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <div className="flex flex-col items-stretch justify-between gap-6 rounded-2xl bg-[#3B8DEB] px-6 py-8 shadow-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-9">
+            <p className="text-center text-lg font-semibold leading-snug text-white sm:max-w-[55%] sm:text-left sm:text-xl">
+              Want to see results from actual use cases?
+            </p>
+            <Link
+              href="https://360cti.com/contact/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 rounded-md bg-white px-5 py-3 text-center text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50 sm:px-6"
+            >
+              Download the Case Study Now!
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 7 — Stats grid */}
       <section
         className="py-14 sm:py-20"
         style={{
-          backgroundColor: "#f0f4ff",
+          backgroundColor: "#eef2ff",
           backgroundImage: `
             linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
             linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px)`,
@@ -682,11 +735,14 @@ export default function AgentAndLead() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-Led CTI Built to Rule Lead Management
+            AI-led Salesforce 360 CTI for Real Estate Closures
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {statCards.map((s) => (
-              <div key={`${s.big}-${s.small}`} className="rounded-2xl bg-sky-100/90 p-6 shadow-sm ring-1 ring-sky-200/80">
+            {statCards.map((s, i) => (
+              <div
+                key={`${s.big}-${s.small}-${i}`}
+                className={`rounded-2xl p-6 ${statCardClass(i)}`}
+              >
                 <p className="text-2xl font-bold text-slate-900">{s.big}</p>
                 <p className="mt-1 text-sm text-slate-600">{s.small}</p>
               </div>
@@ -695,15 +751,17 @@ export default function AgentAndLead() {
         </div>
       </section>
 
-      {/* 7 — Testimonials */}
+      {/* 8 — Testimonials */}
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">Hear What Our Customers Say</h2>
+          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
+            Hear From Our Esteemed Real Estate Clients
+          </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {testimonials.map((t) => (
               <article
                 key={t.name}
-                className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 p-8"
+                className="relative flex min-h-[260px] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 p-8 shadow-sm"
               >
                 <div className="flex gap-0.5 text-amber-400">
                   {[...Array(5)].map((_, i) => (
@@ -711,7 +769,7 @@ export default function AgentAndLead() {
                   ))}
                 </div>
                 <p className="mt-3 font-bold text-slate-900">{t.title}</p>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t.quote}</p>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{t.quote}</p>
                 <div className="relative z-[1] mt-8">
                   <p className="font-bold text-slate-900">{t.name}</p>
                   <p className="text-sm text-slate-500">{t.role}</p>
@@ -728,57 +786,6 @@ export default function AgentAndLead() {
         </div>
       </section>
 
-      {/* 8 — FAQ */}
-      <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
-          <p className="mt-3 text-center text-slate-600">FAQs About Salesforce Agent &amp; Lead Management</p>
-          <div className="mt-10 space-y-3">
-            {faqs.map((item, i) => {
-              const isOpen = faqOpen === i;
-              return (
-                <div
-                  key={i}
-                  className={`overflow-hidden rounded-xl border shadow-sm ${
-                    isOpen ? "border-slate-400 bg-slate-100" : "border-slate-200 bg-white"
-                  }`}
-                >
-                  <button
-                    type="button"
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
-                    onClick={() => setFaqOpen(isOpen ? null : i)}
-                  >
-                    <span className="text-sm font-semibold text-slate-900 sm:text-base">{item.q}</span>
-                    <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-lg font-bold ${
-                        isOpen ? "bg-sky-600 text-white" : "border-2 border-slate-300 text-slate-800"
-                      }`}
-                    >
-                      {isOpen ? "−" : "+"}
-                    </span>
-                  </button>
-                  {isOpen && (
-                    <div className="border-t border-slate-200 px-5 pb-4 pt-0">
-                      <p className="pt-3 text-sm leading-relaxed text-slate-600">{item.a}</p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          <div className="mt-10 text-center">
-            <Link
-              href="https://360cti.com/contact/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex rounded-full bg-[#0c2d5c] px-10 py-3.5 text-sm font-semibold text-white hover:bg-[#0a2449]"
-            >
-              Need more Info ?
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* 9 — Final CTA */}
       <section
         className="py-16 sm:py-24"
@@ -790,12 +797,17 @@ export default function AgentAndLead() {
           backgroundSize: "24px 24px",
         }}
       >
-        <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="whitespace-nowrap text-base font-bold tracking-tight text-slate-900 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
-            Turn Every Lead into Action with Salesforce Agent Management
-          </h2>
+        <div className="mx-auto max-w-[100vw] px-4 text-center">
+          <div className="flex justify-center overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <h2
+              className="whitespace-nowrap font-bold tracking-tight text-slate-900"
+              style={{ fontSize: "clamp(0.7rem, 2.35vw, 2.25rem)" }}
+            >
+              Smarter Outreach. Stronger Client Conversations. Faster Closures.
+            </h2>
+          </div>
           <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-powered 360 CTI?
+            Have questions or want to know more about AI-led 360 CTI?
           </p>
           <Link
             href="https://360cti.com/contact/"
