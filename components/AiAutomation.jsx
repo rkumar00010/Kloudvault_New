@@ -8,10 +8,10 @@ import {
   X,
   ChevronDown,
   MessageCircle,
-  MessagesSquare,
-  Bot,
-  RefreshCw,
-  Globe,
+  UserCog,
+  Network,
+  PhoneForwarded,
+  Brain,
   CheckCircle2,
   Star,
 } from "lucide-react";
@@ -106,12 +106,12 @@ const NAV = [
     label: "Features",
     href: "/#capabilities",
     dropdown: [
-      { label: "Inbound & Outbound", href: "/inbound-outbound" },
-      { label: "Call Routing & Distribution", href: "/call-routing" },
-      { label: "AI and Automation", href: "/ai-automation" },
-      { label: "Agent and Lead Management", href: "/agent-and-lead" },
+      { label: "Inbound Call Workflow", href: "/inbound-outbound" },
+      { label: "Outbound Call Process", href: "/call-routing" },
+      { label: "Call Routing & Distribution", href: "/ai-automation" },
+      { label: "Agent Management & Availability", href: "/agent-and-lead" },
       { label: "Call Monitoring and Compliance", href: "/call-monitoring" },
-      { label: "Mobile Call Management", href: "/mobile-call-management" },
+      { label: "Call Accessibility & Mobility", href: "/mobile-call-management" },
     ],
   },
   {
@@ -377,12 +377,12 @@ function HomeStyleFooter() {
               <h3 className="font-semibold">Features</h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-300">
                 {[
-                  { t: "Inbound & Outbound Call Management", href: "/inbound-outbound" },
-                  { t: "Call Routing & Distribution", href: "/call-routing" },
-                  { t: "AI and Automation", href: "/ai-automation" },
-                  { t: "Agent & Lead Management", href: "/agent-and-lead" },
-                  { t: "Call Monitoring & Compliance", href: "/call-monitoring" },
-                  { t: "Mobile Call Management", href: "/mobile-call-management" },
+                  { t: "Inbound Call Workflow", href: "/inbound-outbound" },
+                  { t: "Outbound Call Process", href: "/call-routing" },
+                  { t: "Call Routing & Distribution", href: "/ai-automation" },
+                  { t: "Agent Management & Availability", href: "/agent-and-lead" },
+                  { t: "Call Monitoring and Compliance", href: "/call-monitoring" },
+                  { t: "Call Accessibility & Mobility", href: "/mobile-call-management" },
                 ].map(({ t, href }) => (
                   <li key={t}>
                     <Link href={href} className="hover:text-white">
@@ -431,75 +431,79 @@ function HomeStyleFooter() {
 
 const faqs = [
   {
-    q: "What makes this the best Salesforce AI calling software for reducing manual calling work?",
-    a: "It combines native Salesforce workflows with transcription, disposition automation, and voice bots—so teams spend less time on admin and more time on live conversations.",
+    q: "How to automate inbound call distribution in Salesforce?",
+    a: "Use skills-based queues, IVR, and a native CTI so inbound calls follow rules you define in Salesforce. Agents see matched records and routing updates live without switching tools.",
   },
   {
-    q: "How does this tool automate repetitive call tasks inside Salesforce without complex setup?",
-    a: "Admins configure rules, lists, and flows inside Salesforce with no-code options. Dialing, logging, and summaries can run automatically after calls without custom middleware.",
+    q: "How can intelligent call routing reduce long caller wait times in Salesforce?",
+    a: "Intelligent routing sends callers to the next best available agent, balances load, and avoids dead-end transfers. Shorter queues and fewer handoffs improve speed to answer.",
   },
   {
-    q: "Can AI call automation improve agent productivity for high-volume teams?",
-    a: "Yes. Bulk outreach, guided dispositions, and real-time insights shorten wrap-up time and help agents handle more qualified conversations per shift.",
+    q: "Why is this the best call routing solution for Salesforce for multi-department teams?",
+    a: "Teams share one Salesforce-native stack: department-specific queues, reporting, and permissions while keeping a single customer record and audit trail across the org.",
   },
   {
-    q: "How does AI prioritize and route calls inside Salesforce more efficiently?",
-    a: "Signals from CRM data, queues, and real-time sentiment can steer interactions to the right rep or next-best action—reducing transfers and rework.",
+    q: "How does intelligent call routing improve customer experience compared to basic Salesforce call routing apps?",
+    a: "Beyond simple ring groups, intelligent routing uses context, skills, and history—so customers reach someone who can help on the first try more often.",
   },
   {
-    q: "Does it support AI-driven call scheduling and follow-up automation in Salesforce?",
-    a: "Teams can tie outcomes to tasks, cadences, and reminders so follow-ups happen on time and stay visible on the lead or contact record.",
+    q: "How does smarter call distribution reduce agent idle time?",
+    a: "Fair distribution and automated assignment keep workloads even, cut time spent manually picking calls, and help supervisors see utilization in real time.",
   },
   {
-    q: "How does AI automation reduce call handling time in Salesforce compared to other CTI tools?",
-    a: "By capturing transcripts, summaries, and tags automatically, reps skip manual notes. Faster handoffs and cleaner records mean shorter handle time end to end.",
+    q: "Will migrating from an existing call routing system cause downtime?",
+    a: "Migrations can be staged: parallel run, pilot groups, and cutover windows limit disruption. Our team can plan number porting, softphone rollout, and training around your schedule.",
   },
 ];
 
-const HERO_IMG = "/Ai-automation.png";
+const CALL_ROUTING_HERO_IMG = "/Call%20Routing.png";
 
-export default function AiAutomation() {
+export default function CallRouting() {
   const [faqOpen, setFaqOpen] = useState(0);
 
-  const featureCards = [
+  const advancedCards = [
     {
-      title: "Transcript & Sentiment",
-      body: "Transcribe calls in real time with multilingual support, detect sentiment, and enhance coaching, compliance, and customer engagement.",
-      icon: MessagesSquare,
+      title: "Automated Call Distribution",
+      body: "Distribute inbound calls intelligently among available agents based on predefined rules, ensuring balanced workloads during peak hours and minimizing caller wait times.",
+      icon: UserCog,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "AI Voice Bot Calling",
-      body: "As new leads are created, automate cold calls with an AI assistant that engages, identifies challenges, books meetings, and boosts your pipeline without an agent.",
-      icon: Bot,
+      title: "Salesforce IVR Integration",
+      body: "Configure IVR with text-to-speech in male or female voices to automate call handling, enabling callers to self-serve or connect with the right department seamlessly.",
+      icon: Network,
       bg: "bg-violet-50/80 border border-violet-100",
     },
     {
-      title: "Dispose and Describe with AI",
-      body: "Automatically summarize key points and tag call outcomes using AI, reducing manual work and ensuring consistent, insight-rich reporting in Salesforce.",
-      icon: RefreshCw,
+      title: "Call Forwarding & Routing",
+      body: "Use an automated call routing system to route calls to the right agents based on skill, time, or day, and forward calls to 9 numbers to reduce missed opportunities.",
+      icon: PhoneForwarded,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Automated Calling",
-      body: "Reach multiple customers instantly with pre-recorded messages, automating calls for increased efficiency and faster communication at scale.",
-      icon: Globe,
+      title: "Salesforce Sticky Agent",
+      body: "Connect repeat callers to the same agent for personalized interactions with Sticky agent for call handling, improving customer experience, and boosting resolution rates.",
+      icon: Brain,
       bg: "bg-slate-50 border border-slate-200",
     },
   ];
 
-  const whyCards = [
+  const distributionSteps = [
     {
-      title: "Higher Conversions",
-      body: "AI Voice Bot handles initial outreach with personalized pitches, while sentiment analysis and auto-dispositions help reps prioritize and convert high-intent leads faster.",
+      title: "IVR Integration",
+      body: "Text-to-speech greeting presents menu options. Caller selects department (Support/Sales) or accesses self-service options.",
     },
     {
-      title: "Increased Productivity",
-      body: "Real-time call transcription, call automation, and AI-powered disposition reduce manual tasks, freeing agents to focus on more strategic, high-impact work.",
+      title: "Automated Call Distribution",
+      body: "Call enters queue and ACD identifies available agents. Routes to next qualified agent based on skill and availability.",
     },
     {
-      title: "Enhanced Customer Engagement",
-      body: "With live transcript, sentiment detection, and human-like AI bot conversations, reps can personalize responses in the moment and build deeper connections.",
+      title: "Call Forwarding Logic",
+      body: "If no agent available, system forwards to up to 9 fallback numbers (backup team, managers, external support).",
+    },
+    {
+      title: "Sticky Agent Handling",
+      body: "Repeat callers automatically route to same agent when available, ensuring personalized service and continuity.",
     },
   ];
 
@@ -517,18 +521,16 @@ export default function AiAutomation() {
 
   const testimonials = [
     {
-      title: "Fully native CTI app for Salesforce.",
-      quote:
-        "Finally a fully native CTI app for Salesforce. Do yourself a favor and trial this app. You will not be disappointed. The time based call routing is...",
-      name: "Josh Rodgers",
-      role: "COO",
+      title: "Better than 5 other apps, A GREAT CTI.!",
+      quote: "I've implemented 5 different CTI solutions for consulting clients— this one is by far my favorite.",
+      name: "Daniel Howell",
+      role: "Systems Administrator",
     },
     {
-      title: "A wonderful CTI created by the team.",
-      quote:
-        "An amazing experience to the customer. Great working with them. Highly recommended to customers looking to add CTI to their Salesforce...",
-      name: "Sabbas Pereira",
-      role: "Director",
+      title: "A TIME-SAVING Product and Setup",
+      quote: "This app is a time saver, keeps everything in line with your follow-up needs, and is not over-complicated",
+      name: "Mike Adams",
+      role: "Founder and President at Smart Stays Inc",
     },
   ];
 
@@ -539,14 +541,16 @@ export default function AiAutomation() {
       {/* 1 — Hero */}
       <section className="bg-slate-50 py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-3xl bg-[#f4f7ff] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
-            <div className="hero-content-from-left opacity-0">
-              <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] xl:text-6xl">
-                Boost Call Efficiency with AI and Automation
+          <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-4 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
+            <div className="min-w-0 max-w-full">
+              <h1 className="text-3xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-4xl sm:leading-[1.1] md:text-5xl lg:text-[3.25rem] lg:leading-[1.1] xl:text-6xl break-words">
+                Maximize First Call Resolution with Salesforce Omnichannel Routing
               </h1>
-              <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
-                Analyze Salesforce call conversations in-depth and automate outreach, driving better engagement with
-                impactful customer interactions.
+              <p className="mt-5 max-w-3xl text-sm leading-snug text-slate-600 break-words">
+                <span className="block">
+                  Connect callers to the right agent instantly, reduce transfers, and improve customer satisfaction
+                  with intelligent Salesforce call routing and distribution.
+                </span>
               </p>
               <Link
                 href="https://360cti.com/contact/"
@@ -559,8 +563,8 @@ export default function AiAutomation() {
             </div>
             <div className="mt-10 flex justify-center lg:mt-0 lg:justify-end">
               <img
-                src={HERO_IMG}
-                alt="AI automation for Salesforce calling"
+                src={CALL_ROUTING_HERO_IMG}
+                alt="Salesforce call routing and support team"
                 className="h-auto w-full max-w-xl object-contain sm:max-w-2xl xl:max-w-3xl"
                 loading="eager"
                 decoding="async"
@@ -575,8 +579,7 @@ export default function AiAutomation() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto flex max-w-3xl justify-center">
             <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-600 shadow-sm sm:text-base">
-              <span className="font-semibold text-sky-600">AI Calling Software</span>
-              {": Trusted by the Best Worldwide"}
+              Trusted by the <span className="font-semibold text-sky-600">Best</span> Worldwide
             </p>
           </div>
           <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
@@ -620,18 +623,18 @@ export default function AiAutomation() {
         </div>
       </section>
 
-      {/* 3 — Feature grid */}
+      {/* 3 — Advanced features */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative text-center">
             <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-              Salesforce 360 CTI: AI and Call Centre Software
+              Salesforce Call Routing with Advanced Features
             </h2>
             <div className="pointer-events-none absolute left-1/2 top-full mt-2 hidden h-8 w-px bg-slate-200 lg:block" style={{ marginLeft: "-1px" }} />
             <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-[calc(100%+2.25rem)] hidden h-px bg-slate-200 lg:block" />
           </div>
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {featureCards.map((c) => (
+            {advancedCards.map((c) => (
               <div key={c.title} className={`flex min-h-[280px] flex-col rounded-2xl p-5 shadow-sm ${c.bg}`}>
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
                   <c.icon className="h-6 w-6" />
@@ -659,35 +662,28 @@ export default function AiAutomation() {
         </div>
       </section>
 
-      {/* 5 — Why automated calling */}
+      {/* 5 — Call routing distribution */}
       <section className="px-4 py-12 sm:px-6 lg:px-8">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-b from-sky-500 to-sky-400 px-4 py-12 sm:px-8 sm:py-14">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-25"
-            style={{
-              backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)`,
-              backgroundSize: "18px 18px",
-            }}
-            aria-hidden
-          />
-          <h2 className="relative text-center text-2xl font-bold text-white sm:text-3xl">
-            Why Automated Calling and AI Matter
-          </h2>
-          <div className="relative mt-10 grid gap-6 md:grid-cols-3">
-            {whyCards.map((c) => (
-              <div key={c.title} className="relative rounded-2xl bg-white p-6 pt-10 text-center shadow-md">
-                <div className="absolute -top-5 left-1/2 flex h-10 w-10  -translate-x-1/2 items-center justify-center rounded-full bg-sky-600 text-white shadow">
-                  <CheckCircle2 className="h-5 w-5" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900">{c.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
+        <div className="mx-auto max-w-7xl rounded-3xl bg-gradient-to-br from-[#1a2f65] to-[#0a2540] p-6 text-white shadow-sm sm:p-10">
+          <h2 className="text-2xl font-bold sm:text-3xl">Call Routing &amp; Distribution</h2>
+          <p className="mt-4 max-w-4xl text-sm text-slate-200 sm:text-base">
+            End-to-end routing flow from IVR capture to sticky-agent continuity, designed to reduce transfers and improve first-contact resolution.
+          </p>
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            {distributionSteps.map((step) => (
+              <div key={step.title} className="rounded-2xl border border-white/20 bg-white/10 p-5">
+                <h3 className="text-lg font-semibold">{step.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-100">{step.body}</p>
               </div>
             ))}
           </div>
+          <p className="mt-6 text-sm text-slate-200">
+            This flow keeps caller context intact while routing to the best available or previously assigned agent.
+          </p>
         </div>
       </section>
 
-      {/* 6 — Stats */}
+      {/* 6 — AI-led stats */}
       <section
         className="py-14 sm:py-20"
         style={{
@@ -700,7 +696,7 @@ export default function AiAutomation() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-Led CTI, Built for Success
+            AI-Led CTI Trusted for Reliability
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {statCards.map((s, i) => (
@@ -750,7 +746,7 @@ export default function AiAutomation() {
       <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
-          <p className="mt-3 text-center text-slate-600">FAQs About Salesforce AI &amp; Automation</p>
+          <p className="mt-3 text-center text-slate-600">FAQs About Salesforce Call Routing</p>
           <div className="mt-10 space-y-3">
             {faqs.map((item, i) => {
               const isOpen = faqOpen === i;
@@ -809,8 +805,8 @@ export default function AiAutomation() {
         }}
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="whitespace-nowrap text-base font-bold tracking-tight text-slate-900 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
-            Automate. Engage. Manage. All with AI Agents.
+          <h2 className="mx-auto whitespace-nowrap text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
+            Enable Smarter Salesforce Call Routing and Faster Resolution
           </h2>
           <p className="mt-4 text-lg text-slate-700">
             Have questions or want to know more about AI-powered 360 CTI?

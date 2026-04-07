@@ -112,12 +112,12 @@ const NAV = [
     label: "Features",
     href: "/#capabilities",
     dropdown: [
-      { label: "Inbound & Outbound", href: "/inbound-outbound" },
-      { label: "Call Routing & Distribution", href: "/call-routing" },
-      { label: "AI and Automation", href: "/ai-automation" },
-      { label: "Agent and Lead Management", href: "/agent-and-lead" },
+      { label: "Inbound Call Workflow", href: "/inbound-outbound" },
+      { label: "Outbound Call Process", href: "/call-routing" },
+      { label: "Call Routing & Distribution", href: "/ai-automation" },
+      { label: "Agent Management & Availability", href: "/agent-and-lead" },
       { label: "Call Monitoring and Compliance", href: "/call-monitoring" },
-      { label: "Mobile Call Management", href: "/mobile-call-management" },
+      { label: "Call Accessibility & Mobility", href: "/mobile-call-management" },
     ],
   },
   {
@@ -383,12 +383,12 @@ function HomeStyleFooter() {
               <h3 className="font-semibold">Features</h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-300">
                 {[
-                  { t: "Inbound & Outbound Call Management", href: "/inbound-outbound" },
-                  { t: "Call Routing & Distribution", href: "/call-routing" },
-                  { t: "AI and Automation", href: "/ai-automation" },
-                  { t: "Agent & Lead Management", href: "/agent-and-lead" },
-                  { t: "Call Monitoring & Compliance", href: "/call-monitoring" },
-                  { t: "Mobile Call Management", href: "/mobile-call-management" },
+                  { t: "Inbound Call Workflow", href: "/inbound-outbound" },
+                  { t: "Outbound Call Process", href: "/call-routing" },
+                  { t: "Call Routing & Distribution", href: "/ai-automation" },
+                  { t: "Agent Management & Availability", href: "/agent-and-lead" },
+                  { t: "Call Monitoring and Compliance", href: "/call-monitoring" },
+                  { t: "Call Accessibility & Mobility", href: "/mobile-call-management" },
                 ].map(({ t, href }) => (
                   <li key={t}>
                     <Link href={href} className="hover:text-white">

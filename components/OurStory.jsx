@@ -44,12 +44,12 @@ const NAV = [
     label: "Features",
     href: "/#capabilities",
     dropdown: [
-      { label: "Inbound & Outbound", href: "/inbound-outbound" },
-      { label: "Call Routing & Distribution", href: "/call-routing" },
-      { label: "AI and Automation", href: "/ai-automation" },
-      { label: "Agent & Lead Management", href: "/agent-and-lead" },
-      { label: "Call Monitoring & Compliance", href: "/call-monitoring" },
-      { label: "Mobile Call Management", href: "/mobile-call-management" },
+      { label: "Inbound Call Workflow", href: "/inbound-outbound" },
+      { label: "Outbound Call Process", href: "/call-routing" },
+      { label: "Call Routing & Distribution", href: "/ai-automation" },
+      { label: "Agent Management & Availability", href: "/agent-and-lead" },
+      { label: "Call Monitoring and Compliance", href: "/call-monitoring" },
+      { label: "Call Accessibility & Mobility", href: "/mobile-call-management" },
     ],
   },
   {
@@ -229,12 +229,12 @@ function Footer() {
               <h3 className="font-semibold">Features</h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-300">
                 {[
-                  "Inbound & Outbound Call Management",
+                  "Inbound Call Workflow",
+                  "Outbound Call Process",
                   "Call Routing & Distribution",
-                  "AI and Automation",
-                  "Agent & Lead Management",
-                  "Call Monitoring & Compliance",
-                  "Mobile Call Management",
+                  "Agent Management & Availability",
+                  "Call Monitoring and Compliance",
+                  "Call Accessibility & Mobility",
                 ].map((t) => (
                   <li key={t}>{t}</li>
                 ))}

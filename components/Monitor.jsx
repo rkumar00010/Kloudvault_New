@@ -106,12 +106,12 @@ const NAV = [
     label: "Features",
     href: "/#capabilities",
     dropdown: [
-      { label: "Inbound & Outbound", href: "/inbound-outbound" },
-      { label: "Call Routing & Distribution", href: "/call-routing" },
-      { label: "AI and Automation", href: "/ai-automation" },
-      { label: "Agent and Lead Management", href: "/agent-and-lead" },
+      { label: "Inbound Call Workflow", href: "/inbound-outbound" },
+      { label: "Outbound Call Process", href: "/call-routing" },
+      { label: "Call Routing & Distribution", href: "/ai-automation" },
+      { label: "Agent Management & Availability", href: "/agent-and-lead" },
       { label: "Call Monitoring and Compliance", href: "/call-monitoring" },
-      { label: "Mobile Call Management", href: "/mobile-call-management" },
+      { label: "Call Accessibility & Mobility", href: "/mobile-call-management" },
     ],
   },
   {
@@ -377,12 +377,12 @@ function HomeStyleFooter() {
               <h3 className="font-semibold">Features</h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-300">
                 {[
-                  { t: "Inbound & Outbound Call Management", href: "/inbound-outbound" },
-                  { t: "Call Routing & Distribution", href: "/call-routing" },
-                  { t: "AI and Automation", href: "/ai-automation" },
-                  { t: "Agent & Lead Management", href: "/agent-and-lead" },
-                  { t: "Call Monitoring & Compliance", href: "/call-monitoring" },
-                  { t: "Mobile Call Management", href: "/mobile-call-management" },
+                  { t: "Inbound Call Workflow", href: "/inbound-outbound" },
+                  { t: "Outbound Call Process", href: "/call-routing" },
+                  { t: "Call Routing & Distribution", href: "/ai-automation" },
+                  { t: "Agent Management & Availability", href: "/agent-and-lead" },
+                  { t: "Call Monitoring and Compliance", href: "/call-monitoring" },
+                  { t: "Call Accessibility & Mobility", href: "/mobile-call-management" },
                 ].map(({ t, href }) => (
                   <li key={t}>
                     <Link href={href} className="hover:text-white">
@@ -431,28 +431,28 @@ function HomeStyleFooter() {
 
 const faqs = [
   {
-    q: "How does your Salesforce call monitoring tool track calls in real time?",
-    a: "Live calls surface in Salesforce with agent, queue, and record context so supervisors can see status, duration, and outcomes without leaving the CRM.",
+    q: "How does call barging work inside Salesforce telephony?",
+    a: "Authorized supervisors can join live calls when escalation risk appears, helping agents resolve issues in real time without moving to external monitoring tools.",
   },
   {
-    q: "How does AI call monitoring improve Salesforce call compliance and quality?",
-    a: "AI can flag risky phrases, sentiment shifts, or missing disclosures, and pair with recordings and transcripts for audit-ready review and coaching.",
+    q: "What is the difference between silent listen and whisper coaching?",
+    a: "Silent listen lets supervisors monitor calls without alerting participants, while whisper coaching provides private guidance to agents that customers cannot hear.",
   },
   {
-    q: "What makes your platform the best call monitoring solution for Salesforce?",
-    a: "A native Salesforce CTI keeps monitoring, tasks, and reporting on one record—reducing swivel-chair work and making compliance workflows repeatable.",
+    q: "How does number masking improve call compliance?",
+    a: "Number masking hides sensitive caller and agent phone numbers during interactions, reducing exposure risk and supporting privacy and compliance standards.",
   },
   {
-    q: "Does the system support Salesforce call compliance requirements like recording, consent capture, and audit logs?",
-    a: "Yes. Teams can align with retention policies, consent rules, and audit trails by capturing who accessed recordings and when—within your Salesforce governance model.",
+    q: "Can we use this for quality audits and escalation handling?",
+    a: "Yes. Teams can combine monitoring controls with recordings, notes, and Salesforce reporting to audit conversations, coach agents, and manage escalations consistently.",
   },
   {
-    q: "Can the Salesforce call audit tool help managers identify coaching opportunities?",
-    a: "Yes. Managers can review samples, scorecards, and trends to target training, not just one-off escalations.",
+    q: "Does this support high-volume contact center teams?",
+    a: "The monitoring model scales with queue volume and team size, helping supervisors maintain response quality across distributed teams and peak traffic windows.",
   },
   {
-    q: "How scalable is the Salesforce voice compliance tool for large teams?",
-    a: "Queues, skills, and reporting scale with your org; high-volume teams can add capacity while keeping role-based access and audit trails consistent.",
+    q: "Do agents need to switch tools during monitored calls?",
+    a: "No. Monitoring and intervention controls are available in the Salesforce-native CTI workflow, so agents and supervisors work in one operating environment.",
   },
 ];
 
@@ -463,53 +463,76 @@ export default function Monitor() {
 
   const featureCards = [
     {
-      title: "Salesforce Call Barging",
-      body: "Join ongoing live calls to assist or intervene when needed, helping agents in real-time to improve customer experiences and outcomes.",
+      title: "Call Barging",
+      body: "Supervisors can actively join live conversations for escalation handling and immediate issue resolution when calls need direct intervention.",
       icon: PhoneIncoming,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Salesforce Call Monitoring",
-      body: "Listen to live calls silently to evaluate agent performance, ensure quality, and provide coaching insights without disrupting conversations.",
+      title: "Silent Listen",
+      body: "Managers monitor live calls without notifying customer or agent, enabling quality checks, compliance review, and unbiased performance evaluation.",
       icon: Headphones,
       bg: "bg-violet-50/80 border border-violet-100",
     },
     {
-      title: "Salesforce Call Whispering",
-      body: "Privately guide agents during live calls without the customer hearing, improving support, training, and call success in real time.",
-      icon: Mic2,
+      title: "Number Masking",
+      body: "Customer phone numbers stay protected during interactions to reduce sensitive data exposure and strengthen privacy-first call operations.",
+      icon: Shield,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Salesforce Number Masking",
-      body: "Protect customer privacy by concealing real numbers, ensuring secure interactions while providing alternative data for demos, training, and compliance.",
-      icon: Shield,
+      title: "Agent Whispering",
+      body: "Supervisors give private, real-time guidance to agents during calls while customers hear a smooth uninterrupted conversation.",
+      icon: Mic2,
       bg: "bg-slate-50 border border-slate-200",
     },
   ];
 
   const whyCards = [
     {
-      title: "Improved Agent Performance",
-      body: "Real-time monitoring and discreet guidance empower agents with instant support, enhancing their confidence and call-handling efficiency.",
+      title: "Faster Escalation Recovery",
+      body: "Call barging and whisper support reduce escalation delays by enabling supervisors to intervene at the exact moment conversations become critical.",
     },
     {
-      title: "Enhanced Data Security",
-      body: "Number masking safeguards sensitive customer information, ensuring compliance with privacy regulations while enabling seamless interactions.",
+      title: "Stronger Compliance Readiness",
+      body: "Silent monitoring and number masking create a cleaner compliance posture by protecting sensitive information and enabling structured quality audits.",
     },
     {
-      title: "Increased Leads",
-      body: "Improved call quality and better query handling through live monitoring and coaching empower agents to engage effectively, boosting lead numbers.",
+      title: "Higher Coaching Impact",
+      body: "Real-time whisper coaching helps agents improve call handling in live scenarios, increasing consistency, confidence, and first-contact outcomes.",
+    },
+    {
+      title: "Unified Monitoring Workflow",
+      body: "Call controls and supervision stay inside Salesforce-native operations, minimizing tool switching and improving operational visibility across teams.",
+    },
+  ];
+
+  const complianceFlowCards = [
+    {
+      title: "Call Barging",
+      body: "Active intervention where supervisor joins the call for immediate escalation handling and faster issue resolution.",
+    },
+    {
+      title: "Silent Listen",
+      body: "Supervisors monitor live calls without alerting agent or customer for quality checks and compliance audits.",
+    },
+    {
+      title: "Number Masking",
+      body: "Customer phone numbers are masked during calls to protect sensitive data and strengthen privacy compliance.",
+    },
+    {
+      title: "Agent Whispering",
+      body: "Private guidance to agents during live calls without customer hearing, improving coaching and call outcomes.",
     },
   ];
 
   const statCards = [
-    { big: "13+", small: "Years of Trust" },
-    { big: "Zero", small: "Integration Hassle" },
-    { big: "100%", small: "Free Support" },
-    { big: "No-Code", small: "Telephony Solution" },
-    { big: "Salesforce-Native", small: "CTI" },
-    { big: "100%", small: "Data Security" },
+    { big: "13+", small: "Years in Salesforce telephony" },
+    { big: "4", small: "Live supervision controls in one flow" },
+    { big: "24x7", small: "Escalation and quality visibility" },
+    { big: "0", small: "External monitoring stack required" },
+    { big: "Salesforce-Native", small: "Compliance-first CTI operations" },
+    { big: "Real-Time", small: "Coaching and intervention support" },
   ];
 
   const statBg = (i) =>
@@ -542,11 +565,11 @@ export default function Monitor() {
           <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
             <div className="hero-content-from-left opacity-0">
               <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] xl:text-6xl">
-                Secure Salesforce Call Monitoring &amp; Agent Performance
+                Strengthen Call Monitoring &amp; Compliance with Live Supervisor Controls
               </h1>
               <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
-                Provide real-time agent support, ensure Salesforce call monitoring compliance, and protect sensitive data
-                with secure, efficient call monitoring operations.
+                Use call barging, silent listen, whisper coaching, and number masking to improve quality oversight,
+                protect customer privacy, and handle escalations faster inside Salesforce.
               </p>
               <Link
                 href="https://360cti.com/contact/"
@@ -641,7 +664,22 @@ export default function Monitor() {
         </div>
       </section>
 
-      {/* 4 — Pill CTA */}
+      {/* 4 — Image-based compliance flow cards */}
+      <section className="px-4 pb-10 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl rounded-3xl bg-gradient-to-br from-[#1a2f65] to-[#0a2540] p-6 text-white shadow-sm sm:p-10">
+          <h2 className="text-center text-2xl font-bold sm:text-3xl">Call Monitoring &amp; Compliance Flow</h2>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {complianceFlowCards.map((card) => (
+              <div key={card.title} className="rounded-2xl border border-white/20 bg-white/10 p-5">
+                <h3 className="text-lg font-semibold">{card.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-100">{card.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5 — Pill CTA */}
       <section className="px-4 pb-10 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-4xl flex-col items-stretch justify-between gap-4 rounded-full border border-slate-200 bg-white px-6 py-4 shadow-sm sm:flex-row sm:items-center sm:px-8">
           <p className="text-center text-base font-bold text-slate-900 sm:text-left">Want to upgrade calls with AI?</p>
@@ -656,7 +694,7 @@ export default function Monitor() {
         </div>
       </section>
 
-      {/* 5 — Why monitoring matters */}
+      {/* 6 — Why monitoring matters */}
       <section className="px-4 py-12 sm:px-6 lg:px-8">
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-b from-sky-500 to-sky-400 px-4 py-12 sm:px-8 sm:py-14">
           <div
@@ -668,9 +706,9 @@ export default function Monitor() {
             aria-hidden
           />
           <h2 className="relative text-center text-2xl font-bold text-white sm:text-3xl">
-            Why Salesforce Call Monitoring Matters?
+            Why Monitoring &amp; Compliance Controls Matter
           </h2>
-          <div className="relative mt-10 grid gap-6 md:grid-cols-3">
+          <div className="relative mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {whyCards.map((c) => (
               <div key={c.title} className="relative rounded-2xl bg-white p-6 pt-10 text-center shadow-md">
                 <div className="absolute -top-5 left-1/2 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full bg-sky-600 text-white shadow">
@@ -684,7 +722,7 @@ export default function Monitor() {
         </div>
       </section>
 
-      {/* 6 — Stats */}
+      {/* 7 — Stats */}
       <section
         className="py-14 sm:py-20"
         style={{
@@ -697,7 +735,7 @@ export default function Monitor() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-led 360 CTI, Built for Performance
+            AI-Led CTI Built for Compliance and Coaching
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {statCards.map((s, i) => (
@@ -710,7 +748,7 @@ export default function Monitor() {
         </div>
       </section>
 
-      {/* 7 — Testimonials */}
+      {/* 8 — Testimonials */}
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">Hear What Our Customers Say</h2>
@@ -743,7 +781,7 @@ export default function Monitor() {
         </div>
       </section>
 
-      {/* 8 — FAQ */}
+      {/* 9 — FAQ */}
       <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
@@ -794,7 +832,7 @@ export default function Monitor() {
         </div>
       </section>
 
-      {/* 9 — Final CTA */}
+      {/* 10 — Final CTA */}
       <section
         className="py-16 sm:py-24"
         style={{
@@ -806,11 +844,11 @@ export default function Monitor() {
         }}
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
-            Monitor Salesforce Calls with Confidence and Control
+          <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:max-w-none lg:whitespace-nowrap lg:text-4xl">
+            Run Real-Time Call Monitoring Without Leaving Salesforce
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-pretty text-base text-slate-700 sm:text-lg">
-            Have questions or want to know more about AI-powered 360 CTI?
+            Build a compliance-ready supervision flow with barging, silent listening, whisper coaching, and privacy protection.
           </p>
           <Link
             href="https://360cti.com/contact/"

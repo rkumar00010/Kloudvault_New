@@ -106,12 +106,12 @@ const NAV = [
     label: "Features",
     href: "/#capabilities",
     dropdown: [
-      { label: "Inbound & Outbound", href: "/inbound-outbound" },
-      { label: "Call Routing & Distribution", href: "/call-routing" },
-      { label: "AI and Automation", href: "/ai-automation" },
-      { label: "Agent and Lead Management", href: "/agent-and-lead" },
+      { label: "Inbound Call Workflow", href: "/inbound-outbound" },
+      { label: "Outbound Call Process", href: "/call-routing" },
+      { label: "Call Routing & Distribution", href: "/ai-automation" },
+      { label: "Agent Management & Availability", href: "/agent-and-lead" },
       { label: "Call Monitoring and Compliance", href: "/call-monitoring" },
-      { label: "Mobile Call Management", href: "/mobile-call-management" },
+      { label: "Call Accessibility & Mobility", href: "/mobile-call-management" },
     ],
   },
   {
@@ -377,12 +377,12 @@ function HomeStyleFooter() {
               <h3 className="font-semibold">Features</h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-300">
                 {[
-                  { t: "Inbound & Outbound Call Management", href: "/inbound-outbound" },
-                  { t: "Call Routing & Distribution", href: "/call-routing" },
-                  { t: "AI and Automation", href: "/ai-automation" },
-                  { t: "Agent & Lead Management", href: "/agent-and-lead" },
-                  { t: "Call Monitoring & Compliance", href: "/call-monitoring" },
-                  { t: "Mobile Call Management", href: "/mobile-call-management" },
+                  { t: "Inbound Call Workflow", href: "/inbound-outbound" },
+                  { t: "Outbound Call Process", href: "/call-routing" },
+                  { t: "Call Routing & Distribution", href: "/ai-automation" },
+                  { t: "Agent Management & Availability", href: "/agent-and-lead" },
+                  { t: "Call Monitoring and Compliance", href: "/call-monitoring" },
+                  { t: "Call Accessibility & Mobility", href: "/mobile-call-management" },
                 ].map(({ t, href }) => (
                   <li key={t}>
                     <Link href={href} className="hover:text-white">
@@ -431,28 +431,28 @@ function HomeStyleFooter() {
 
 const faqs = [
   {
-    q: "How to automate inbound call distribution in Salesforce?",
-    a: "Use skills-based queues, IVR, and a native CTI so inbound calls follow rules you define in Salesforce. Agents see matched records and routing updates live without switching tools.",
+    q: "How does outbound calling work natively inside Salesforce?",
+    a: "Reps can launch calls from the CTI utility bar, click-to-call fields, or campaign lists. Screen pop intelligence pulls matching Salesforce records instantly so teams work with live context from the first second.",
   },
   {
-    q: "How can intelligent call routing reduce long caller wait times in Salesforce?",
-    a: "Intelligent routing sends callers to the next best available agent, balances load, and avoids dead-end transfers. Shorter queues and fewer handoffs improve speed to answer.",
+    q: "What is the advantage of native vs integrated dialers?",
+    a: "Native calling avoids connector dependencies and delayed sync cycles. Notes, outcomes, and activities stay on one Salesforce timeline, reducing admin overhead and reporting drift.",
   },
   {
-    q: "Why is this the best call routing solution for Salesforce for multi-department teams?",
-    a: "Teams share one Salesforce-native stack: department-specific queues, reporting, and permissions while keeping a single customer record and audit trail across the org.",
+    q: "Can we support warm transfer, conferencing, and recording without leaving Salesforce?",
+    a: "Yes. Agents can run warm/cold transfer, conferencing, hold/mute controls, and call recording directly in the same workspace while keeping activity logs and notes in real time.",
   },
   {
-    q: "How does intelligent call routing improve customer experience compared to basic Salesforce call routing apps?",
-    a: "Beyond simple ring groups, intelligent routing uses context, skills, and history—so customers reach someone who can help on the first try more often.",
+    q: "Will this help improve follow-up speed and rep productivity?",
+    a: "Teams move faster because call context, notes, and outcomes are captured during the call. This shortens after-call work and helps reps focus on next-best actions quickly.",
   },
   {
-    q: "How does smarter call distribution reduce agent idle time?",
-    a: "Fair distribution and automated assignment keep workloads even, cut time spent manually picking calls, and help supervisors see utilization in real time.",
+    q: "Do we need external connectors or middleware to deploy?",
+    a: "No. The outbound workflow is designed for Salesforce-native operation, so most teams can configure routing logic and controls within Salesforce without adding external integration layers.",
   },
   {
-    q: "Will migrating from an existing call routing system cause downtime?",
-    a: "Migrations can be staged: parallel run, pilot groups, and cutover windows limit disruption. Our team can plan number porting, softphone rollout, and training around your schedule.",
+    q: "How quickly can we evaluate ROI before full rollout?",
+    a: "You can model gains using your agent count, daily calls, and current manual logging time. We help compare native and integrated workflows so you can estimate time savings before deployment.",
   },
 ];
 
@@ -460,56 +460,100 @@ const CALL_ROUTING_HERO_IMG = "/Call%20Routing.png";
 
 export default function CallRouting() {
   const [faqOpen, setFaqOpen] = useState(0);
+  const [comparisonView, setComparisonView] = useState("native");
+  const [calculator, setCalculator] = useState({
+    agents: 25,
+    callsPerDay: 40,
+    manualMinutes: 2,
+  });
 
   const advancedCards = [
     {
       title: "Automated Call Distribution",
-      body: "Distribute inbound calls intelligently among available agents based on predefined rules, ensuring balanced workloads during peak hours and minimizing caller wait times.",
+      body: "Route calls by business rules and team capacity so outbound and callback queues stay balanced during peak windows.",
       icon: UserCog,
       bg: "bg-white border border-slate-200",
     },
     {
       title: "Salesforce IVR Integration",
-      body: "Configure IVR with text-to-speech in male or female voices to automate call handling, enabling callers to self-serve or connect with the right department seamlessly.",
+      body: "Use Salesforce-linked IVR flows to guide customers to the right queue and improve intent capture before an agent joins.",
       icon: Network,
       bg: "bg-violet-50/80 border border-violet-100",
     },
     {
       title: "Call Forwarding & Routing",
-      body: "Use an automated call routing system to route calls to the right agents based on skill, time, or day, and forward calls to 9 numbers to reduce missed opportunities.",
+      body: "Direct calls by skill, availability, time, and priority logic so no opportunity is lost due to misrouting or delays.",
       icon: PhoneForwarded,
       bg: "bg-white border border-slate-200",
     },
     {
       title: "Salesforce Sticky Agent",
-      body: "Connect repeat callers to the same agent for personalized interactions with Sticky agent for call handling, improving customer experience, and boosting resolution rates.",
+      body: "Reconnect repeat callers with the same rep to preserve continuity, accelerate outcomes, and improve customer trust.",
       icon: Brain,
       bg: "bg-slate-50 border border-slate-200",
     },
   ];
 
-  const resolutionCards = [
+  const processColumns = [
     {
-      title: "Faster Query Resolutions",
-      body: "Intelligent call distribution and IVR call routing software connect customers to the right agent instantly, reducing wait times and improving first-call resolution.",
+      title: "Call Initiation Methods",
+      items: [
+        "Manual dialing from CTI softphone in Utility Bar.",
+        "Click-to-call on phone fields in Lead, Contact, and Account records.",
+        "Automated dialer for campaign lists.",
+      ],
     },
     {
-      title: "Higher Agent Efficiency",
-      body: "The auto call distributor system and routing eliminate manual call handling, ensuring balanced workloads and allowing agents to focus on meaningful conversations.",
-    },
-    {
-      title: "Enhanced CX",
-      body: "Auto-connecting callers to the same agent and forwarding calls ensures personalized, uninterrupted interactions, fostering trust and boosting customer satisfaction.",
+      title: "During Call Features",
+      items: [
+        "Real-time note-taking in call log window.",
+        "Warm/cold transfer to other agents.",
+        "Call conferencing with multiple participants.",
+        "Mute and hold controls with music.",
+        "Call recording for quality monitoring.",
+      ],
     },
   ];
 
+  const whyNative = [
+    "Eliminate data silos with one customer timeline across calls, notes, and follow-ups.",
+    "Show real-time routing intelligence instantly without delayed syncing.",
+    "Deploy and optimize inside Salesforce without external middleware complexity.",
+  ];
+
+  const imagePrompts = [
+    "Modern enterprise Salesforce-native outbound calling dashboard, live screen pop panel, lead/contact context, call controls and activity timeline, blue-slate UI, conversion-focused, no clutter, no heavy text, web hero composition, clean B2B SaaS style.",
+    "Dark command-center process graphic with two aligned columns: Call Initiation Methods and During Call Features, connected timeline nodes, subtle glow, Salesforce-inspired iconography, professional enterprise aesthetic.",
+    "Split-screen concept: integrated stack with fragmented tools and latency vs native Salesforce stack with instant updates and unified records, modern enterprise UI cards, blue/grey palette.",
+    "Set of four SaaS feature illustrations for automated distribution, IVR, call forwarding, and sticky agent continuity, consistent visual style, rounded UI cards, clean typography placeholders.",
+  ];
+
+  const comparisonData = {
+    native: {
+      title: "Native Salesforce Stack",
+      bullets: [
+        "Instant record updates and logging",
+        "Lower admin overhead and setup complexity",
+        "Unified reporting accuracy in one system",
+      ],
+    },
+    integrated: {
+      title: "Integrated External Stack",
+      bullets: [
+        "Connector dependency and sync lag risk",
+        "More maintenance across multiple tools",
+        "Fragmented reporting and activity timelines",
+      ],
+    },
+  };
+
   const statCards = [
-    { big: "13+", small: "Years of Trust" },
-    { big: "Zero", small: "Integration Hassle" },
-    { big: "100%", small: "Free Support" },
-    { big: "No-Code", small: "Telephony Solution" },
-    { big: "Salesforce-Native", small: "CTI" },
-    { big: "100%", small: "Data Security" },
+    { big: "13+", small: "Years serving Salesforce teams" },
+    { big: "0", small: "External connectors required" },
+    { big: "100%", small: "Real-time Salesforce logging" },
+    { big: "43%", small: "Faster follow-up cycles" },
+    { big: "67%", small: "Higher productive talk time" },
+    { big: "24x7", small: "Support readiness" },
   ];
 
   const statBg = (i) =>
@@ -540,27 +584,44 @@ export default function CallRouting() {
           <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-4 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
             <div className="min-w-0 max-w-full">
               <h1 className="text-3xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-4xl sm:leading-[1.1] md:text-5xl lg:text-[3.25rem] lg:leading-[1.1] xl:text-6xl break-words">
-                Maximize First Call Resolution with Salesforce Omnichannel Routing
+                When reps need instant customer context to convert faster, run outbound calling natively inside Salesforce.
               </h1>
-              <p className="mt-5 max-w-3xl text-sm leading-snug text-slate-600 break-words">
+              <p className="mt-5 max-w-3xl text-base leading-relaxed text-slate-700 break-words">
                 <span className="block">
-                  Connect callers to the right agent instantly, reduce transfers, and improve customer satisfaction
-                  with intelligent Salesforce call routing and distribution.
+                  Eliminate integration overhead and data silos with a Salesforce-native telephony layer that delivers
+                  real-time record context, call controls, and logging from one workspace.
                 </span>
               </p>
-              <Link
-                href="https://360cti.com/contact/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex rounded-lg bg-sky-600 px-8 py-3 text-sm font-semibold text-white hover:bg-sky-700"
-              >
-                Contact our Experts
-              </Link>
+              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-600">
+                Most dialers force teams to jump across tools and sync data after the call. This creates lag, missed
+                context, and reporting drift. A native Salesforce calling stack keeps routing logic, record intelligence,
+                and call activity unified in real time so teams can act faster and close with confidence.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link href="https://360cti.com/contact/" target="_blank" rel="noopener noreferrer" className="inline-flex rounded-lg bg-sky-600 px-5 py-3 text-sm font-semibold text-white hover:bg-sky-700">
+                  Map My Outbound Workflow
+                </Link>
+                <Link href="https://360cti.com/contact/" target="_blank" rel="noopener noreferrer" className="inline-flex rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100">
+                  Design My Salesforce Calling Flow
+                </Link>
+                <Link href="#comparison" className="inline-flex rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100">
+                  Run Native vs Integrated Comparison
+                </Link>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <Link href="#roi-calculator" className="inline-flex text-sm font-semibold text-sky-700 hover:text-sky-800">
+                  Calculate My Calling ROI
+                </Link>
+                <span className="text-slate-300">|</span>
+                <Link href="#outbound-process" className="inline-flex text-sm font-semibold text-sky-700 hover:text-sky-800">
+                  See My Screen Pop Journey
+                </Link>
+              </div>
             </div>
             <div className="mt-10 flex justify-center lg:mt-0 lg:justify-end">
               <img
                 src={CALL_ROUTING_HERO_IMG}
-                alt="Salesforce call routing and support team"
+                alt="Outbound call process dashboard with screen pop intelligence"
                 className="h-auto w-full max-w-xl object-contain sm:max-w-2xl xl:max-w-3xl"
                 loading="eager"
                 decoding="async"
@@ -619,12 +680,45 @@ export default function CallRouting() {
         </div>
       </section>
 
-      {/* 3 — Advanced features */}
+      {/* 3 — Process map */}
       <section className="bg-white py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div id="outbound-process" className="rounded-3xl bg-gradient-to-br from-[#0a2540] to-[#1a2f65] p-6 text-white sm:p-10">
+            <h2 className="text-2xl font-bold sm:text-3xl">Outbound Call Process</h2>
+            <p className="mt-4 max-w-4xl text-sm text-slate-200 sm:text-base">
+              Screen Pop Intelligence identifies matching Salesforce records before the call connects, giving agents
+              immediate context. Calls can start manually from the CTI utility bar, via click-to-call from CRM fields,
+              or through campaign dialers.
+            </p>
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              {processColumns.map((col) => (
+                <div key={col.title} className="rounded-2xl border border-white/20 bg-white/10 p-5">
+                  <h3 className="text-lg font-semibold">{col.title}</h3>
+                  <ul className="mt-4 space-y-3 text-sm text-slate-100">
+                    {col.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sky-300" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 text-sm text-slate-200">
+              During the call, agents can take live notes, transfer warm/cold, conference participants, apply hold/mute
+              controls, and record for QA without leaving Salesforce.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4 — Feature cards */}
+      <section className="bg-white pb-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative text-center">
             <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-              Salesforce Call Routing with Advanced Features
+              Outbound Process Features
             </h2>
             <div className="pointer-events-none absolute left-1/2 top-full mt-2 hidden h-8 w-px bg-slate-200 lg:block" style={{ marginLeft: "-1px" }} />
             <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-[calc(100%+2.25rem)] hidden h-px bg-slate-200 lg:block" />
@@ -643,50 +737,125 @@ export default function CallRouting() {
         </div>
       </section>
 
-      {/* 4 — Pill CTA */}
+      {/* 5 — Comparison quick CTA */}
       <section className="px-4 pb-10 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-4xl flex-col items-stretch justify-between gap-4 rounded-full border border-slate-200 bg-white px-6 py-4 shadow-sm sm:flex-row sm:items-center sm:px-8">
-          <p className="text-center text-base font-bold text-slate-900 sm:text-left">Want to upgrade calls with AI?</p>
+          <p className="text-center text-base font-bold text-slate-900 sm:text-left">
+            Compare native Salesforce calling against external integrated stacks.
+          </p>
           <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#comparison"
             className="shrink-0 rounded-full bg-[#0c2d5c] px-8 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#0a2449]"
           >
-            Contact Us
+            Run Native vs Integrated Comparison
           </Link>
         </div>
       </section>
 
-      {/* 5 — Call routing distribution */}
-      <section className="px-4 py-12 sm:px-6 lg:px-8">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-b from-sky-500 to-sky-400 px-4 py-12 sm:px-8 sm:py-14">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-25"
-            style={{
-              backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)`,
-              backgroundSize: "18px 18px",
-            }}
-            aria-hidden
-          />
-          <h2 className="relative text-left text-2xl font-bold text-white sm:text-3xl lg:max-w-3xl">
-            Call Routing Distribution That Improves Resolution
-          </h2>
-          <div className="relative mt-10 grid gap-6 md:grid-cols-3">
-            {resolutionCards.map((c) => (
-              <div key={c.title} className="relative rounded-2xl bg-white p-6 pt-8 shadow-md">
-                <div className="absolute -left-1 -top-2 flex h-10 w-10 items-center justify-center rounded-full bg-sky-600 text-white shadow">
-                  <CheckCircle2 className="h-5 w-5" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900">{c.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
-              </div>
-            ))}
+      {/* 6 — Why native + comparison + ROI */}
+      <section id="comparison" className="px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2">
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <h2 className="text-2xl font-bold text-slate-900">Why Native Salesforce Calling?</h2>
+            <ul className="mt-6 space-y-4 text-sm text-slate-600">
+              {whyNative.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-sky-600" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 inline-flex rounded-full border border-slate-200 bg-slate-50 p-1">
+              <button
+                type="button"
+                onClick={() => setComparisonView("native")}
+                className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                  comparisonView === "native" ? "bg-sky-600 text-white" : "text-slate-600"
+                }`}
+              >
+                Native
+              </button>
+              <button
+                type="button"
+                onClick={() => setComparisonView("integrated")}
+                className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                  comparisonView === "integrated" ? "bg-sky-600 text-white" : "text-slate-600"
+                }`}
+              >
+                Integrated
+              </button>
+            </div>
+            <div className="mt-5 rounded-2xl bg-slate-50 p-5">
+              <h3 className="text-lg font-semibold text-slate-900">{comparisonData[comparisonView].title}</h3>
+              <ul className="mt-3 space-y-2 text-sm text-slate-600">
+                {comparisonData[comparisonView].bullets.map((bullet) => (
+                  <li key={bullet} className="flex items-start gap-2">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-sky-600" />
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div id="roi-calculator" className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <h3 className="text-2xl font-bold text-slate-900">Calculate My Calling ROI</h3>
+            <p className="mt-2 text-sm text-slate-600">
+              Estimate daily productivity recovered from manual post-call logging.
+            </p>
+            <div className="mt-6 grid gap-4">
+              <label className="text-sm font-medium text-slate-700">
+                Number of agents
+                <input
+                  type="number"
+                  min="1"
+                  value={calculator.agents}
+                  onChange={(e) => setCalculator((p) => ({ ...p, agents: Number(e.target.value) || 0 }))}
+                  className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+                />
+              </label>
+              <label className="text-sm font-medium text-slate-700">
+                Calls per agent per day
+                <input
+                  type="number"
+                  min="1"
+                  value={calculator.callsPerDay}
+                  onChange={(e) => setCalculator((p) => ({ ...p, callsPerDay: Number(e.target.value) || 0 }))}
+                  className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+                />
+              </label>
+              <label className="text-sm font-medium text-slate-700">
+                Manual logging minutes per call
+                <input
+                  type="number"
+                  min="0"
+                  value={calculator.manualMinutes}
+                  onChange={(e) => setCalculator((p) => ({ ...p, manualMinutes: Number(e.target.value) || 0 }))}
+                  className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+                />
+              </label>
+            </div>
+            <div className="mt-6 rounded-2xl bg-[#eef2ff] p-5">
+              <p className="text-sm text-slate-600">Estimated manual minutes recovered per day</p>
+              <p className="mt-2 text-3xl font-bold text-slate-900">
+                {calculator.agents * calculator.callsPerDay * calculator.manualMinutes} mins
+              </p>
+              <p className="mt-1 text-sm text-slate-600">
+                {(calculator.agents * calculator.callsPerDay * calculator.manualMinutes / 60).toFixed(1)} hours/day
+              </p>
+            </div>
+            <Link
+              href="https://360cti.com/contact/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex rounded-lg bg-sky-600 px-6 py-3 text-sm font-semibold text-white hover:bg-sky-700"
+            >
+              Design My Salesforce Calling Flow
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* 6 — AI-led stats */}
+      {/* 7 — Social proof */}
       <section
         className="py-14 sm:py-20"
         style={{
@@ -699,7 +868,7 @@ export default function CallRouting() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-Led CTI Trusted for Reliability
+            Social Proof for Outbound Performance
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {statCards.map((s, i) => (
@@ -712,7 +881,7 @@ export default function CallRouting() {
         </div>
       </section>
 
-      {/* 7 — Testimonials */}
+      {/* 8 — Testimonials */}
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">Hear What Our Customers Say</h2>
@@ -745,11 +914,11 @@ export default function CallRouting() {
         </div>
       </section>
 
-      {/* 8 — FAQ */}
+      {/* 9 — FAQ */}
       <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
-          <p className="mt-3 text-center text-slate-600">FAQs About Salesforce Call Routing</p>
+          <p className="mt-3 text-center text-slate-600">FAQs About Call Routing &amp; Distribution</p>
           <div className="mt-10 space-y-3">
             {faqs.map((item, i) => {
               const isOpen = faqOpen === i;
@@ -790,13 +959,13 @@ export default function CallRouting() {
               rel="noopener noreferrer"
               className="inline-flex rounded-full bg-[#0c2d5c] px-10 py-3.5 text-sm font-semibold text-white hover:bg-[#0a2449]"
             >
-              Need more Info ?
+              Need More Info?
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 9 — Final CTA */}
+      {/* 10 — Final CTA */}
       <section
         className="py-16 sm:py-24"
         style={{
@@ -808,11 +977,11 @@ export default function CallRouting() {
         }}
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
-            Enable Smarter Salesforce Call Routing and Faster Resolution
+          <h2 className="mx-auto whitespace-nowrap text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
+            Run Salesforce-Native Call Routing and Eliminate Data Silos Faster
           </h2>
           <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-powered 360 CTI?
+            Compare native vs integrated architecture, map your routing flow, and calculate business impact.
           </p>
           <Link
             href="https://360cti.com/contact/"
@@ -820,7 +989,7 @@ export default function CallRouting() {
             rel="noopener noreferrer"
             className="mt-8 inline-flex rounded-lg bg-sky-500 px-8 py-3 font-semibold text-white hover:bg-sky-600"
           >
-            Contact our Experts
+            Calculate My Calling ROI
           </Link>
         </div>
       </section>

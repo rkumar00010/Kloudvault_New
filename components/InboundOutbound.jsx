@@ -106,12 +106,12 @@ const NAV = [
     label: "Features",
     href: "/#capabilities",
     dropdown: [
-      { label: "Inbound & Outbound", href: "/inbound-outbound" },
-      { label: "Call Routing & Distribution", href: "/call-routing" },
-      { label: "AI and Automation", href: "/ai-automation" },
-      { label: "Agent and Lead Management", href: "/agent-and-lead" },
+      { label: "Inbound Call Workflow", href: "/inbound-outbound" },
+      { label: "Outbound Call Process", href: "/call-routing" },
+      { label: "Call Routing & Distribution", href: "/ai-automation" },
+      { label: "Agent Management & Availability", href: "/agent-and-lead" },
       { label: "Call Monitoring and Compliance", href: "/call-monitoring" },
-      { label: "Mobile Call Management", href: "/mobile-call-management" },
+      { label: "Call Accessibility & Mobility", href: "/mobile-call-management" },
     ],
   },
   {
@@ -138,7 +138,6 @@ const NAV = [
   },
   { label: "Our Story", href: "/our-story" },
   { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
-  // { label: "Blog", href: "https://360cti.com/blog/", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -378,12 +377,12 @@ function HomeStyleFooter() {
               <h3 className="font-semibold">Features</h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-300">
                 {[
-                  { t: "Inbound & Outbound Call Management", href: "/inbound-outbound" },
-                  { t: "Call Routing & Distribution", href: "/call-routing" },
-                  { t: "AI and Automation", href: "/ai-automation" },
-                  { t: "Agent & Lead Management", href: "/agent-and-lead" },
-                  { t: "Call Monitoring & Compliance", href: "/call-monitoring" },
-                  { t: "Mobile Call Management", href: "/mobile-call-management" },
+                  { t: "Inbound Call Workflow", href: "/inbound-outbound" },
+                  { t: "Outbound Call Process", href: "/call-routing" },
+                  { t: "Call Routing & Distribution", href: "/ai-automation" },
+                  { t: "Agent Management & Availability", href: "/agent-and-lead" },
+                  { t: "Call Monitoring and Compliance", href: "/call-monitoring" },
+                  { t: "Call Accessibility & Mobility", href: "/mobile-call-management" },
                 ].map(({ t, href }) => (
                   <li key={t}>
                     <Link href={href} className="hover:text-white">
@@ -458,12 +457,12 @@ const faqs = [
 ];
 
 const statCards = [
-  { big: "13+", small: "Years of Trust" },
-  { big: "Zero", small: "Integration Hassle" },
-  { big: "100%", small: "Free Support" },
-  { big: "No Code", small: "Telephony Solution" },
-  { big: "Salesforce-Native", small: "Telephony" },
-  { big: "100%", small: "Data Security" },
+  { big: "13+", small: "Years Serving Salesforce Teams" },
+  { big: "0", small: "External Connectors Required" },
+  { big: "100%", small: "Real-Time Salesforce Logging" },
+  { big: "43%", small: "Faster Follow-Up Cycles" },
+  { big: "67%", small: "Higher Productive Talk Time" },
+  { big: "24x7", small: "Support Readiness" },
 ];
 
 const statBg = (i) =>
@@ -501,16 +500,39 @@ export default function InboundOutbound() {
 
   const whyAiCards = [
     {
-      title: "Higher Productivity",
-      body: "Streamlined inbound /outbound call management lets agents handle more calls efficiently, cutting idle time, and manual effort.",
+      title: "Eliminate Data Silos",
+      body: "Calls, notes, dispositions, and customer context stay in Salesforce from the first ring. Teams collaborate on one live data source, not disconnected tools.",
     },
     {
-      title: "Better Efficiency",
-      body: "Accelerated single and bulk dialing saves time, allowing agents to connect with more prospects and customers effortlessly in less time",
+      title: "Real-Time Operations Visibility",
+      body: "Managers can track queues, call outcomes, and agent activity instantly in Salesforce dashboards with no sync delay or spreadsheet handoff.",
     },
     {
-      title: "Improved CX",
-      body: "Superior call handling, smooth call transfers, and better call controls lead to more engaging and satisfying customer interactions.",
+      title: "Faster Time-to-Value",
+      body: "Deploy native telephony quickly with familiar Salesforce administration. No heavy integration layer means teams start delivering value sooner.",
+    },
+  ];
+
+  const inboundWorkflow = [
+    {
+      title: "Customer Initiates Call",
+      body: "The call lands on your support or sales number and enters your Salesforce-native CTI flow.",
+    },
+    {
+      title: "IVR & Queue Logic",
+      body: "Caller input and availability logic route the interaction to the most relevant queue or agent.",
+    },
+    {
+      title: "Incoming Notification",
+      body: "The Salesforce utility bar displays a live call alert with context so agents can act immediately.",
+    },
+    {
+      title: "Record Search",
+      body: "Caller number auto-matches leads, contacts, or cases to surface the right record instantly.",
+    },
+    {
+      title: "Automatic Logging",
+      body: "Disposition, notes, and call metadata are written to related Salesforce records in real time.",
     },
   ];
 
@@ -540,11 +562,12 @@ export default function InboundOutbound() {
           <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
             <div>
               <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] xl:text-6xl">
-                Boost Productivity with Salesforce Calling Solution
+                Run Every Customer Conversation Natively Inside Salesforce
               </h1>
               <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
-                Manage conversations efficiently with Salesforce inbound outbound, handle more calls in less time,
-                and improve agent productivity!
+                Eliminate integration overhead and data silos with Salesforce-native inbound and outbound calling.
+                Get real-time call context, faster handling, and cleaner CRM data from first ring to final
+                disposition.
               </p>
               <Link
                 href="https://360cti.com/contact/"
@@ -552,7 +575,7 @@ export default function InboundOutbound() {
                 rel="noopener noreferrer"
                 className="mt-8 inline-flex rounded-lg bg-sky-600 px-8 py-3 text-sm font-semibold text-white hover:bg-sky-700"
               >
-                Contact our Experts
+                Launch Native Calling Assessment
               </Link>
             </div>
             <div className="mt-10 flex justify-center lg:mt-0 lg:justify-end">
@@ -618,13 +641,43 @@ export default function InboundOutbound() {
         </div>
       </section>
 
-      {/* 3 — Advanced capabilities */}
+      {/* 3 — Inbound workflow */}
+      <section className="bg-slate-900 py-14 text-white sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-center text-2xl font-bold sm:text-3xl">Inbound Call Workflow </h2>
+          <p className="mx-auto mt-3 max-w-3xl text-center text-sm text-slate-300 sm:text-base">
+            Every inbound interaction follows a structured workflow with live CRM context and automatic record
+            updates.
+          </p>
+          <div className="mx-auto mt-10 grid max-w-5xl gap-4">
+            {inboundWorkflow.map((step, i) => (
+              <div key={step.title} className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+                <p className="text-sm font-semibold text-sky-300">Step {i + 1}</p>
+                <h3 className="mt-1 text-lg font-bold">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-200">{step.body}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link
+              href="https://360cti.com/contact/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex rounded-lg bg-sky-500 px-7 py-3 text-sm font-semibold text-white hover:bg-sky-600"
+            >
+              Build This Workflow for My Team
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 4 — Advanced capabilities */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative text-center">
             <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">Advanced Salesforce Calling Capabilities</h2>
             <p className="mt-2 text-sm text-slate-600 sm:text-base">
-              Tailor inbound outbound calling for Salesforce needs
+              Configure high-performance inbound and outbound operations without leaving Salesforce
             </p>
             <div className="pointer-events-none absolute left-1/2 top-full mt-2 hidden h-8 w-px bg-slate-200 lg:block" style={{ marginLeft: "-1px" }} />
             <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-[calc(100%+2.25rem)] hidden h-px bg-slate-200 lg:block" />
@@ -646,22 +699,24 @@ export default function InboundOutbound() {
         </div>
       </section>
 
-      {/* 4 — Pill CTA */}
+      {/* 5 — Pill CTA */}
       <section className="px-4 pb-10 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-4xl flex-col items-stretch justify-between gap-4 rounded-full border border-slate-200 bg-white px-6 py-4 shadow-sm sm:flex-row sm:items-center sm:px-8">
-          <p className="text-center text-base font-bold text-slate-900 sm:text-left">Want to upgrade calls with AI?</p>
+          <p className="text-center text-base font-bold text-slate-900 sm:text-left">
+            Compare Native vs Integrated Calling for your team
+          </p>
           <Link
             href="https://360cti.com/contact/"
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 rounded-full bg-[#0c2d5c] px-8 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#0a2449]"
           >
-            Contact Us
+            See the Native Advantage
           </Link>
         </div>
       </section>
 
-      {/* 5 — Why AI-backed */}
+      {/* 6 — Why Native */}
       <section className="px-4 py-12 sm:px-6 lg:px-8">
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-b from-sky-500 to-sky-400 px-4 py-12 sm:px-8 sm:py-14">
           <div
@@ -673,7 +728,7 @@ export default function InboundOutbound() {
             aria-hidden
           />
           <h2 className="relative text-center text-2xl font-bold text-white sm:text-3xl">
-            Why AI-Backed Salesforce Calling?
+            Why Native Wins: No Silos. No Sync Delays.
           </h2>
           <div className="relative mt-10 grid gap-6 md:grid-cols-3">
             {whyAiCards.map((c) => (
@@ -689,7 +744,7 @@ export default function InboundOutbound() {
         </div>
       </section>
 
-      {/* 6 — Trusted partner stats */}
+      {/* 7 — Trusted partner stats */}
       <section
         className="py-14 sm:py-20"
         style={{
@@ -715,7 +770,7 @@ export default function InboundOutbound() {
         </div>
       </section>
 
-      {/* 7 — Testimonials */}
+      {/* 8 — Testimonials */}
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">Hear What Our Customers Say</h2>
@@ -748,7 +803,7 @@ export default function InboundOutbound() {
         </div>
       </section>
 
-      {/* 8–9 — FAQ (single list, same pattern as Home.jsx) */}
+      {/* 9–10 — FAQ (single list, same pattern as Home.jsx) */}
       <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
@@ -799,7 +854,7 @@ export default function InboundOutbound() {
         </div>
       </section>
 
-      {/* 10 — Final CTA */}
+      {/* 11 — Final CTA */}
       <section
         className="py-16 sm:py-24"
         style={{
@@ -811,11 +866,11 @@ export default function InboundOutbound() {
         }}
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="whitespace-nowrap text-base font-bold tracking-tight text-slate-900 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
-            Take and Make Every Salesforce Call That Converts.
+          <h2 className="mx-auto whitespace-nowrap text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
+            Turn Every Salesforce Call into a Real-Time Revenue Signal.
           </h2>
-          <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-powered 360 CTI?
+          <p className="mx-auto mt-4 max-w-2xl text-pretty text-base text-slate-700 sm:text-lg">
+            See how native telephony can reduce admin effort, remove data silos, and improve conversion outcomes.
           </p>
           <Link
             href="https://360cti.com/contact/"
@@ -823,7 +878,7 @@ export default function InboundOutbound() {
             rel="noopener noreferrer"
             className="mt-8 inline-flex rounded-lg bg-sky-500 px-8 py-3 font-semibold text-white hover:bg-sky-600"
           >
-            Contact our Experts
+            Calculate My Operational Savings
           </Link>
         </div>
       </section>

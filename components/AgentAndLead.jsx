@@ -10,7 +10,10 @@ import {
   MessageCircle,
   CalendarClock,
   Mic2,
-  MapPinCheck,
+  UserCheck,
+  Scale,
+  Target,
+  BarChart3,
   Star,
 } from "lucide-react";
 
@@ -104,12 +107,12 @@ const NAV = [
     label: "Features",
     href: "/#capabilities",
     dropdown: [
-      { label: "Inbound & Outbound", href: "/inbound-outbound" },
-      { label: "Call Routing & Distribution", href: "/call-routing" },
-      { label: "AI and Automation", href: "/ai-automation" },
-      { label: "Agent and Lead Management", href: "/agent-and-lead" },
+      { label: "Inbound Call Workflow", href: "/inbound-outbound" },
+      { label: "Outbound Call Process", href: "/call-routing" },
+      { label: "Call Routing & Distribution", href: "/ai-automation" },
+      { label: "Agent Management & Availability", href: "/agent-and-lead" },
       { label: "Call Monitoring and Compliance", href: "/call-monitoring" },
-      { label: "Mobile Call Management", href: "/mobile-call-management" },
+      { label: "Call Accessibility & Mobility", href: "/mobile-call-management" },
     ],
   },
   {
@@ -375,12 +378,12 @@ function HomeStyleFooter() {
               <h3 className="font-semibold">Features</h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-300">
                 {[
-                  { t: "Inbound & Outbound Call Management", href: "/inbound-outbound" },
-                  { t: "Call Routing & Distribution", href: "/call-routing" },
-                  { t: "AI and Automation", href: "/ai-automation" },
-                  { t: "Agent & Lead Management", href: "/agent-and-lead" },
-                  { t: "Call Monitoring & Compliance", href: "/call-monitoring" },
-                  { t: "Mobile Call Management", href: "/mobile-call-management" },
+                  { t: "Inbound Call Workflow", href: "/inbound-outbound" },
+                  { t: "Outbound Call Process", href: "/call-routing" },
+                  { t: "Call Routing & Distribution", href: "/ai-automation" },
+                  { t: "Agent Management & Availability", href: "/agent-and-lead" },
+                  { t: "Call Monitoring and Compliance", href: "/call-monitoring" },
+                  { t: "Call Accessibility & Mobility", href: "/mobile-call-management" },
                 ].map(({ t, href }) => (
                   <li key={t}>
                     <Link href={href} className="hover:text-white">
@@ -461,41 +464,49 @@ export default function AgentAndLead() {
 
   const featureCards = [
     {
-      title: "Availability Management",
-      body: "Enable agents to set availability (Online, Away, Offline) to control call flow and display real-time status for efficient handling and balanced workloads.",
+      title: "Real-Time Agent Availability",
+      body: "Agents update Online, Away, and Offline status directly from CTI softphone so supervisors can route calls with live presence visibility.",
       icon: CalendarClock,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Automated records creation",
-      body: "Salesforce automated lead capture helps generate lead records for new inbound calls, eliminating manual entry and ensuring no potential opportunity is missed.",
+      title: "Automated Lead Record Creation",
+      body: "Unknown inbound calls instantly create Salesforce lead records with caller details, helping teams respond faster and avoid lead leakage.",
       icon: Mic2,
       bg: "bg-violet-50/80 border border-violet-100",
     },
   ];
 
-  const whyCards = [
+  const managementFlowCards = [
     {
-      title: "No Missed Opportunities",
-      body: "Automated lead creation captures every new inbound call instantly, eliminating the need for manual record creation and accelerating call operations.",
+      title: "Agent Status Control",
+      body: "Agents log in to CTI softphone and set availability status (Online, Away, Offline). Supervisors get real-time visibility to manage live queue capacity.",
+      icon: UserCheck,
     },
     {
-      title: "Higher Customer Satisfaction",
-      body: "Callers are quickly redirected to the best-suited available agent based on their availability status, reducing wait times and improving their experience.",
+      title: "Workload Balancing",
+      body: "Only online agents receive calls. The system distributes interactions evenly to prevent overload, reduce wait times, and keep team performance stable.",
+      icon: Scale,
     },
     {
-      title: "Optimized Workflows",
-      body: "Automating lead capture and agent availability management minimizes manual tasks, allowing teams to focus on meaningful customer interactions.",
+      title: "Intelligent Lead Assignment",
+      body: "When inbound calls arrive from unknown numbers, CTI automatically creates lead records and assigns them using routing rules for immediate follow-up.",
+      icon: Target,
+    },
+    {
+      title: "Performance Tracking",
+      body: "Dashboards report conversion rates, agent productivity, availability trends, and workload distribution for continuous coaching and process optimization.",
+      icon: BarChart3,
     },
   ];
 
   const statCards = [
-    { big: "13+", small: "Years of Trust" },
-    { big: "Zero", small: "Integration Hassle" },
-    { big: "100%", small: "Free Support" },
-    { big: "No-Code", small: "Telephony Solution" },
-    { big: "Salesforce-Native", small: "CTI" },
-    { big: "100%", small: "Data Security" },
+    { big: "13+", small: "Years supporting Salesforce teams" },
+    { big: "24x7", small: "Live availability visibility" },
+    { big: "100%", small: "Auto lead capture consistency" },
+    { big: "0", small: "External routing middleware required" },
+    { big: "Salesforce-Native", small: "Agent and lead operations" },
+    { big: "Real-Time", small: "Workload and performance insights" },
   ];
 
   const statBg = (i) =>
@@ -527,11 +538,11 @@ export default function AgentAndLead() {
           <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
             <div className="hero-content-from-left opacity-0">
               <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] xl:text-6xl">
-                Improve Sales with Salesforce Lead &amp; Agent Management
+                Improve Response Speed with Agent Management &amp; Availability
               </h1>
               <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
-                Capture every lead instantly in Salesforce while enabling agent management for efficient call handling and
-                engagement.
+                Keep agent status, workload balancing, lead assignment, and tracking in one Salesforce-native workflow
+                so every incoming opportunity gets immediate action.
               </p>
               <Link
                 href="https://360cti.com/contact/"
@@ -609,7 +620,7 @@ export default function AgentAndLead() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="relative text-center">
             <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-              Smarter Salesforce Agent and Lead Management
+              Smarter Agent &amp; Lead Operations in Salesforce
             </h2>
             <div className="pointer-events-none absolute left-1/2 top-full mt-2 hidden h-8 w-px bg-slate-200 lg:block" style={{ marginLeft: "-1px" }} />
             <div className="pointer-events-none absolute left-[15%] right-[15%] top-[calc(100%+2.25rem)] hidden h-px bg-slate-200 lg:block" />
@@ -643,28 +654,28 @@ export default function AgentAndLead() {
         </div>
       </section>
 
-      {/* 5 — Why intelligent lead management */}
+      {/* 5 — Agent management and availability flow */}
       <section className="px-4 py-12 sm:px-6 lg:px-8">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-b from-sky-500 to-sky-400 px-4 py-12 sm:px-8 sm:py-14">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-br from-[#1a2f65] to-[#0a2540] px-4 py-12 sm:px-8 sm:py-14">
           <div
             className="pointer-events-none absolute inset-0 opacity-25"
             style={{
-              backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)`,
-              backgroundSize: "18px 18px",
+              backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px)`,
+              backgroundSize: "20px 20px",
             }}
             aria-hidden
           />
-          <h2 className="relative text-center text-2xl font-bold text-white sm:text-3xl">
-            Why Intelligent Salesforce Lead Management?
+          <h2 className="relative text-left text-2xl font-bold text-white sm:text-3xl">
+            Agent Management &amp; Availability
           </h2>
-          <div className="relative mt-10 grid gap-6 md:grid-cols-3">
-            {whyCards.map((c) => (
-              <div key={c.title} className="relative rounded-2xl bg-white p-6 pt-10 text-center shadow-md">
-                <div className="absolute -top-5 left-1/2 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full bg-sky-600 text-white shadow">
-                  <MapPinCheck className="h-5 w-5" strokeWidth={2.25} />
+          <div className="relative mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {managementFlowCards.map((c) => (
+              <div key={c.title} className="rounded-2xl border border-white/20 bg-white/10 p-5 text-white shadow-md">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-sky-200">
+                  <c.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900">{c.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
+                <h3 className="mt-4 text-xl font-bold">{c.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-100">{c.body}</p>
               </div>
             ))}
           </div>
@@ -684,7 +695,7 @@ export default function AgentAndLead() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-Led CTI Built to Rule Lead Management
+            AI-Led CTI Built for Availability and Assignment
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {statCards.map((s, i) => (
@@ -734,7 +745,7 @@ export default function AgentAndLead() {
       <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
-          <p className="mt-3 text-center text-slate-600">FAQs About Salesforce Agent &amp; Lead Management</p>
+          <p className="mt-3 text-center text-slate-600">FAQs About Agent Management &amp; Availability</p>
           <div className="mt-10 space-y-3">
             {faqs.map((item, i) => {
               const isOpen = faqOpen === i;
@@ -794,10 +805,10 @@ export default function AgentAndLead() {
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
           <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
-            Turn Every Lead into Action with Salesforce Agent Management
+            Turn Every Inbound Opportunity Into Action Faster
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-pretty text-base text-slate-700 sm:text-lg">
-            Have questions or want to know more about AI-powered 360 CTI?
+            Design a Salesforce-native model for status control, balanced workloads, and intelligent lead assignment.
           </p>
           <Link
             href="https://360cti.com/contact/"

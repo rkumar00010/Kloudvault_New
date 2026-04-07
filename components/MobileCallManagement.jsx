@@ -111,12 +111,12 @@ const NAV = [
     label: "Features",
     href: "/#capabilities",
     dropdown: [
-      { label: "Inbound & Outbound", href: "/inbound-outbound" },
-      { label: "Call Routing & Distribution", href: "/call-routing" },
-      { label: "AI and Automation", href: "/ai-automation" },
-      { label: "Agent and Lead Management", href: "/agent-and-lead" },
+      { label: "Inbound Call Workflow", href: "/inbound-outbound" },
+      { label: "Outbound Call Process", href: "/call-routing" },
+      { label: "Call Routing & Distribution", href: "/ai-automation" },
+      { label: "Agent Management & Availability", href: "/agent-and-lead" },
       { label: "Call Monitoring and Compliance", href: "/call-monitoring" },
-      { label: "Mobile Call Management", href: "/mobile-call-management" },
+      { label: "Call Accessibility & Mobility", href: "/mobile-call-management" },
     ],
   },
   {
@@ -382,12 +382,12 @@ function HomeStyleFooter() {
               <h3 className="font-semibold">Features</h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-300">
                 {[
-                  { t: "Inbound & Outbound Call Management", href: "/inbound-outbound" },
-                  { t: "Call Routing & Distribution", href: "/call-routing" },
-                  { t: "AI and Automation", href: "/ai-automation" },
-                  { t: "Agent & Lead Management", href: "/agent-and-lead" },
-                  { t: "Call Monitoring & Compliance", href: "/call-monitoring" },
-                  { t: "Mobile Call Management", href: "/mobile-call-management" },
+                  { t: "Inbound Call Workflow", href: "/inbound-outbound" },
+                  { t: "Outbound Call Process", href: "/call-routing" },
+                  { t: "Call Routing & Distribution", href: "/ai-automation" },
+                  { t: "Agent Management & Availability", href: "/agent-and-lead" },
+                  { t: "Call Monitoring and Compliance", href: "/call-monitoring" },
+                  { t: "Call Accessibility & Mobility", href: "/mobile-call-management" },
                 ].map(({ t, href }) => (
                   <li key={t}>
                     <Link href={href} className="hover:text-white">
@@ -465,26 +465,26 @@ function PhoneMapPinIcon() {
 export default function MobileCallManagement() {
   const whyCards = [
     {
-      title: "Increased Call Efficiency",
-      body: "360 Textolic enables agents to manage calls seamlessly on the go, reducing response time, improving call handling, and ensuring uninterrupted communication for maximum productivity.",
+      title: "Eliminate Data Silos in the Field",
+      body: "Call notes, history, and outcomes stay inside Salesforce in real time, so mobile agents and office teams work from one consistent customer timeline.",
     },
     {
-      title: "More Customer Engagement",
-      body: "With real-time access to call data and seamless mobile operations, agents can engage customers faster and more effectively, fostering better relationships and satisfaction.",
+      title: "Move Faster on Revenue Moments",
+      body: "On-device controls and instant context reduce decision delay, helping reps act on high-intent calls while context is still fresh.",
     },
     {
-      title: "Higher Sales Conversions",
-      body: "Quick access to required information and the ability to immediately engage and assist leads with high purchase intent helps increase the likelihood of closing deals.",
+      title: "Scale Native Operations",
+      body: "No connector maintenance, no sync lag, and no duplicate records. Teams scale mobile calling without adding integration complexity.",
     },
   ];
 
   const statCards = [
-    { big: "13+", small: "Years of Trust" },
-    { big: "Zero", small: "Integration Hassle" },
-    { big: "100%", small: "Free Support" },
-    { big: "Dedicated", small: "Mobile App" },
-    { big: "Salesforce-Native", small: "CTI" },
-    { big: "100%", small: "Data Security" },
+    { big: "13+", small: "Years delivering native Salesforce telephony" },
+    { big: "0", small: "External integrations required" },
+    { big: "100%", small: "Real-time CRM activity visibility" },
+    { big: "Dedicated", small: "Mobile-first Salesforce calling experience" },
+    { big: "Native", small: "Single source of truth for call data" },
+    { big: "24x7", small: "Operational continuity across locations" },
   ];
 
   const statBg = (i) =>
@@ -493,25 +493,25 @@ export default function MobileCallManagement() {
   const row1Features = [
     {
       title: "Call History Insights",
-      body: "Get a detailed view of outgoing, incoming, and missed calls to maintain complete visibility into customer interactions.",
+      body: "Complete visibility into incoming, outgoing, and missed calls so reps can review past interactions before every new conversation.",
       icon: History,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "After-Call Actions",
-      body: "Improve follow-ups with disposition selection and call descriptions, ensuring every conversation is well-documented.",
+      title: "On-Call Controls",
+      body: "Manage live conversations with mute, speaker mode, hold, and disconnect controls to keep every interaction smooth and professional.",
       icon: Megaphone,
       bg: "bg-violet-50/80 border border-violet-100",
     },
     {
       title: "Quick Contact Search",
-      body: "Find contacts instantly by searching names or numbers on your mobile, streamlining call initiation.",
+      body: "Search contacts instantly by name or number inside CTI and launch calls without navigating multiple screens.",
       icon: Search,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Real-Time Salesforce Sync",
-      body: "Keep call data automatically updated in Salesforce, ensuring accuracy and up-to-the-minute insights.",
+      title: "Real-Time Sync",
+      body: "Call history, notes, and dispositions sync automatically with Salesforce for immediate visibility across teams.",
       icon: null,
       bg: "bg-slate-50 border border-slate-200",
       customIcon: true,
@@ -521,22 +521,46 @@ export default function MobileCallManagement() {
   const row2Features = [
     {
       title: "Call From' Field",
-      body: "Choose from assigned numbers within the organization, ensuring uniform and professional communication.",
+      body: "Choose approved business numbers for outbound calls and maintain standardized, brand-safe communication.",
       icon: null,
       bg: "bg-sky-50 ring-1 ring-sky-100",
       phoneMap: true,
     },
     {
       title: "Incoming Call Details",
-      body: "Get caller and recipient information, including associated objects, for well-informed and timely responses.",
+      body: "Surface caller context and linked Salesforce records so agents can respond with relevant insight from the first hello.",
       icon: PhoneIncoming,
       bg: "bg-white border border-slate-200",
     },
     {
       title: "On-Call Controls",
-      body: "Manage calls effortlessly with mute, speaker mode, and disconnection options for a smooth calling experience.",
+      body: "Run day-to-day call handling on mobile with less friction and better continuity while moving between tasks.",
       icon: Settings,
       bg: "bg-slate-50 border border-slate-200",
+    },
+  ];
+
+  /** Call Accessibility & Mobility — slide-style timeline (screenshot) */
+  const accessibilityTimeline = [
+    {
+      title: "Call History Insights",
+      body: "Complete visibility into incoming, outgoing, and missed calls. Review past interactions before customer engagement.",
+      side: "right",
+    },
+    {
+      title: "On-Call Controls",
+      body: "Manage calls with mute, speaker mode, hold, or disconnect options during conversation.",
+      side: "left",
+    },
+    {
+      title: "Quick Contact Search",
+      body: "Instant search for contacts by name or number within CTI. Fast call initiation without navigating screens.",
+      side: "right",
+    },
+    {
+      title: "Real-Time Sync",
+      body: "All call data (history, notes, dispositions) syncs automatically with Salesforce for real-time visibility.",
+      side: "left",
     },
   ];
 
@@ -566,20 +590,30 @@ export default function MobileCallManagement() {
           <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
             <div className="hero-content-from-left opacity-0">
               <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] xl:text-6xl">
-                360 Textolic for Salesforce Mobile Call Management
+                When mobile teams need live context to close faster, run calling natively inside Salesforce.
               </h1>
               <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
-                Enable agents to manage Salesforce calls anytime, anywhere with 360 Textolic, the mobile-first CTI for
-                Salesforce, ensuring seamless connectivity and accessible calling.
+                Eliminate integration lag and data silos with a Salesforce-native mobile telephony layer that keeps call
+                controls, records, and outcomes in one real-time operating system.
               </p>
-              <Link
-                href="https://360cti.com/contact/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex rounded-lg bg-sky-600 px-8 py-3 text-sm font-semibold text-white hover:bg-sky-700"
-              >
-                Contact our Experts
-              </Link>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="https://360cti.com/contact/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex rounded-lg bg-sky-600 px-6 py-3 text-sm font-semibold text-white hover:bg-sky-700"
+                >
+                  Map My Native Mobile Workflow
+                </Link>
+                <Link
+                  href="https://360cti.com/contact/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+                >
+                  Run a Data Silo Risk Audit
+                </Link>
+              </div>
             </div>
             <div className="mt-10 flex justify-center lg:mt-0 lg:justify-end">
               <img
@@ -643,12 +677,10 @@ export default function MobileCallManagement() {
         </div>
       </section>
 
-      {/* 3 — 360 Textolic feature grid + CTA */}
+      {/* 3 — Features + image-derived card */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            360 Textolic: Mobile Salesforce Call Management
-          </h2>
+          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">Core Mobile Accessibility Features</h2>
           <p className="mx-auto mt-4 max-w-3xl text-center text-sm leading-relaxed text-slate-600 sm:text-base">
             360 Textolic is 360 CTI&apos;s Salesforce-native mobile app for call management, enabling inbound and outbound
             calling, real-time data sync, and post-call actions on the go.
@@ -674,6 +706,74 @@ export default function MobileCallManagement() {
             ))}
           </div>
 
+          {/* Call Accessibility & Mobility — single card, timeline layout (screenshot) */}
+          <div className="mx-auto mt-12 max-w-5xl overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-[#1a2f65] to-[#0a2540] p-6 shadow-xl sm:p-10">
+            <h3 className="text-center text-xl font-bold text-white sm:text-2xl">Call Accessibility &amp; Mobility</h3>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-200">
+              Native mobile workflow: history, controls, search, and Salesforce sync in one connected path.
+            </p>
+
+            {/* Mobile: stacked cards */}
+            <ul className="mt-10 space-y-4 md:hidden">
+              {accessibilityTimeline.map((step) => (
+                <li
+                  key={step.title}
+                  className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm sm:p-5"
+                >
+                  <h4 className="text-base font-bold text-white">{step.title}</h4>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-100">{step.body}</p>
+                </li>
+              ))}
+            </ul>
+
+            {/* Desktop: zig-zag timeline + center spine */}
+            <div className="relative mx-auto mt-10 hidden max-w-3xl md:block">
+              <div
+                className="pointer-events-none absolute left-1/2 top-2 bottom-2 w-px -translate-x-1/2 bg-gradient-to-b from-white/20 via-white/45 to-white/20"
+                aria-hidden
+              />
+
+              <ul className="relative">
+                {accessibilityTimeline.map((step) => (
+                  <li
+                    key={step.title}
+                    className="grid grid-cols-[1fr_auto_1fr] items-center gap-0 py-6"
+                  >
+                    {step.side === "right" ? (
+                      <>
+                        <div aria-hidden />
+                        <div className="relative z-[1] flex justify-center">
+                          <span
+                            className="h-3.5 w-3.5 rounded-full border-2 border-white/90 bg-sky-200 shadow-[0_0_14px_rgba(255,255,255,0.55)]"
+                            aria-hidden
+                          />
+                        </div>
+                        <div className="rounded-2xl border border-white/20 bg-white/10 p-5 text-left backdrop-blur-sm">
+                          <h4 className="text-lg font-bold text-white">{step.title}</h4>
+                          <p className="mt-2 text-sm leading-relaxed text-slate-100">{step.body}</p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="rounded-2xl border border-white/20 bg-white/10 p-5 text-right backdrop-blur-sm">
+                          <h4 className="text-lg font-bold text-white">{step.title}</h4>
+                          <p className="mt-2 text-sm leading-relaxed text-slate-100">{step.body}</p>
+                        </div>
+                        <div className="relative z-[1] flex justify-center">
+                          <span
+                            className="h-3.5 w-3.5 rounded-full border-2 border-white/90 bg-sky-200 shadow-[0_0_14px_rgba(255,255,255,0.55)]"
+                            aria-hidden
+                          />
+                        </div>
+                        <div aria-hidden />
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           <div className="mx-auto mt-12 flex max-w-4xl flex-col items-stretch justify-between gap-4 rounded-full border border-slate-200 bg-white px-6 py-4 shadow-sm sm:flex-row sm:items-center sm:px-8">
             <p className="text-center text-base font-bold text-slate-900 sm:text-left">Want to upgrade calls with AI?</p>
             <Link
@@ -688,7 +788,7 @@ export default function MobileCallManagement() {
         </div>
       </section>
 
-      {/* 4 — Why 360 Textolic for Mobile Teams */}
+      {/* 4 — Why native */}
       <section className="px-4 py-12 sm:px-6 lg:px-8">
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-b from-sky-500 to-sky-400 px-4 py-12 sm:px-8 sm:py-14">
           <div
@@ -699,9 +799,7 @@ export default function MobileCallManagement() {
             }}
             aria-hidden
           />
-          <h2 className="relative text-center text-2xl font-bold text-white sm:text-3xl">
-            Why 360 Textolic for Mobile Teams?
-          </h2>
+          <h2 className="relative text-center text-2xl font-bold text-white sm:text-3xl">Why Native Salesforce Mobility Wins</h2>
           <div className="relative mt-10 grid gap-6 md:grid-cols-3">
             {whyCards.map((c) => (
               <div key={c.title} className="relative rounded-2xl bg-white p-6 pt-10 text-center shadow-md">
@@ -729,7 +827,7 @@ export default function MobileCallManagement() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-led 360 CTI, Built for Mobility
+            Social Proof for Native Mobile Calling
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {statCards.map((s, i) => (
