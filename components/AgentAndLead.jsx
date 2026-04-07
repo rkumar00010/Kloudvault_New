@@ -136,7 +136,6 @@ const NAV = [
   },
   { label: "Our Story", href: "/our-story" },
   { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
-  { label: "Blog", href: "https://360cti.com/blog/", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -794,10 +793,10 @@ export default function AgentAndLead() {
         }}
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="whitespace-nowrap text-base font-bold tracking-tight text-slate-900 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+          <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
             Turn Every Lead into Action with Salesforce Agent Management
           </h2>
-          <p className="mt-4 text-lg text-slate-700">
+          <p className="mx-auto mt-4 max-w-2xl text-pretty text-base text-slate-700 sm:text-lg">
             Have questions or want to know more about AI-powered 360 CTI?
           </p>
           <Link

@@ -138,7 +138,6 @@ const NAV = [
   },
   { label: "Our Story", href: "/our-story" },
   { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
-  { label: "Blog", href: "https://360cti.com/blog/", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -538,13 +537,12 @@ export default function CallRouting() {
       {/* 1 — Hero */}
       <section className="bg-slate-50 py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
-            <div>
-              <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] xl:text-6xl">
-                Maximize First Call Resolution with Salesforce{" "}
-                <span className="whitespace-nowrap">Omnichannel Routing</span>
+          <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-4 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
+            <div className="min-w-0 max-w-full">
+              <h1 className="text-3xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-4xl sm:leading-[1.1] md:text-5xl lg:text-[3.25rem] lg:leading-[1.1] xl:text-6xl break-words">
+                Maximize First Call Resolution with Salesforce Omnichannel Routing
               </h1>
-              <p className="mt-5 max-w-3xl text-sm leading-snug text-slate-600">
+              <p className="mt-5 max-w-3xl text-sm leading-snug text-slate-600 break-words">
                 <span className="block">
                   Connect callers to the right agent instantly, reduce transfers, and improve customer satisfaction
                   with intelligent Salesforce call routing and distribution.
@@ -810,7 +808,7 @@ export default function CallRouting() {
         }}
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="whitespace-nowrap text-base font-bold tracking-tight text-slate-900 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+          <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
             Enable Smarter Salesforce Call Routing and Faster Resolution
           </h2>
           <p className="mt-4 text-lg text-slate-700">

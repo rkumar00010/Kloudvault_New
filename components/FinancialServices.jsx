@@ -127,7 +127,6 @@ const NAV = [
   },
   { label: "Our Story", href: "/our-story" },
   { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
-  { label: "Blog", href: "https://360cti.com/blog/", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -535,14 +534,14 @@ export default function FinancialServices() {
           aria-hidden
         />
         <div className="relative z-10 mx-auto w-full max-w-[min(100%,1200px)] px-4 py-20 text-center sm:px-6 sm:py-24">
-          <div className="hero-content-from-left mx-auto max-w-full opacity-0">
+          <div className="hero-content-from-left mx-auto max-w-full min-w-0 opacity-0">
             <span className="inline-block rounded-full border border-white/40 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-white">
               360 CTI for Financial Services
             </span>
-            <h1 className="mx-auto mt-8 text-[40px] font-bold leading-[1.12] tracking-tight text-white whitespace-nowrap">
+            <h1 className="mx-auto mt-8 max-w-4xl px-2 text-3xl font-bold leading-snug tracking-tight text-white sm:px-0 sm:text-4xl lg:text-5xl lg:leading-tight break-words">
               Build Stronger Client Relationships with Salesforce CTI
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg">
+            <p className="mx-auto mt-6 max-w-2xl break-words px-2 text-base leading-relaxed text-white/90 sm:px-0 sm:text-lg">
               Automate client outreach, securely route loan and policy calls, and streamline follow-ups to enhance
               customer experience and trust.
             </p>
@@ -805,13 +804,10 @@ export default function FinancialServices() {
         }}
       >
         <div className="mx-auto max-w-[min(100%,1200px)] px-4 text-center">
-          <h2
-            className="font-bold tracking-tight text-slate-900 whitespace-nowrap"
-            style={{ fontSize: "clamp(11px, 2.1vw, 1.875rem)" }}
-          >
+          <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
             Faster Decisions. Trusted Conversations. Better Client Experiences.
           </h2>
-          <p className="mt-4 text-lg text-slate-700">
+          <p className="mx-auto mt-4 max-w-2xl text-pretty text-base text-slate-700 sm:text-lg">
             Have questions or want to know more about AI-led 360 CTI?
           </p>
           <Link

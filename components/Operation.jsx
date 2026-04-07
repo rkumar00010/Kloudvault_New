@@ -139,7 +139,6 @@ const NAV = [
   },
   { label: "Our Story", href: "/our-story" },
   { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
-  { label: "Blog", href: "https://360cti.com/blog/", external: true },
 ];
 
 function navItemIsActive(item, pathname) {

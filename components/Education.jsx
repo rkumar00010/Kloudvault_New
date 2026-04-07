@@ -127,7 +127,6 @@ const NAV = [
   },
   { label: "Our Story", href: "/our-story" },
   { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
-  { label: "Blog", href: "https://360cti.com/blog/", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -551,12 +550,10 @@ export default function Education() {
             <span className="inline-block rounded-full border border-white/50 bg-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white">
               360 CTI for Education
             </span>
-            <div className="mx-auto mt-8 w-full max-w-full overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <h1 className="mx-auto flex min-w-min flex-col items-center gap-2 px-1 font-bold tracking-tight text-white">
-                <span className="whitespace-nowrap text-[40px] leading-[1.15]">
-                  Drive Faster Admissions and Engagement with
-                </span>
-                <span className="whitespace-nowrap text-[40px] leading-[1.15]">Salesforce CTI</span>
+            <div className="mx-auto mt-8 w-full max-w-4xl px-2 sm:px-0">
+              <h1 className="text-center text-3xl font-bold leading-snug tracking-tight text-white sm:text-4xl lg:text-5xl lg:leading-tight">
+                <span className="block">Drive Faster Admissions and Engagement with</span>
+                <span className="mt-1 block sm:mt-2">Salesforce CTI</span>
               </h1>
             </div>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/95 sm:text-lg">
