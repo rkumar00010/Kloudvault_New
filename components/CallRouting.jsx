@@ -977,7 +977,7 @@ export default function CallRouting() {
         }}
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="mx-auto whitespace-nowrap text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
+          <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:max-w-none lg:whitespace-nowrap lg:text-4xl">
             Run Salesforce-Native Call Routing and Eliminate Data Silos Faster
           </h2>
           <p className="mt-4 text-lg text-slate-700">

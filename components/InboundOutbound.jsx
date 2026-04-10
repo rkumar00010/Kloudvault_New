@@ -866,7 +866,7 @@ export default function InboundOutbound() {
         }}
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="mx-auto whitespace-nowrap text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
+          <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:max-w-none lg:whitespace-nowrap lg:text-4xl">
             Turn Every Salesforce Call into a Real-Time Revenue Signal.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-pretty text-base text-slate-700 sm:text-lg">
