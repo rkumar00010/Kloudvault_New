@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import SharedNavbar from "./SharedNavbar";
 import {
   Menu,
   X,
@@ -91,8 +92,8 @@ function NavbarLogo() {
   }
   return (
     <img
-      src="/logo.png"
-      alt="360 CTI"
+      src="/Kloudvault.png"
+      alt="Kloudvault"
       width={200}
       height={64}
       className="h-14 w-auto max-h-16 object-contain sm:h-16"
@@ -121,7 +122,7 @@ function DashboardPreview() {
   return (
     <img
       src="/Dashboard.gif"
-      alt="360 CTI dashboard"
+      alt="Kloudvault dashboard"
       className="h-auto w-full object-cover object-top"
       onError={() => setFailed(true)}
       loading="lazy"
@@ -166,152 +167,27 @@ const NAV = [
       { label: "Healthcare", href: "/healthcare" },
     ],
   },
-  { label: "Our Story", href: "/our-story" },
-  { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
 ];
 
 function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [mobileExpand, setMobileExpand] = useState(null);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex min-h-[52px] min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:justify-normal lg:gap-x-6 lg:px-8">
-        <Link
-          href="#top"
-          className="relative flex h-14 shrink-0 items-center"
-          onClick={() => setOpen(false)}
-        >
-          <NavbarLogo />
-        </Link>
-
-        <nav
-          className="hidden min-w-0 items-center justify-center gap-3 lg:flex xl:gap-4"
-          aria-label="Primary"
-        >
-          {NAV.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="group relative shrink-0">
-                <button
-                  type="button"
-                  className="flex items-center gap-0.5 rounded-md px-2 py-2 text-base font-medium text-slate-700 hover:bg-slate-50 xl:px-2.5"
-                >
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[200px] translate-y-1 rounded-lg border border-slate-200 bg-white py-1 shadow-lg opacity-0 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.dropdown.map((d) => {
-                    const label = typeof d === "string" ? d : d.label;
-                    const href = typeof d === "string" ? item.href : d.href;
-                    return (
-                      <Link
-                        key={label}
-                        href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                      >
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`shrink-0 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                  item.label === "Home" ? "text-sky-600" : "text-slate-700"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a2449] sm:px-5 sm:py-2.5"
-          >
-            Let&apos;s Talk
-          </Link>
-
-          <button
-            type="button"
-            className="shrink-0 rounded-lg p-2 text-slate-700 lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="border-t border-slate-100 px-4 py-3 lg:hidden">
-          {NAV.map((item) => (
-            <div key={item.label}>
-              {item.dropdown ? (
-                <>
-                  <button
-                    type="button"
-                    className="flex w-full items-center justify-between py-2 text-left text-base font-semibold text-slate-900"
-                    onClick={() =>
-                      setMobileExpand((e) => (e === item.label ? null : item.label))
-                    }
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`h-4 w-4 ${mobileExpand === item.label ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {mobileExpand === item.label && (
-                    <div className="ml-2 border-l border-slate-200 pl-3 pb-2">
-                      {item.dropdown.map((d) => {
-                        const label = typeof d === "string" ? d : d.label;
-                        const href = typeof d === "string" ? item.href : d.href;
-                        return (
-                          <Link
-                            key={label}
-                            href={href}
-                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                            onClick={() => setOpen(false)}
-                          >
-                            {label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="block py-2 text-base font-medium text-slate-800"
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </header>
+    <SharedNavbar
+      navItems={NAV}
+      NavbarLogo={NavbarLogo}
+      ChevronIcon={ChevronDown}
+      MenuIcon={Menu}
+      CloseIcon={X}
+      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      logoHref="#top"
+    />
   );
 }
-
 function FloatingChat() {
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:gap-3">
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg"
+        className="hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg sm:flex"
         aria-label="Live chat"
       >
         <MessageCircle className="h-5 w-5" />
@@ -319,7 +195,7 @@ function FloatingChat() {
       </button>
       <button
         type="button"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg sm:h-12 sm:w-12"
         aria-label="Open chat"
       >
         <MessageCircle className="h-6 w-6" />
@@ -330,48 +206,31 @@ function FloatingChat() {
 
 const faqs = [
   {
-    q: "How does this Salesforce CTI solution differ from other Salesforce CTI software in setup and onboarding time?",
-    a: "This Salesforce CTI integration software enables same-day, no-code onboarding. Unlike many Salesforce telephony solutions that require developers or long setup cycles, admins can activate the CTI directly inside Salesforce.",
+    q: "What is Kloudvault and how does it work inside Salesforce?",
+    a: "Kloudvault is an AI-powered telephony layer that runs natively in Salesforce. Agents click to dial, see screen pops on incoming calls, and log outcomes to the right records—without switching to a separate phone system.",
   },
   {
-    q: "What makes this one of the best Salesforce CTI software options for growing sales teams?",
-    a: "This cloud telephony software for Salesforce combines AI automation with built-in calling intelligence. AI voice assistance, real-time transcription, sentiment insights, and intelligent routing help sales teams scale without increasing manual work.",
+    q: "How long does setup and onboarding usually take?",
+    a: "Most teams go live quickly with admin-led configuration inside Salesforce. There is no separate server stack to maintain; you connect your telephony provider, map users and objects, and start calling from the CRM your team already uses.",
   },
   {
-    q: "How does this Salesforce telephony integration improve call-handling efficiency?",
-    a: "This Salesforce phone integration solution automates dialing, screen pops, and call updates. AI summaries and live insights reduce wrap-up time and help agents handle more calls per day.",
+    q: "Which Salesforce editions and telephony providers are supported?",
+    a: "Kloudvault is built for common Salesforce clouds and editions your account team can confirm for your org. Carrier and provider options depend on your region and package—book a demo to validate your exact stack.",
   },
   {
-    q: "What ROI can teams expect from a Salesforce CTI integration solution like this?",
-    a: "Teams typically see higher agent productivity, faster call resolution, and improved conversion rates. Automation, AI-driven coaching, and intelligent routing reduce effort and deliver measurable ROI within months.",
+    q: "How does Kloudvault help sales and support teams handle more calls?",
+    a: "Automation for dialing and routing, contextual screen pops, and AI-assisted summaries cut manual work after each call. Supervisors get clearer visibility into activity so coaching and queue health improve over time.",
   },
   {
-    q: "Can this Salesforce CTI solution support high-volume outbound calling?",
-    a: "Yes. This Salesforce CTI solution supports high-volume outbound campaigns using power dialing and automated scheduling. Sales teams reach more prospects while keeping talk time high and idle time low.",
+    q: "Can Kloudvault handle high-volume outbound and blended teams?",
+    a: "Yes. Teams use Kloudvault for outbound campaigns, inbound queues, and blended workflows—with scheduling and routing rules that keep agents productive while respecting your business hours and priorities.",
   },
   {
-    q: "What are the system requirements for cloud telephony integration with Salesforce?",
-    a: "A supported Salesforce edition, active user licenses, and a stable internet connection are required. As a cloud telephony solution for Salesforce, no on-premise hardware is needed, and everything runs inside Salesforce.",
+    q: "Is call data secure and where does it live?",
+    a: "Call metadata and recordings follow your Salesforce security model, roles, and sharing rules. As a cloud-native approach, you avoid on-premise PBX hardware while keeping customer data tied to the CRM record model you already govern.",
   },
 ];
 
-const partnerLogos = [
-  { src: "/partner-logos/Asset-13.svg", alt: "Bank", w: 46, h: 21 },
-  { src: "/partner-logos/Asset-14.svg", alt: "AMGEN", w: 78, h: 11 },
-  { src: "/partner-logos/Asset-15.svg", alt: "Abbott", w: 28, h: 28 },
-  { src: "/partner-logos/Asset-12.svg", alt: "Liberis", w: 74, h: 16 },
-  { src: "/partner-logos/Asset-11.svg", alt: "INSEAD", w: 67, h: 20 },
-  { src: "/partner-logos/Asset-10.svg", alt: "PageGroup", w: 56, h: 14 },
-  { src: "/partner-logos/Asset-9.svg", alt: "togetherTV", w: 69, h: 17 },
-  { src: "/partner-logos/Asset-8.svg", alt: "Partner 8", w: 71, h: 20 },
-  { src: "/partner-logos/Asset-7.svg", alt: "Partner 7", w: 49, h: 22 },
-  { src: "/partner-logos/Asset-6.svg", alt: "Partner 6", w: 71, h: 15 },
-  { src: "/partner-logos/Asset-5.svg", alt: "Partner 5", w: 84, h: 15 },
-  { src: "/partner-logos/Asset-4.svg", alt: "Partner 4", w: 57, h: 16 },
-  { src: "/partner-logos/Asset-3.svg", alt: "Partner 3", w: 51, h: 31 },
-  { src: "/partner-logos/Asset-2.svg", alt: "Partner 2", w: 55, h: 29 },
-  { src: "/partner-logos/Asset-1.svg", alt: "Partner 1", w: 96, h: 37 },
-];
 
 export default function Home() {
   const [faqOpen, setFaqOpen] = useState(0);
@@ -393,13 +252,13 @@ export default function Home() {
         />
         <div className="relative mx-auto max-w-5xl px-4 text-center sm:px-6">
           <span className="inline-block rounded-full border border-sky-300 bg-white px-4 py-1 text-xs font-semibold uppercase tracking-wide text-sky-800">
-            #1 CTI Software
+            Kloudvault — telephony built for Salesforce teams
           </span>
           <h1 className="mt-6 text-4xl  tracking-tight text-slate-900 sm:text-5xl lg:text-6xl xl:text-7xl">
-            Call Smarter, Convert Faster with 360 CTI
+           Smarter Calls. Faster Conversions with Kloudvault
           </h1>
           <p className="mt-4 text-lg text-slate-600 sm:text-xl">
-            #1 AI-Powered Salesforce Telephony Solution
+            The Leading AI-Powered Telephony Solution for Salesforce
           </p>
           <form
             className="mx-auto mt-10 flex max-w-xl flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-sm sm:flex-row sm:items-stretch"
@@ -424,8 +283,8 @@ export default function Home() {
         {/* Left side */}
         <div className="pointer-events-none absolute left-10 top-36 hidden md:block lg:left-14 lg:top-40">
           <img
-            src="/Icons_Call-automation-1.svg"
-            alt="Call automation"
+            src="/AI-powered.svg"
+            alt="AI powered telephony"
             className="h-10 w-10 opacity-95 drop-shadow-sm"
             loading="lazy"
             decoding="async"
@@ -433,8 +292,8 @@ export default function Home() {
         </div>
         <div className="pointer-events-none absolute left-4 top-64 hidden md:block lg:left-6 lg:top-72">
           <img
-            src="/Icons_call-recording.svg"
-            alt="Call recording"
+            src="/Click-to-Dial.svg"
+            alt="Click to dial"
             className="h-10 w-10 opacity-95 drop-shadow-sm"
             loading="lazy"
             decoding="async"
@@ -442,8 +301,8 @@ export default function Home() {
         </div>
         <div className="pointer-events-none absolute left-12 top-[22rem] hidden md:block lg:left-16 lg:top-[25rem]">
           <img
-            src="/Icons_data-security.svg"
-            alt="Data security"
+            src="/Multilevel-IVR.svg"
+            alt="Multilevel IVR"
             className="h-10 w-10 opacity-95 drop-shadow-sm"
             loading="lazy"
             decoding="async"
@@ -453,8 +312,8 @@ export default function Home() {
         {/* Right side */}
         <div className="pointer-events-none absolute right-10 top-36 hidden md:block lg:right-14 lg:top-40">
           <img
-            src="/Icons_Mobile-app.svg"
-            alt="Mobile app"
+            src="/Multilevel-IVR.svg"
+            alt="Multilevel IVR"
             className="h-10 w-10 opacity-95 drop-shadow-sm"
             loading="lazy"
             decoding="async"
@@ -462,8 +321,8 @@ export default function Home() {
         </div>
         <div className="pointer-events-none absolute right-4 top-64 hidden md:block lg:right-6 lg:top-72">
           <img
-            src="/Icons_productivity.svg"
-            alt="Productivity"
+            src="/AI-powered.svg"
+            alt="AI powered telephony"
             className="h-10 w-10 opacity-95 drop-shadow-sm"
             loading="lazy"
             decoding="async"
@@ -471,8 +330,8 @@ export default function Home() {
         </div>
         <div className="pointer-events-none absolute right-12 top-[22rem] hidden md:block lg:right-16 lg:top-[25rem]">
           <img
-            src="/Icons-01-1.svg"
-            alt="360 CTI icon"
+            src="/Click-to-Dial.svg"
+            alt="Click to dial"
             className="h-10 w-10 opacity-95 drop-shadow-sm"
             loading="lazy"
             decoding="async"
@@ -492,72 +351,30 @@ export default function Home() {
       {/* 4 — Trusted + headline + feature cards */}
       <section id="about" className="scroll-mt-24 py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm text-slate-600">
-            The Most Trusted Modern{" "}
-            <span className="font-semibold text-sky-600">Salesforce CTI</span> Worldwide
-          </p>
-          <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
-            <div className="w-full overflow-hidden">
-              <div className="partner-marquee-logos opacity-100">
-                <div className="partner-marquee-track flex w-max">
-                  <div className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-a`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                  <div aria-hidden="true" className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-b`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <h2 className="mx-auto mt-16 max-w-4xl text-center text-3xl font-bold text-slate-900 sm:text-4xl">
-            Next-Generation AI Telephony, Natively Integrated with Salesforce
+          <h2 className="mx-auto mt-4 sm:mt-8 max-w-4xl text-center text-3xl font-bold text-slate-900 sm:text-4xl">
+           Future-Ready AI Telephony, Built Inside Salesforce
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-center text-lg text-slate-600">
-            Deliver meaningful conversations through seamless Salesforce telephony integration, AI-powered
-            calling, real-time insights, and enterprise-grade security—without leaving Salesforce.
+            Create impactful conversations with native Salesforce integration, AI-driven calling, real-time analytics, and enterprise-grade security—everything you need, all in one place.
           </p>
+         
           <div id="capabilities" className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
-                title: "Native Integration",
-                body: "No more toggling tabs—360 CTI works natively inside Salesforce, keeping your data and calls connected.",
+                title: "Built Natively for Salesforce",
+                body: "Keep everything in one place with a fully native Salesforce experience. Access calls, data, and insights seamlessly—no integrations, no disruptions.",
               },
               {
-                title: "Smarter Calling",
-                body: "Leverage AI-led automation and click-to-dial to slash call time and improve conversion rates.",
+                title: "Intelligent Calling, Better Results",
+                body: "Use AI-driven automation and one-click dialing to reduce manual effort, connect faster, and turn more conversations into conversions.",
               },
               {
-                title: "Live Analytics",
-                body: "Track team performance, call quality, and customer engagement—all in real time within your CRM.",
+                title: "Real-Time Insights That Drive Performance",
+                body: "Stay on top of every call and agent with real-time analytics that help you improve performance, enhance quality, and boost engagement.",
               },
               {
-                title: "Data Security",
-                body: "100% secure. Your call logs, recordings, and customer data stay protected with robust compliance protocols.",
+                title: "Built for Maximum Data Protection",
+                body: "Safeguard sensitive data with robust encryption, secure storage, and compliance-driven architecture you can trust.",
               },
             ].map((card) => (
               <div
@@ -577,7 +394,7 @@ export default function Home() {
       <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-            A Sales–Centric Telephony Platform with Powerful Capabilities
+           A Telephony Platform Built for Sales Excellence
           </h2>
           <div className="mt-12 grid items-center gap-12 lg:grid-cols-2">
             <div>
@@ -590,20 +407,19 @@ export default function Home() {
                   decoding="async"
                 />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 sm:text-3xl">AI-powered Call Transcript</h3>
+              <h3 className="text-2xl font-bold text-slate-900 sm:text-3xl">AI-Driven Call Intelligence</h3>
               <p className="mt-3 text-xl font-semibold text-slate-800">
-                Auto-Transcribe Calls, Improve Call Handling
+                Capture Every Word, Understand Every Emotion
               </p>
               <p className="mt-4 max-w-xl text-slate-600">
-                Leverage AI to automatically generate call transcripts and analyze sentiment, enabling smarter
-                decision-making and enhanced CX
+                Transform your calls into actionable insights with AI-powered transcription and sentiment analysis. Gain complete visibility into customer interactions, improve agent performance, and deliver exceptional customer experiences.
               </p>
             </div>
             <div className="flex justify-center lg:justify-end">
               <img
-                src="/Person.gif"
-                alt="AI-powered call transcript"
-                className="w-full max-w-2xl rounded-2xl object-contain shadow-lg"
+                src="/ai-call-dashboard-v4.png"
+                alt="AI call transcription, sentiment analysis, and conversation insights"
+                className="w-full max-w-2xl rounded-2xl object-contain shadow-lg ring-1 ring-slate-200/80"
                 loading="lazy"
                 decoding="async"
               />
@@ -617,8 +433,8 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 lg:grid-cols-2 lg:px-8">
           <div className="flex justify-center lg:justify-start">
             <img
-              src="/Ashish.gif"
-              alt="Ashish"
+              src="/One-Click Dialing.png"
+              alt="One-Click Dialing"
               className="w-full max-w-2xl rounded-2xl object-contain shadow-lg"
               loading="lazy"
               decoding="async"
@@ -634,11 +450,10 @@ export default function Home() {
                 decoding="async"
               />
             </div>
-            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">Click-to-Dial</h2>
-            <p className="mt-2 text-xl font-semibold text-slate-800">Dial in One Click, Save Time</p>
+            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">One-Click Dialing Made Simple</h2>
+            <p className="mt-2 text-xl font-semibold text-slate-800">Connect Faster, Close More Deals</p>
             <p className="mt-4 text-slate-600">
-              Dial prospects instantly with a single click, eliminate manual dialing, reduce errors, and connect
-              faster with more leads
+              Eliminate manual dialing and connect with prospects instantly. With a single click, boost agent productivity, reduce errors, and accelerate your sales process.
             </p>
           </div>
         </div>
@@ -657,17 +472,16 @@ export default function Home() {
                 decoding="async"
               />
             </div>
-            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">Power Dialer</h2>
-            <p className="mt-2 text-xl font-semibold text-slate-800">Automate Dialling, Maximize Productivity</p>
+            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">Smart Power Dialer</h2>
+            <p className="mt-2 text-xl font-semibold text-slate-800">Automate Calls, Accelerate Conversions</p>
             <p className="mt-4 text-slate-600">
-              Automate bulk dialing your prospects with smarter controls like Skip, Call, and Break to boost agent
-              productivity
+            Boost your team’s efficiency with automated dialing that connects agents to more prospects in less time. Use intelligent controls like skip, pause, and resume to manage calls effortlessly and maximize productivity.
             </p>
           </div>
           <div className="flex justify-center lg:justify-end">
             <img
               src="/360%20CTI.png"
-              alt="360 CTI"
+              alt="Kloudvault"
               className="w-full max-w-xl rounded-2xl object-contain shadow-sm"
               loading="lazy"
               decoding="async"
@@ -698,13 +512,12 @@ export default function Home() {
                 decoding="async"
               />
             </div>
-            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">Multilevel IVR</h2>
+            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">Intuitive IVR System</h2>
             <p className="mt-2 text-xl font-semibold text-slate-800">
-              Offer &apos;Self-help&apos;, Improve Efficiency
+              Simplify Support, Boost Efficiency
             </p>
             <p className="mt-4 text-slate-600">
-              Route calls efficiently with a customizable multilevel IVR, enhancing customer experience and reducing
-              wait times
+              Empower callers with easy self-service options through a customizable multilevel IVR. Direct calls accurately, reduce agent workload, and enhance overall service efficiency.
             </p>
           </div>
         </div>
@@ -735,7 +548,7 @@ export default function Home() {
         </div>
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
           <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">
-            Hear from our 360 CTI Users
+            Hear from our Kloudvault Users
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {[
@@ -789,8 +602,8 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div>
-              <h2 className="text-3xl font-bold sm:text-4xl">Proven Results That Scale with Your Business</h2>
-              <p className="mt-4 text-lg text-sky-100">100% Proven Results From Salesforce Teams</p>
+            <h2 className="text-2xl font-bold sm:text-4xl">Results That Grow with Your Business</h2>
+              <p className="mt-4 text-lg text-sky-100">Trusted Performance Delivered by Salesforce Teams</p>
               <div className="mt-4 h-1 w-16 rounded-full bg-white/60" />
             </div>
             <div className="rounded-2xl border-2 border-dashed border-white/50 p-6 sm:p-8">
@@ -798,23 +611,23 @@ export default function Home() {
                 {[
                   {
                     n: "01",
-                    t: "29% ROI Boost",
-                    b: "AI and call monitoring help you auto-transcribe conversations, understand tone and sentiment, improve call handling, and boost ROI",
+                    t: "↑ 31% ROI Growth",
+                    b: "Leverage AI-driven insights and smart call analytics to capture every interaction, analyze customer sentiment, and continuously refine agent performance—resulting in stronger ROI.",
                   },
                   {
                     n: "02",
-                    t: "↑ 43% Call Closure Rate",
-                    b: "Intelligent routing and real-time agent coaching lead to quicker resolutions and more successful call outcomes",
+                    t: "↑ 48% Higher Call Success Rate",
+                    b: "Advanced call routing and real-time guidance empower agents to handle conversations more effectively, increasing first-call resolution and overall success.",
                   },
                   {
                     n: "03",
-                    t: "↑ 67% More Revenue",
-                    b: "Personalized, consistent outreach and faster follow-ups turn more conversations into conversions, increasing deal volume",
+                    t: "↑ 62% Revenue Uplift",
+                    b: "Engage prospects with personalized communication and timely follow-ups, turning every interaction into a revenue-generating opportunity.",
                   },
                   {
                     n: "04",
-                    t: "37% Faster Sales Closures",
-                    b: "Sticky Agent, Power Dialer, and automated follow-ups accelerate sales cycles and reduce lead drop-off.",
+                    t: "↑ 42% Faster Deal Closures",
+                    b: "With features like predictive dialing, Sticky Agent, and automated workflows, your sales team can close deals quicker and minimize missed opportunities.",
                   },
                 ].map((x) => (
                   <div key={x.n} className="flex gap-3">
@@ -831,7 +644,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-14 flex justify-center">
-            <div className="rounded-full bg-white/95 px-8 py-3 text-sm font-medium text-slate-800 shadow-lg">
+            <div className="rounded-2xl bg-white/95 px-5 py-3 text-sm font-medium text-slate-800 shadow-lg sm:rounded-full sm:px-8">
               To get any furthur information or any question.{" "}
               <a
                 href="https://360cti.com/contact/"
@@ -851,7 +664,7 @@ export default function Home() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
           <p className="mt-3 text-center text-slate-600">
-            Frequently Asked Questions about Salesforce CTI
+            Frequently asked questions about Kloudvault for Salesforce
           </p>
           <div className="mt-10 space-y-3">
             {faqs.map((item, i) => {
@@ -912,10 +725,11 @@ export default function Home() {
       >
         <div className="mx-auto max-w-3xl px-4 text-center">
           <h2 className="text-2xl font-bold text-slate-900 sm:text-4xl">
-            Turn Every Conversation into a Better Outcome
+           Smarter Conversations. Stronger Results.
           </h2>
           <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-powered 360 CTI?
+            Discover how AI-powered Kloudvault transforms every interaction into meaningful business outcomes.
+Have questions? Let’s connect and explore the possibilities.
           </p>
           <Link
             href="https://360cti.com/contact/"
@@ -959,20 +773,20 @@ export default function Home() {
             <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
               <div>
                 <div className="flex items-end gap-2 text-white">
-                  <LogoMark className="h-14 w-14 [&_text]:fill-white" />
+                  <img src="/Kloudvault logo.png" alt="Kloudvault" className="h-14 w-auto" />
                 </div>
                 <p className="mt-4 text-sm font-semibold">Let&apos;s Connect</p>
                 <div className="mt-4 flex gap-2">
                   {[
-                    { label: "Facebook", char: "f" },
-                    { label: "X", char: "𝕏" },
-                    { label: "LinkedIn", char: "in" },
-                    { label: "YouTube", char: "▶" },
-                    { label: "Instagram", char: "◎" },
+                    {
+                      label: "LinkedIn",
+                      char: "in",
+                      href: "https://www.linkedin.com/company/kloudrac/posts/?feedView=all",
+                    },
                   ].map((s) => (
                     <a
                       key={s.label}
-                      href="#"
+                      href={s.href}
                       className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-xs font-bold text-white hover:bg-sky-500"
                       aria-label={s.label}
                     >
@@ -983,8 +797,8 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="font-semibold">Email Us</h3>
-                <a href="mailto:contact@360cti.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
-                  contact@360cti.com
+                <a href="mailto:contact@Kloudvault.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
+                  contact@Kloudvault.com
                 </a>
               </div>
               <div>
@@ -1025,7 +839,7 @@ export default function Home() {
               </div>
             </div>
             <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-              <p>Copyright {new Date().getFullYear()} 360 CTI | All Right Reserved.</p>
+              <p>Copyright {new Date().getFullYear()} Kloudvault | All Right Reserved.</p>
               <p>
                 <span className="hover:text-slate-300">→ Our Business</span>{" "}
                 <a href="#" className="hover:text-slate-300">

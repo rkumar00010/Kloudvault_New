@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import SharedNavbar from "./SharedNavbar";
 import { Menu, X, ChevronDown, MessageCircle, Star } from "lucide-react";
 
 function LogoMark({ className = "h-16 w-16" }) {
@@ -60,8 +60,8 @@ function NavbarLogo() {
   if (useSvg) return <LogoMark className="h-16 w-16" />;
   return (
     <img
-      src="/logo.png"
-      alt="360 CTI"
+      src="/Kloudvault.png"
+      alt="Kloudvault"
       width={200}
       height={64}
       className="h-14 w-auto max-h-16 object-contain sm:h-16"
@@ -71,23 +71,6 @@ function NavbarLogo() {
   );
 }
 
-const partnerLogos = [
-  { src: "/partner-logos/Asset-13.svg", alt: "Bank", w: 46, h: 21 },
-  { src: "/partner-logos/Asset-14.svg", alt: "AMGEN", w: 78, h: 11 },
-  { src: "/partner-logos/Asset-15.svg", alt: "Abbott", w: 28, h: 28 },
-  { src: "/partner-logos/Asset-12.svg", alt: "Liberis", w: 74, h: 16 },
-  { src: "/partner-logos/Asset-11.svg", alt: "INSEAD", w: 67, h: 20 },
-  { src: "/partner-logos/Asset-10.svg", alt: "PageGroup", w: 56, h: 14 },
-  { src: "/partner-logos/Asset-9.svg", alt: "togetherTV", w: 69, h: 17 },
-  { src: "/partner-logos/Asset-8.svg", alt: "Partner 8", w: 71, h: 20 },
-  { src: "/partner-logos/Asset-7.svg", alt: "Partner 7", w: 49, h: 22 },
-  { src: "/partner-logos/Asset-6.svg", alt: "Partner 6", w: 71, h: 15 },
-  { src: "/partner-logos/Asset-5.svg", alt: "Partner 5", w: 84, h: 15 },
-  { src: "/partner-logos/Asset-4.svg", alt: "Partner 4", w: 57, h: 16 },
-  { src: "/partner-logos/Asset-3.svg", alt: "Partner 3", w: 51, h: 31 },
-  { src: "/partner-logos/Asset-2.svg", alt: "Partner 2", w: 55, h: 29 },
-  { src: "/partner-logos/Asset-1.svg", alt: "Partner 1", w: 96, h: 37 },
-];
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -125,8 +108,6 @@ const NAV = [
       { label: "Healthcare", href: "/healthcare" },
     ],
   },
-  { label: "Our Story", href: "/our-story" },
-  { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -148,144 +129,24 @@ function navItemIsActive(item, pathname) {
 }
 
 function Navbar() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [mobileExpand, setMobileExpand] = useState(null);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex min-h-[52px] min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:justify-normal lg:gap-x-6 lg:px-8">
-        <Link href="/" className="relative flex h-14 shrink-0 items-center" onClick={() => setOpen(false)}>
-          <NavbarLogo />
-        </Link>
-
-        <nav className="hidden min-w-0 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="Primary">
-          {NAV.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="group relative shrink-0">
-                <button
-                  type="button"
-                  className={`flex items-center gap-0.5 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                  }`}
-                >
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[200px] translate-y-1 rounded-lg border border-slate-200 bg-white py-1 shadow-lg opacity-0 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.dropdown.map((d) => {
-                    const label = typeof d === "string" ? d : d.label;
-                    const href = typeof d === "string" ? item.href : d.href;
-                    return (
-                      <Link
-                        key={label}
-                        href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                      >
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`shrink-0 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                  navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a2449] sm:px-5 sm:py-2.5"
-          >
-            Let&apos;s Talk
-          </Link>
-          <button
-            type="button"
-            className="shrink-0 rounded-lg p-2 text-slate-700 lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="border-t border-slate-100 px-4 py-3 lg:hidden">
-          {NAV.map((item) => (
-            <div key={item.label}>
-              {item.dropdown ? (
-                <>
-                  <button
-                    type="button"
-                    className={`flex w-full items-center justify-between py-2 text-left text-base font-semibold ${
-                      navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-900"
-                    }`}
-                    onClick={() => setMobileExpand((e) => (e === item.label ? null : item.label))}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`h-4 w-4 ${mobileExpand === item.label ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {mobileExpand === item.label && (
-                    <div className="ml-2 border-l border-slate-200 pl-3 pb-2">
-                      {item.dropdown.map((d) => {
-                        const label = typeof d === "string" ? d : d.label;
-                        const href = typeof d === "string" ? item.href : d.href;
-                        return (
-                          <Link
-                            key={label}
-                            href={href}
-                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                            onClick={() => setOpen(false)}
-                          >
-                            {label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className={`block py-2 text-base font-medium ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-800"
-                  }`}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </header>
+    <SharedNavbar
+      navItems={NAV}
+      NavbarLogo={NavbarLogo}
+      ChevronIcon={ChevronDown}
+      MenuIcon={Menu}
+      CloseIcon={X}
+      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      logoHref="#top"
+    />
   );
 }
-
 function FloatingChat() {
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:gap-3">
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg"
+        className="hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg sm:flex"
         aria-label="Live chat"
       >
         <MessageCircle className="h-5 w-5" />
@@ -293,7 +154,7 @@ function FloatingChat() {
       </button>
       <button
         type="button"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg sm:h-12 sm:w-12"
         aria-label="Open chat"
       >
         <MessageCircle className="h-6 w-6" />
@@ -334,20 +195,20 @@ function HomeStyleFooter() {
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-end gap-2 text-white">
-                <LogoMark className="h-14 w-14 [&_text]:fill-white" />
+                <img src="/Kloudvault logo.png" alt="Kloudvault" className="h-14 w-auto" />
               </div>
               <p className="mt-4 text-sm font-semibold">Let&apos;s Connect</p>
               <div className="mt-4 flex gap-2">
                 {[
-                  { label: "Facebook", char: "f" },
-                  { label: "X", char: "𝕏" },
-                  { label: "LinkedIn", char: "in" },
-                  { label: "YouTube", char: "▶" },
-                  { label: "Instagram", char: "◎" },
+                  {
+                    label: "LinkedIn",
+                    char: "in",
+                    href: "https://www.linkedin.com/company/kloudrac/posts/?feedView=all",
+                  },
                 ].map((s) => (
                   <a
                     key={s.label}
-                    href="#"
+                    href={s.href}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-xs font-bold text-white hover:bg-sky-500"
                     aria-label={s.label}
                   >
@@ -358,8 +219,8 @@ function HomeStyleFooter() {
             </div>
             <div>
               <h3 className="font-semibold">Email Us</h3>
-              <a href="mailto:contact@360cti.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
-                contact@360cti.com
+              <a href="mailto:contact@Kloudvault.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
+                contact@Kloudvault.com
               </a>
             </div>
             <div>
@@ -400,7 +261,7 @@ function HomeStyleFooter() {
             </div>
           </div>
           <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-            <p>Copyright {new Date().getFullYear()} 360 CTI | All Right Reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Kloudvault | All Right Reserved.</p>
             <p>
               <span className="hover:text-slate-300">→ Our Business</span>{" "}
               <a href="#" className="hover:text-slate-300">
@@ -423,12 +284,12 @@ const AI_DRIVEN_IMG_PATHS = ["/AI-Driven.png", "/AI-Driven.jpg", "/AIDriven.png"
 const OFFER_IMG_PATHS = ["/Offer.png", "/Offer.jpg", "/offer.png"];
 
 const statCards = [
-  { big: "13+", small: "Years of Trust" },
-  { big: "Zero", small: "Integration Hassle" },
-  { big: "100%", small: "Free Support" },
-  { big: "No Code", small: "Telephony Solution" },
-  { big: "Salesforce-Native", small: "Telephony" },
-  { big: "100%", small: "Data Security" },
+  { big: "24x7", small: "Patient Support Availability" },
+  { big: "Zero", small: "Appointment Follow-Up Gaps" },
+  { big: "99.9%", small: "Communication Reliability" },
+  { big: "Smart", small: "Care-Team Routing" },
+  { big: "Salesforce-Native", small: "Clinical Workflows" },
+  { big: "Enterprise", small: "Compliance Controls" },
 ];
 
 function statCardClass(i) {
@@ -445,66 +306,66 @@ export default function Healthcare() {
 
   const impactStats = [
     {
-      pct: "41%",
-      title: "Up to 41% Faster Patient Call Resolutions",
-      body: "Resolve patient queries faster, ensuring patients reach the right person faster, and enhancing the overall healthcare experience.",
+      pct: "39%",
+      title: "Faster Patient Query Resolution",
+      body: "Intelligent routing and guided call flows help patients reach the right care team quickly and reduce average response time.",
     },
     {
-      pct: "35%",
-      title: "Up to 35% Reduction in Missed Appointments",
-      body: "Send automated reminders and follow-ups to increase show-up rates and boost patient engagement for better healthcare outcomes.",
+      pct: "33%",
+      title: "Lower No-Show Rates",
+      body: "Automated reminders and timely callback workflows improve appointment adherence and strengthen patient engagement.",
     },
     {
-      pct: "30%",
-      title: "Up to 30% Higher Patient Satisfaction",
-      body: "Secure communication, coordinated care, and AI insights build trust, personalize services, and boost patient satisfaction.",
+      pct: "28%",
+      title: "Improved Patient Experience Scores",
+      body: "Consistent communication quality and better care coordination increase trust and improve overall service satisfaction.",
     },
   ];
 
   const aiDrivenCards = [
     {
-      title: "Resolve Patient Queries Faster",
-      body: "Using intelligent IVR and advanced routing, instantly route calls based on the patient's needs, whether it is appointments, billing, or emergencies, to offer quality support.",
+      title: "Route Patients to the Right Department Quickly",
+      body: "Use intent-based routing for appointments, billing, and support so patients connect to the right team without long transfers.",
     },
     {
-      title: "Automate Reminders & Follow-Ups",
-      body: "Reduce missed appointments, stay consistent with follow-ups, and improve patient care with automated calls, reminders, and IVR offering patient self-help options.",
+      title: "Automate Appointment and Care Follow-Ups",
+      body: "Run reminder and follow-up workflows to reduce missed visits, improve continuity, and keep patients informed at every step.",
     },
     {
-      title: "Secure Doctor-Patient Communication",
-      body: "Protect sensitive patient information with HIPAA-compliant call masking and secure routing, ensuring confidential, compliant, and trusted doctor-patient communication.",
+      title: "Protect Sensitive Healthcare Conversations",
+      body: "Support compliant communication with secure call handling, access controls, and workflow visibility for clinical and support teams.",
     },
   ];
 
   const offerCards = [
     {
-      title: "Offer 24/7 Emergency Assistance",
-      body: "Forward emergency calls instantly to on-call staff with a Cloud Phone System for Healthcare, ensuring 24/7 support and rapid response.",
+      title: "Strengthen After-Hours Response Coverage",
+      body: "Forward urgent calls to on-call teams with controlled escalation logic so patient-critical communication is never delayed.",
     },
     {
-      title: "Improve Patient Care Coordination",
-      body: "Collaborate better with live call transfers and conferencing, ensuring healthcare teams connect to the right department quickly for coordinated patient care.",
+      title: "Improve Cross-Team Care Coordination",
+      body: "Use warm transfers and conferencing to connect departments in real time and resolve patient requests with less friction.",
     },
     {
-      title: "Boost Patient Support with AI",
-      body: "Analyze calls in real time with AI insights using Healthcare Contact Center Software to better understand patient needs and tailor communication for effective support.",
+      title: "Coach Teams with Communication Insights",
+      body: "Review call outcomes and interaction patterns to improve staff training, conversation quality, and patient support consistency.",
     },
   ];
 
   const testimonials = [
     {
-      title: "It is easy to implement and navigate",
+      title: "Improved communication consistency across clinics",
       quote:
-        "This app has been great for our team. It is easy to implement and navigate and the 360 team is very responsive in setting up and training. Thank you...",
-      name: "Christina Duncan",
-      role: "Transaction Manager",
+        "Our teams now manage patient calls and follow-ups in one Salesforce workflow. Response times improved and escalation handling is much more reliable.",
+      name: "Dr. Neha Sethi",
+      role: "Care Operations Lead",
     },
     {
-      title: "Very quick and accurate when answering a call.",
+      title: "Better visibility for patient support operations",
       quote:
-        "Pankaj has been on top of things during the demo, implementation, and testing phases. Any issues we have had were dealt with quickly by top-notc...",
-      name: "Chris Bullion",
-      role: "Engineering Director",
+        "Appointment teams and support staff are now aligned on every interaction. It has helped us reduce missed callbacks and improve patient confidence.",
+      name: "Aarav Mehta",
+      role: "Patient Experience Manager",
     },
   ];
 
@@ -532,14 +393,13 @@ export default function Healthcare() {
         <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-4 py-20 text-center sm:px-6 sm:py-24">
           <div className="hero-content-from-left flex w-full max-w-5xl flex-col items-center opacity-0">
             <span className="inline-block rounded-full border border-white/50 bg-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white">
-              360 CTI for Healthcare
+              Healthcare Communication Cloud
             </span>
             <h1 className="mx-auto mt-8 max-w-5xl text-[40px] font-bold leading-[1.12] tracking-tight text-white">
-              Improve Patient Communication and Care with Salesforce CTI
+              Elevate Patient Communication with AI-Led Kloudvault
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/95 sm:text-lg">
-              Automate patient communication, manage appointments and urgent calls, and support HIPAA-compliant
-              conversations to improve care delivery.
+              Unify appointment calls, care coordination, and support workflows in Salesforce to deliver faster and more trusted patient experiences.
             </p>
             <Link
               href="https://360cti.com/contact/"
@@ -547,68 +407,19 @@ export default function Healthcare() {
               rel="noopener noreferrer"
               className="mt-10 inline-flex rounded-full bg-sky-600 px-10 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-700"
             >
-              Book a 1:1 Demo
+              Schedule a Healthcare Demo
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 2 — Trusted + marquee */}
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="hero-content-from-left mx-auto flex max-w-4xl justify-center opacity-0">
-            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-800 shadow-sm sm:text-base">
-              <span className="font-medium text-slate-700">Trusted by Leading </span>
-              <span className="font-semibold text-sky-600">Healthcare Providers</span>
-            </p>
-          </div>
-          <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
-            <div className="w-full overflow-hidden">
-              <div className="partner-marquee-logos opacity-100">
-                <div className="partner-marquee-track flex w-max">
-                  <div className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-a`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                  <div aria-hidden="true" className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-b`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 3 — Impact */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="hero-content-from-left opacity-0">
             <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl md:text-4xl">
-              Impact: Patient Satisfaction, Reduced No-shows
+              Healthcare Outcomes You Can Measure
             </h2>
             <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
             {impactStats.map((s) => (
@@ -628,11 +439,10 @@ export default function Healthcare() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="hero-content-from-left opacity-0">
             <h2 className="mx-auto max-w-5xl text-center text-2xl font-bold leading-tight text-slate-900 sm:text-3xl md:text-[2.5rem] md:leading-tight">
-              AI-Driven Salesforce Calling for Better Patient Care
+              Smarter Calling Workflows for Better Patient Support
             </h2>
             <p className="mx-auto mt-5 max-w-3xl text-center text-sm leading-relaxed text-slate-600 sm:text-base">
-              Streamline patient communication—manage inquiries efficiently and support timely responses with AI-driven
-              calling in Salesforce.
+              Improve response speed, reduce communication delays, and strengthen care delivery with Salesforce-native calling workflows.
             </p>
           </div>
           <div className="mt-14 grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
@@ -717,7 +527,7 @@ export default function Healthcare() {
             <p className="text-center text-lg font-semibold leading-snug text-white sm:max-w-[55%] sm:text-left sm:text-xl">
               Want to see results
               <br />
-              from actual use cases?
+              from real healthcare use cases?
             </p>
             <Link
               href="https://360cti.com/contact/"
@@ -725,7 +535,7 @@ export default function Healthcare() {
               rel="noopener noreferrer"
               className="shrink-0 rounded-md bg-white px-5 py-3 text-center text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50 sm:px-6"
             >
-              Download the Case Study Now!
+              Download the Healthcare Case Study
             </Link>
           </div>
         </div>
@@ -745,7 +555,7 @@ export default function Healthcare() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="hero-content-from-left opacity-0">
             <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-              Secure and Compliant Calling for Healthcare Teams
+              Secure, Compliant Communication for Care Teams
             </h2>
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {statCards.map((s, i) => (
@@ -764,7 +574,7 @@ export default function Healthcare() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="hero-content-from-left opacity-0">
             <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-              Experiences from Leading Healthcare Institutions
+              What Healthcare Teams Say About Kloudvault
             </h2>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
@@ -813,11 +623,11 @@ export default function Healthcare() {
               className="font-bold tracking-tight text-slate-900 whitespace-nowrap"
               style={{ fontSize: "clamp(11px, 2.1vw, 1.875rem)" }}
             >
-              Improved Care. Trusted Conversations. Stronger Patient Confidence.
+              Faster Support. Better Coordination. Stronger Patient Trust.
             </h2>
           </div>
           <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-led 360 CTI?
+            Talk to our experts to design a Salesforce communication workflow.
           </p>
           <Link
             href="https://360cti.com/contact/"
@@ -825,7 +635,7 @@ export default function Healthcare() {
             rel="noopener noreferrer"
             className="mt-8 inline-flex rounded-lg bg-[#008ecc] px-8 py-3 font-semibold text-white hover:bg-sky-700"
           >
-            Contact our Experts
+            Talk to a Healthcare Specialist
           </Link>
         </div>
       </section>

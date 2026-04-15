@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import SharedNavbar from "./SharedNavbar";
 import {
   Menu,
   X,
@@ -72,8 +72,8 @@ function NavbarLogo() {
   if (useSvg) return <LogoMark className="h-16 w-16" />;
   return (
     <img
-      src="/logo.png"
-      alt="360 CTI"
+      src="/Kloudvault.png"
+      alt="Kloudvault"
       width={200}
       height={64}
       className="h-14 w-auto max-h-16 object-contain sm:h-16"
@@ -83,23 +83,6 @@ function NavbarLogo() {
   );
 }
 
-const partnerLogos = [
-  { src: "/partner-logos/Asset-13.svg", alt: "Bank", w: 46, h: 21 },
-  { src: "/partner-logos/Asset-14.svg", alt: "AMGEN", w: 78, h: 11 },
-  { src: "/partner-logos/Asset-15.svg", alt: "Abbott", w: 28, h: 28 },
-  { src: "/partner-logos/Asset-12.svg", alt: "Liberis", w: 74, h: 16 },
-  { src: "/partner-logos/Asset-11.svg", alt: "INSEAD", w: 67, h: 20 },
-  { src: "/partner-logos/Asset-10.svg", alt: "PageGroup", w: 56, h: 14 },
-  { src: "/partner-logos/Asset-9.svg", alt: "togetherTV", w: 69, h: 17 },
-  { src: "/partner-logos/Asset-8.svg", alt: "Partner 8", w: 71, h: 20 },
-  { src: "/partner-logos/Asset-7.svg", alt: "Partner 7", w: 49, h: 22 },
-  { src: "/partner-logos/Asset-6.svg", alt: "Partner 6", w: 71, h: 15 },
-  { src: "/partner-logos/Asset-5.svg", alt: "Partner 5", w: 84, h: 15 },
-  { src: "/partner-logos/Asset-4.svg", alt: "Partner 4", w: 57, h: 16 },
-  { src: "/partner-logos/Asset-3.svg", alt: "Partner 3", w: 51, h: 31 },
-  { src: "/partner-logos/Asset-2.svg", alt: "Partner 2", w: 55, h: 29 },
-  { src: "/partner-logos/Asset-1.svg", alt: "Partner 1", w: 96, h: 37 },
-];
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -137,8 +120,6 @@ const NAV = [
       { label: "Healthcare", href: "/healthcare" },
     ],
   },
-  { label: "Our Story", href: "/our-story" },
-  { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -160,144 +141,24 @@ function navItemIsActive(item, pathname) {
 }
 
 function Navbar() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [mobileExpand, setMobileExpand] = useState(null);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex min-h-[52px] min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:justify-normal lg:gap-x-6 lg:px-8">
-        <Link href="/" className="relative flex h-14 shrink-0 items-center" onClick={() => setOpen(false)}>
-          <NavbarLogo />
-        </Link>
-
-        <nav className="hidden min-w-0 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="Primary">
-          {NAV.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="group relative shrink-0">
-                <button
-                  type="button"
-                  className={`flex items-center gap-0.5 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                  }`}
-                >
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[200px] translate-y-1 rounded-lg border border-slate-200 bg-white py-1 shadow-lg opacity-0 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.dropdown.map((d) => {
-                    const label = typeof d === "string" ? d : d.label;
-                    const href = typeof d === "string" ? item.href : d.href;
-                    return (
-                      <Link
-                        key={label}
-                        href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                      >
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`shrink-0 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                  navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a2449] sm:px-5 sm:py-2.5"
-          >
-            Let&apos;s Talk
-          </Link>
-          <button
-            type="button"
-            className="shrink-0 rounded-lg p-2 text-slate-700 lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="border-t border-slate-100 px-4 py-3 lg:hidden">
-          {NAV.map((item) => (
-            <div key={item.label}>
-              {item.dropdown ? (
-                <>
-                  <button
-                    type="button"
-                    className={`flex w-full items-center justify-between py-2 text-left text-base font-semibold ${
-                      navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-900"
-                    }`}
-                    onClick={() => setMobileExpand((e) => (e === item.label ? null : item.label))}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`h-4 w-4 ${mobileExpand === item.label ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {mobileExpand === item.label && (
-                    <div className="ml-2 border-l border-slate-200 pl-3 pb-2">
-                      {item.dropdown.map((d) => {
-                        const label = typeof d === "string" ? d : d.label;
-                        const href = typeof d === "string" ? item.href : d.href;
-                        return (
-                          <Link
-                            key={label}
-                            href={href}
-                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                            onClick={() => setOpen(false)}
-                          >
-                            {label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className={`block py-2 text-base font-medium ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-800"
-                  }`}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </header>
+    <SharedNavbar
+      navItems={NAV}
+      NavbarLogo={NavbarLogo}
+      ChevronIcon={ChevronDown}
+      MenuIcon={Menu}
+      CloseIcon={X}
+      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      logoHref="#top"
+    />
   );
 }
-
 function FloatingChat() {
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:gap-3">
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg"
+        className="hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg sm:flex"
         aria-label="Live chat"
       >
         <MessageCircle className="h-5 w-5" />
@@ -305,7 +166,7 @@ function FloatingChat() {
       </button>
       <button
         type="button"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg sm:h-12 sm:w-12"
         aria-label="Open chat"
       >
         <MessageCircle className="h-6 w-6" />
@@ -346,20 +207,20 @@ function HomeStyleFooter() {
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-end gap-2 text-white">
-                <LogoMark className="h-14 w-14 [&_text]:fill-white" />
+                <img src="/Kloudvault logo.png" alt="Kloudvault" className="h-14 w-auto" />
               </div>
               <p className="mt-4 text-sm font-semibold">Let&apos;s Connect</p>
               <div className="mt-4 flex gap-2">
                 {[
-                  { label: "Facebook", char: "f" },
-                  { label: "X", char: "𝕏" },
-                  { label: "LinkedIn", char: "in" },
-                  { label: "YouTube", char: "▶" },
-                  { label: "Instagram", char: "◎" },
+                  {
+                    label: "LinkedIn",
+                    char: "in",
+                    href: "https://www.linkedin.com/company/kloudrac/posts/?feedView=all",
+                  },
                 ].map((s) => (
                   <a
                     key={s.label}
-                    href="#"
+                    href={s.href}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-xs font-bold text-white hover:bg-sky-500"
                     aria-label={s.label}
                   >
@@ -370,8 +231,8 @@ function HomeStyleFooter() {
             </div>
             <div>
               <h3 className="font-semibold">Email Us</h3>
-              <a href="mailto:contact@360cti.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
-                contact@360cti.com
+              <a href="mailto:contact@Kloudvault.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
+                contact@Kloudvault.com
               </a>
             </div>
             <div>
@@ -412,7 +273,7 @@ function HomeStyleFooter() {
             </div>
           </div>
           <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-            <p>Copyright {new Date().getFullYear()} 360 CTI | All Right Reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Kloudvault | All Right Reserved.</p>
             <p>
               <span className="hover:text-slate-300">→ Our Business</span>{" "}
               <a href="#" className="hover:text-slate-300">
@@ -434,28 +295,28 @@ const HERO_IMG = "/Remote.png";
 
 const faqs = [
   {
-    q: "How does a virtual call center in Salesforce support remote teams effectively?",
-    a: "Native CTI keeps calls, records, and workflows inside Salesforce so agents work from anywhere with the same tools, routing, and visibility as in-office teams.",
+    q: "How does Kloudvault help remote agents work efficiently in Salesforce?",
+    a: "Kloudvault keeps calling, customer context, and workflows inside Salesforce so remote agents can work from anywhere without switching between disconnected tools.",
   },
   {
-    q: "What makes Salesforce a strong call center solution for remote teams?",
-    a: "A single system of record, omnichannel readiness, and AppExchange solutions like 360 CTI let you scale remote operations without stitching together separate apps.",
+    q: "Can supervisors monitor and support distributed teams in real time?",
+    a: "Yes. Managers can track agent status, queue activity, and call outcomes while using live monitoring tools to coach and support teams across locations.",
   },
   {
-    q: "How does remote call center software for Salesforce maintain call quality and reliability?",
-    a: "Cloud telephony with QoS-aware networks, monitoring, and failover pairs with Salesforce reporting so supervisors can spot issues and keep service levels stable.",
+    q: "How do you maintain service quality when teams are fully remote?",
+    a: "Teams can use standardized workflows, call monitoring, and performance visibility to keep response quality consistent even when agents are not in one office.",
   },
   {
-    q: "Can a remote call center in Salesforce scale quickly for growing teams?",
-    a: "Yes. Add licenses and queues as you grow, route by skills or geography, and use automation to onboard new agents faster without heavy IT projects.",
+    q: "Can Kloudvault scale with growing remote support or sales teams?",
+    a: "Yes. You can expand users, queues, and routing rules as your team grows while keeping centralized control and reporting in Salesforce.",
   },
   {
-    q: "What features should businesses look for in the best virtual call center software for Salesforce?",
-    a: "Prioritize native integration, intelligent routing, mobile access, quality monitoring, analytics, and security controls that fit your compliance needs.",
+    q: "Is mobile access available for agents working outside the office?",
+    a: "Remote agents can stay connected through Salesforce-compatible calling workflows, helping them manage conversations and follow-ups from flexible work environments.",
   },
   {
-    q: "How does Salesforce cloud telephony help manage remote call center operations efficiently?",
-    a: "Supervisors get real-time dashboards, call outcomes in CRM, and coaching tools—while agents stay productive with click-to-dial, screen pops, and guided workflows.",
+    q: "What does onboarding look like for remote call center teams?",
+    a: "After discovery, we define setup steps, admin enablement, and team onboarding so your remote operation can launch smoothly and improve over time.",
   },
 ];
 
@@ -465,50 +326,50 @@ export default function Remote() {
 
   const capabilityCards = [
     {
-      title: "Manage Calls with a Mobile App",
-      body: "Empower agents to make and receive calls remotely via Salesforce mobile and 360 CTI, ensuring uninterrupted communication from anywhere.",
+      title: "Run Calls from Anywhere",
+      body: "Enable agents to make and receive business calls through Salesforce-connected workflows from home, branch offices, or while in the field.",
       icon: Smartphone,
       bg: "bg-sky-50 border border-sky-100",
     },
     {
-      title: "Live Call Supervision",
-      body: "Use call barging, whispering, and monitoring to coach agents in real time—even from remote locations—to maintain service quality.",
+      title: "Supervise Calls in Real Time",
+      body: "Support remote teams with live monitoring and coaching tools so managers can guide conversations instantly and maintain service standards.",
       icon: MonitorPlay,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Balance Workloads for Remote Teams",
-      body: "Distribute inbound calls evenly across remote agents based on availability or skillset, improving call handling speed and team efficiency.",
+      title: "Distribute Workloads Intelligently",
+      body: "Route inbound calls by agent availability and skill to reduce wait times, prevent overload, and improve response consistency across teams.",
       icon: UsersRound,
       bg: "bg-sky-50 border border-sky-100",
     },
     {
-      title: "Faster Connectivity with Remote Teams",
-      body: "Enable remote agents to update their availability (Online, Away, Offline) so calls are routed only to available team members, minimizing delays.",
+      title: "Improve Agent Availability Control",
+      body: "Let agents update their status in real time so calls are directed to active team members and customer interactions move without delays.",
       icon: UserCheck,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Boost Remote Team Accountability",
-      body: "Track every inbound/outbound call, missed calls, durations, and outcomes by user, ensuring transparency and accountability across remote teams.",
+      title: "Track Performance with Clarity",
+      body: "Capture inbound and outbound activity, missed calls, durations, and outcomes by user to keep remote operations transparent and measurable.",
       icon: ClipboardCheck,
       bg: "bg-sky-50 border border-sky-100",
     },
     {
-      title: "Deliver a Consistent Customer Experience",
-      body: "Ensure repeat callers connect with the same agent using Sticky Agent, building trust and seamless support, so remote teams stay unified and professional.",
+      title: "Deliver Consistent Customer Service",
+      body: "Use unified workflows and smart continuity features to give repeat callers a familiar experience and keep service quality steady across remote teams.",
       icon: BadgeCheck,
       bg: "bg-white border border-slate-200",
     },
   ];
 
   const statCards = [
-    { big: "13+", small: "Years of Trust" },
-    { big: "Zero", small: "Integration Hassle" },
-    { big: "100%", small: "Free Support" },
-    { big: "Dedicated", small: "Mobile App" },
-    { big: "Salesforce-Native", small: "Telephony" },
-    { big: "100%", small: "Data Security" },
+    { big: "24x7", small: "Remote Availability" },
+    { big: "Zero", small: "Manual Logging Hassle" },
+    { big: "99.9%", small: "Platform Reliability" },
+    { big: "Smart", small: "Agent Routing" },
+    { big: "Salesforce-Native", small: "Unified Workflows" },
+    { big: "Enterprise", small: "Security Controls" },
   ];
 
   const statBg = (i) =>
@@ -516,18 +377,18 @@ export default function Remote() {
 
   const testimonials = [
     {
-      title: "It is easy to implement and navigate",
+      title: "Smooth rollout for distributed teams",
       quote:
-        "This app has been great for our team. It is easy to implement and navigate and the 360 team is very responsive in setting up and training. Thank you...",
-      name: "Christina Duncan",
-      role: "Transaction Manager",
+        "We moved to a remote-first setup without losing visibility. Agents adopted the workflow quickly, and supervisors now manage queues with much better control.",
+      name: "Ritika Sharma",
+      role: "Operations Manager",
     },
     {
-      title: "Very quick and accurate when answering a call.",
+      title: "Reliable performance across remote locations",
       quote:
-        "Pankaj has been on top of things during the demo, implementation, and testing phases. Any issues we have had were dealt with quickly by top-notc...",
-      name: "Chris Bullion",
-      role: "Engineering Director",
+        "Call handling is faster and follow-ups are cleaner in Salesforce. Even with teams in multiple cities, service quality has stayed consistent.",
+      name: "Aman Verma",
+      role: "Customer Success Lead",
     },
   ];
 
@@ -540,11 +401,11 @@ export default function Remote() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-start lg:gap-10 lg:px-12">
             <div className="hero-content-from-left opacity-0">
-              <h1 className="text-[45px] font-bold leading-[1.1] tracking-tight text-slate-900">
-                Power Your Remote Call Center with Salesforce-Native 360 CTI
+              <h1 className="text-3xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-[3.5rem]">
+                Empower Your Remote Teams with AI-Led Kloudvault
               </h1>
               <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
-                Enable secure, high-performance customer support for remote teams—fully inside Salesforce.
+                Deliver secure, high-performance customer conversations from anywhere with Salesforce-native workflows built for modern remote operations.
               </p>
               <Link
                 href="https://360cti.com/contact/"
@@ -567,7 +428,7 @@ export default function Remote() {
               ) : (
                 <img
                   src={encodeURI(HERO_IMG)}
-                  alt="Remote call center with Salesforce-native 360 CTI"
+                  alt="Remote call center with Salesforce-native Kloudvault"
                   className="h-auto w-full max-w-xl rounded-2xl object-contain sm:max-w-2xl xl:max-w-3xl"
                   loading="eager"
                   decoding="async"
@@ -579,60 +440,12 @@ export default function Remote() {
         </div>
       </section>
 
-      {/* 2 — Trusted by + marquee */}
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-w-4xl justify-center">
-            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-600 shadow-sm sm:text-base">
-              Trusted by <span className="font-semibold text-sky-600">India&apos;s Leading Enterprises</span>
-            </p>
-          </div>
-          <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
-            <div className="w-full overflow-hidden">
-              <div className="partner-marquee-logos opacity-100">
-                <div className="partner-marquee-track flex w-max">
-                  <div className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-a`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                  <div aria-hidden="true" className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-b`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 3 — Capabilities */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Capabilities for Remote Call Center Success
+            Core Capabilities for High-Performing Remote Teams
           </h2>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {capabilityCards.map((c) => (
@@ -661,7 +474,7 @@ export default function Remote() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-led CTI Built for Reliable Remote Teams
+            AI-Led Kloudvault Built for Remote Team Performance
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {statCards.map((s, i) => (
@@ -678,7 +491,7 @@ export default function Remote() {
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Voices from the Frontlines of Telephony
+            What Remote Teams Say About Kloudvault
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {testimonials.map((t) => (
@@ -713,7 +526,9 @@ export default function Remote() {
       <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
-          <p className="mt-3 text-center text-slate-600">FAQs About Remote Call Centers</p>
+          <p className="mt-3 text-center text-slate-600">
+            Common questions about Kloudvault remote call center workflows and Salesforce integration
+          </p>
           <div className="mt-10 space-y-3">
             {faqs.map((item, i) => {
               const isOpen = faqOpen === i;
@@ -773,10 +588,10 @@ export default function Remote() {
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
           <h2 className="text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
-            Deliver Consistent, Connected Customer Experiences—From Anywhere
+            Build Reliable Remote Service Experiences at Every Touchpoint
           </h2>
           <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-led 360 CTI?
+            Have questions or want to see how AI-led Kloudvault supports your remote teams?
           </p>
           <Link
             href="https://360cti.com/contact/"

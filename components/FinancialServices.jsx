@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import SharedNavbar from "./SharedNavbar";
 import { Menu, X, ChevronDown, MessageCircle, Star } from "lucide-react";
 
 function LogoMark({ className = "h-16 w-16" }) {
@@ -60,8 +60,8 @@ function NavbarLogo() {
   if (useSvg) return <LogoMark className="h-16 w-16" />;
   return (
     <img
-      src="/logo.png"
-      alt="360 CTI"
+      src="/Kloudvault.png"
+      alt="Kloudvault"
       width={200}
       height={64}
       className="h-14 w-auto max-h-16 object-contain sm:h-16"
@@ -71,23 +71,6 @@ function NavbarLogo() {
   );
 }
 
-const partnerLogos = [
-  { src: "/partner-logos/Asset-13.svg", alt: "Bank", w: 46, h: 21 },
-  { src: "/partner-logos/Asset-14.svg", alt: "AMGEN", w: 78, h: 11 },
-  { src: "/partner-logos/Asset-15.svg", alt: "Abbott", w: 28, h: 28 },
-  { src: "/partner-logos/Asset-12.svg", alt: "Liberis", w: 74, h: 16 },
-  { src: "/partner-logos/Asset-11.svg", alt: "INSEAD", w: 67, h: 20 },
-  { src: "/partner-logos/Asset-10.svg", alt: "PageGroup", w: 56, h: 14 },
-  { src: "/partner-logos/Asset-9.svg", alt: "togetherTV", w: 69, h: 17 },
-  { src: "/partner-logos/Asset-8.svg", alt: "Partner 8", w: 71, h: 20 },
-  { src: "/partner-logos/Asset-7.svg", alt: "Partner 7", w: 49, h: 22 },
-  { src: "/partner-logos/Asset-6.svg", alt: "Partner 6", w: 71, h: 15 },
-  { src: "/partner-logos/Asset-5.svg", alt: "Partner 5", w: 84, h: 15 },
-  { src: "/partner-logos/Asset-4.svg", alt: "Partner 4", w: 57, h: 16 },
-  { src: "/partner-logos/Asset-3.svg", alt: "Partner 3", w: 51, h: 31 },
-  { src: "/partner-logos/Asset-2.svg", alt: "Partner 2", w: 55, h: 29 },
-  { src: "/partner-logos/Asset-1.svg", alt: "Partner 1", w: 96, h: 37 },
-];
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -125,8 +108,6 @@ const NAV = [
       { label: "Healthcare", href: "/healthcare" },
     ],
   },
-  { label: "Our Story", href: "/our-story" },
-  { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -148,144 +129,24 @@ function navItemIsActive(item, pathname) {
 }
 
 function Navbar() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [mobileExpand, setMobileExpand] = useState(null);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex min-h-[52px] min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:justify-normal lg:gap-x-6 lg:px-8">
-        <Link href="/" className="relative flex h-14 shrink-0 items-center" onClick={() => setOpen(false)}>
-          <NavbarLogo />
-        </Link>
-
-        <nav className="hidden min-w-0 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="Primary">
-          {NAV.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="group relative shrink-0">
-                <button
-                  type="button"
-                  className={`flex items-center gap-0.5 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                  }`}
-                >
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[200px] translate-y-1 rounded-lg border border-slate-200 bg-white py-1 shadow-lg opacity-0 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.dropdown.map((d) => {
-                    const label = typeof d === "string" ? d : d.label;
-                    const href = typeof d === "string" ? item.href : d.href;
-                    return (
-                      <Link
-                        key={label}
-                        href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                      >
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`shrink-0 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                  navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a2449] sm:px-5 sm:py-2.5"
-          >
-            Let&apos;s Talk
-          </Link>
-          <button
-            type="button"
-            className="shrink-0 rounded-lg p-2 text-slate-700 lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="border-t border-slate-100 px-4 py-3 lg:hidden">
-          {NAV.map((item) => (
-            <div key={item.label}>
-              {item.dropdown ? (
-                <>
-                  <button
-                    type="button"
-                    className={`flex w-full items-center justify-between py-2 text-left text-base font-semibold ${
-                      navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-900"
-                    }`}
-                    onClick={() => setMobileExpand((e) => (e === item.label ? null : item.label))}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`h-4 w-4 ${mobileExpand === item.label ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {mobileExpand === item.label && (
-                    <div className="ml-2 border-l border-slate-200 pl-3 pb-2">
-                      {item.dropdown.map((d) => {
-                        const label = typeof d === "string" ? d : d.label;
-                        const href = typeof d === "string" ? item.href : d.href;
-                        return (
-                          <Link
-                            key={label}
-                            href={href}
-                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                            onClick={() => setOpen(false)}
-                          >
-                            {label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className={`block py-2 text-base font-medium ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-800"
-                  }`}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </header>
+    <SharedNavbar
+      navItems={NAV}
+      NavbarLogo={NavbarLogo}
+      ChevronIcon={ChevronDown}
+      MenuIcon={Menu}
+      CloseIcon={X}
+      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      logoHref="#top"
+    />
   );
 }
-
 function FloatingChat() {
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:gap-3">
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg"
+        className="hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg sm:flex"
         aria-label="Live chat"
       >
         <MessageCircle className="h-5 w-5" />
@@ -293,7 +154,7 @@ function FloatingChat() {
       </button>
       <button
         type="button"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg sm:h-12 sm:w-12"
         aria-label="Open chat"
       >
         <MessageCircle className="h-6 w-6" />
@@ -334,20 +195,20 @@ function HomeStyleFooter() {
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-end gap-2 text-white">
-                <LogoMark className="h-14 w-14 [&_text]:fill-white" />
+                <img src="/Kloudvault logo.png" alt="Kloudvault" className="h-14 w-auto" />
               </div>
               <p className="mt-4 text-sm font-semibold">Let&apos;s Connect</p>
               <div className="mt-4 flex gap-2">
                 {[
-                  { label: "Facebook", char: "f" },
-                  { label: "X", char: "𝕏" },
-                  { label: "LinkedIn", char: "in" },
-                  { label: "YouTube", char: "▶" },
-                  { label: "Instagram", char: "◎" },
+                  {
+                    label: "LinkedIn",
+                    char: "in",
+                    href: "https://www.linkedin.com/company/kloudrac/posts/?feedView=all",
+                  },
                 ].map((s) => (
                   <a
                     key={s.label}
-                    href="#"
+                    href={s.href}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-xs font-bold text-white hover:bg-sky-500"
                     aria-label={s.label}
                   >
@@ -358,8 +219,8 @@ function HomeStyleFooter() {
             </div>
             <div>
               <h3 className="font-semibold">Email Us</h3>
-              <a href="mailto:contact@360cti.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
-                contact@360cti.com
+              <a href="mailto:contact@Kloudvault.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
+                contact@Kloudvault.com
               </a>
             </div>
             <div>
@@ -400,7 +261,7 @@ function HomeStyleFooter() {
             </div>
           </div>
           <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-            <p>Copyright {new Date().getFullYear()} 360 CTI | All Right Reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Kloudvault | All Right Reserved.</p>
             <p>
               <span className="hover:text-slate-300">→ Our Business</span>{" "}
               <a href="#" className="hover:text-slate-300">
@@ -427,12 +288,12 @@ const ACCELERATE_IMG_PATHS = [
 const PAYMENT_IMG_PATHS = ["/Improve Payment.png", "/Improve-Payment.png", "/ImprovePayment.png"];
 
 const statCards = [
-  { big: "13+", small: "Years of Trust" },
-  { big: "Zero", small: "Integration Hassle" },
-  { big: "100%", small: "Free Support" },
-  { big: "No Code", small: "Telephony Solution" },
-  { big: "Salesforce-Native", small: "Telephony" },
-  { big: "100%", small: "Data Security" },
+  { big: "24x7", small: "Client Support Readiness" },
+  { big: "Zero", small: "Manual Follow-Up Delays" },
+  { big: "99.9%", small: "Calling Reliability" },
+  { big: "Smart", small: "Risk-Based Routing" },
+  { big: "Salesforce-Native", small: "Advisor Workflows" },
+  { big: "Enterprise", small: "Compliance Controls" },
 ];
 
 function statCardClass(i) {
@@ -449,66 +310,66 @@ export default function FinancialServices() {
 
   const impactStats = [
     {
-      pct: "35%",
-      title: "Faster Loan & Policy Processing",
-      body: "On-point conversations with routed calls and automated follow-ups reduce delays, shorten processing cycles, and accelerate client decision-making.",
+      pct: "32%",
+      title: "Faster Case Resolution",
+      body: "Context-aware routing and guided call workflows help advisors resolve client requests quicker across lending, insurance, and servicing teams.",
     },
     {
-      pct: "29%",
-      title: "Higher Client Satisfaction & Retention",
-      body: "Consistent advisor connections, secure and personalized engagement, build long-term trust and improve loyalty and satisfaction.",
+      pct: "36%",
+      title: "Stronger Client Retention",
+      body: "Personalized conversations and timely follow-ups improve trust, reduce churn, and keep high-value relationships active over time.",
     },
     {
-      pct: "28%",
-      title: "More Efficient Operations",
-      body: "Automated calls, advanced routing, reminders, and monitoring reduce manual effort, ensure compliance, and streamline finance support workflows.",
+      pct: "30%",
+      title: "Higher Team Productivity",
+      body: "Automation reduces repetitive call logging and improves visibility so operations teams can focus on quality, speed, and compliance outcomes.",
     },
   ];
 
   const accelerateCards = [
     {
-      title: "Speed up Loan Processing",
-      body: "Instantly route inquiries to mortgage or loan officers based on caller intent with advanced call routing, shortening loan cycles, and enhancing customer experiences.",
+      title: "Accelerate Lending and Service Journeys",
+      body: "Route calls to the right specialist based on account type and intent, helping teams reduce wait time and move client requests forward faster.",
     },
     {
-      title: "Secure Client Conversations",
-      body: "Ensure private, masked calls between advisors and clients with call masking—protecting PII and ensuring compliance with financial regulations.",
+      title: "Protect Sensitive Financial Conversations",
+      body: "Use secure workflows and controlled call handling to safeguard customer information while supporting regulatory and internal policy requirements.",
     },
     {
-      title: "Deliver Quality Service in Real-time",
-      body: "Monitor live calls to ensure compliance, coach advisors using whisper mode, and maintain service quality with CTI for call centers in finance, support teams, and more.",
+      title: "Improve Service Quality in Real Time",
+      body: "Supervisors can monitor interactions, coach advisors instantly, and maintain consistent client experience across branches and remote teams.",
     },
   ];
 
   const paymentCards = [
     {
-      title: "Improve Payment Collections",
-      body: "Schedule automated payment reminders and alerts with voice broadcast, reducing late payments, improving collection, and boosting customer retention effortlessly.",
+      title: "Strengthen Payment and Renewal Follow-Ups",
+      body: "Automate reminder workflows for due payments and renewals so teams can improve collection discipline and reduce missed opportunities.",
     },
     {
-      title: "Build Stronger Client Relationships",
-      body: "Understand client needs through live AI transcripts and sentiment analysis, automate timely follow-ups, ensure consistent advisor calls, and build lasting relationships.",
+      title: "Deliver More Personalized Advisory Calls",
+      body: "Provide advisors with complete Salesforce context before every call to improve recommendations, relationship quality, and decision confidence.",
     },
     {
-      title: "Personalize Financial Consultations",
-      body: "Connect returning clients with the same advisor automatically using Sticky sender, ensuring personalized interactions, continuity, and trust in long-term financial guidance.",
+      title: "Ensure Continuity for Returning Clients",
+      body: "Route repeat interactions intelligently so clients connect with familiar advisors, helping build trust and improving long-term account outcomes.",
     },
   ];
 
   const testimonials = [
     {
-      title: "Great Solution for Calling.",
+      title: "Operational visibility improved across departments",
       quote:
-        "We recently switched from 'Ameyo' to '360 CTI' and have found the experience largely positive. The overall support from the team has been goo...",
-      name: "Arun Narvekar",
-      role: "Developer",
+        "Our servicing and collections teams now work from one Salesforce-driven communication flow. It reduced response delays and improved manager oversight significantly.",
+      name: "Rohit Malhotra",
+      role: "Head of Operations",
     },
     {
-      title: "360 CTI Simplified Client Follow-Ups and Improved Customer Service!",
+      title: "Better advisor-client engagement quality",
       quote:
-        "In financial services, staying in touch with clients quickly and efficiently is crucial. With 360 CTI, we've seen improvements in both our client communication and team productivity.",
-      name: "Anchal Pal",
-      role: "Administrator",
+        "Follow-ups are structured, client history is always available, and our teams spend less time on manual updates. It has improved both speed and service quality.",
+      name: "Megha Suri",
+      role: "CRM Program Manager",
     },
   ];
 
@@ -536,14 +397,13 @@ export default function FinancialServices() {
         <div className="relative z-10 mx-auto w-full max-w-[min(100%,1200px)] px-4 py-20 text-center sm:px-6 sm:py-24">
           <div className="hero-content-from-left mx-auto max-w-full min-w-0 opacity-0">
             <span className="inline-block rounded-full border border-white/40 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-white">
-              360 CTI for Financial Services
+              Financial Services Communication Cloud
             </span>
             <h1 className="mx-auto mt-8 max-w-4xl px-2 text-3xl font-bold leading-snug tracking-tight text-white sm:px-0 sm:text-4xl lg:text-5xl lg:leading-tight break-words">
-              Build Stronger Client Relationships with Salesforce CTI
+              Modernize Financial Client Communication with AI-Led 360 CTI
             </h1>
             <p className="mx-auto mt-6 max-w-2xl break-words px-2 text-base leading-relaxed text-white/90 sm:px-0 sm:text-lg">
-              Automate client outreach, securely route loan and policy calls, and streamline follow-ups to enhance
-              customer experience and trust.
+              Unify advisor calls, service follow-ups, and compliance-ready workflows inside Salesforce to deliver faster and more trusted client experiences.
             </p>
             <Link
               href="https://360cti.com/contact/"
@@ -551,67 +411,18 @@ export default function FinancialServices() {
               rel="noopener noreferrer"
               className="mt-10 inline-flex rounded-lg bg-sky-600 px-8 py-3.5 text-sm font-semibold text-white hover:bg-sky-700"
             >
-              Book a 1:1 Demo
+              Schedule a Financial Services Demo
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 2 — Trusted + marquee */}
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="hero-content-from-left mx-auto flex max-w-4xl justify-center opacity-0">
-            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-800 shadow-sm sm:text-base">
-              <span className="font-medium text-slate-700">Trusted by </span>
-              <span className="font-semibold text-sky-600">Leading Financial Firms</span>
-            </p>
-          </div>
-          <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
-            <div className="w-full overflow-hidden">
-              <div className="partner-marquee-logos opacity-100">
-                <div className="partner-marquee-track flex w-max">
-                  <div className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-a`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                  <div aria-hidden="true" className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-b`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 3 — Drive outcomes */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl md:text-4xl">
-            Drive Outcomes: Higher Satisfaction, More Retention
+            Business Outcomes for Financial Teams
           </h2>
           <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
             {impactStats.map((s) => (
@@ -629,11 +440,10 @@ export default function FinancialServices() {
       <section className="bg-slate-50 py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="mx-auto max-w-5xl text-center text-2xl font-bold leading-tight text-slate-900 sm:text-3xl md:text-[2.5rem] md:leading-tight">
-            Accelerate Financial Engagement with AI-Led Salesforce Calling
+            Accelerate Client Servicing with Salesforce-Native Calling
           </h2>
           <p className="mx-auto mt-5 max-w-3xl text-center text-sm leading-relaxed text-slate-600 sm:text-base">
-            Transform client outreach—connect efficiently, manage high-value conversations, and support faster
-            decision-making with AI-driven calling in Salesforce.
+            Improve response speed, maintain consistent advisory quality, and keep every client conversation connected to real-time CRM context.
           </p>
           <div className="mt-14 grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
             <div className="hero-content-from-left space-y-4 opacity-0">
@@ -717,7 +527,7 @@ export default function FinancialServices() {
             <p className="text-center text-lg font-semibold leading-snug text-white sm:max-w-[55%] sm:text-left sm:text-xl">
               Want to see results
               <br />
-              from actual use cases?
+              from real financial use cases?
             </p>
             <Link
               href="https://360cti.com/contact/"
@@ -725,7 +535,7 @@ export default function FinancialServices() {
               rel="noopener noreferrer"
               className="shrink-0 rounded-md bg-white px-5 py-3 text-center text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50 sm:px-6"
             >
-              Download the Case Study Now!
+              Download the Finance Case Study
             </Link>
           </div>
         </div>
@@ -744,7 +554,7 @@ export default function FinancialServices() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Secure and Compliant Telephony for Financial Communication
+            Secure, Compliant, and Scalable Financial Telephony
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {statCards.map((s, i) => (
@@ -761,7 +571,7 @@ export default function FinancialServices() {
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Trusted by Leading Financial Institutions—Read Their Stories
+            What Financial Teams Say About Kloudvault
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {testimonials.map((t) => (
@@ -804,11 +614,13 @@ export default function FinancialServices() {
         }}
       >
         <div className="mx-auto max-w-[min(100%,1200px)] px-4 text-center">
-          <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
-            Faster Decisions. Trusted Conversations. Better Client Experiences.
+          <h2 className="font-bold tracking-tight text-slate-900 text-[clamp(1rem,3.6vw,2rem)] leading-tight">
+            Faster Service. Smarter Advisory Calls.
+            <br className="sm:hidden" />
+            <span className="sm:ml-1">Stronger Client Trust.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-pretty text-base text-slate-700 sm:text-lg">
-            Have questions or want to know more about AI-led 360 CTI?
+            Speak with our team to design a Salesforce-native communication workflow for your financial operations.
           </p>
           <Link
             href="https://360cti.com/contact/"
@@ -816,7 +628,7 @@ export default function FinancialServices() {
             rel="noopener noreferrer"
             className="mt-8 inline-flex rounded-lg bg-[#008ecc] px-8 py-3 font-semibold text-white hover:bg-sky-700"
           >
-            Contact our Experts
+            Talk to a Financial Specialist
           </Link>
         </div>
       </section>

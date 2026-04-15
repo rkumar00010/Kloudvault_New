@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import SharedNavbar from "./SharedNavbar";
 import { Menu, X, ChevronDown, MessageCircle, Star } from "lucide-react";
 
 function LogoMark({ className = "h-16 w-16" }) {
@@ -60,8 +60,8 @@ function NavbarLogo() {
   if (useSvg) return <LogoMark className="h-16 w-16" />;
   return (
     <img
-      src="/logo.png"
-      alt="360 CTI"
+      src="/Kloudvault.png"
+      alt="Kloudvault"
       width={200}
       height={64}
       className="h-14 w-auto max-h-16 object-contain sm:h-16"
@@ -71,23 +71,6 @@ function NavbarLogo() {
   );
 }
 
-const partnerLogos = [
-  { src: "/partner-logos/Asset-13.svg", alt: "Bank", w: 46, h: 21 },
-  { src: "/partner-logos/Asset-14.svg", alt: "AMGEN", w: 78, h: 11 },
-  { src: "/partner-logos/Asset-15.svg", alt: "Abbott", w: 28, h: 28 },
-  { src: "/partner-logos/Asset-12.svg", alt: "Liberis", w: 74, h: 16 },
-  { src: "/partner-logos/Asset-11.svg", alt: "INSEAD", w: 67, h: 20 },
-  { src: "/partner-logos/Asset-10.svg", alt: "PageGroup", w: 56, h: 14 },
-  { src: "/partner-logos/Asset-9.svg", alt: "togetherTV", w: 69, h: 17 },
-  { src: "/partner-logos/Asset-8.svg", alt: "Partner 8", w: 71, h: 20 },
-  { src: "/partner-logos/Asset-7.svg", alt: "Partner 7", w: 49, h: 22 },
-  { src: "/partner-logos/Asset-6.svg", alt: "Partner 6", w: 71, h: 15 },
-  { src: "/partner-logos/Asset-5.svg", alt: "Partner 5", w: 84, h: 15 },
-  { src: "/partner-logos/Asset-4.svg", alt: "Partner 4", w: 57, h: 16 },
-  { src: "/partner-logos/Asset-3.svg", alt: "Partner 3", w: 51, h: 31 },
-  { src: "/partner-logos/Asset-2.svg", alt: "Partner 2", w: 55, h: 29 },
-  { src: "/partner-logos/Asset-1.svg", alt: "Partner 1", w: 96, h: 37 },
-];
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -125,8 +108,6 @@ const NAV = [
       { label: "Healthcare", href: "/healthcare" },
     ],
   },
-  { label: "Our Story", href: "/our-story" },
-  { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -148,144 +129,24 @@ function navItemIsActive(item, pathname) {
 }
 
 function Navbar() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [mobileExpand, setMobileExpand] = useState(null);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex min-h-[52px] min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:justify-normal lg:gap-x-6 lg:px-8">
-        <Link href="/" className="relative flex h-14 shrink-0 items-center" onClick={() => setOpen(false)}>
-          <NavbarLogo />
-        </Link>
-
-        <nav className="hidden min-w-0 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="Primary">
-          {NAV.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="group relative shrink-0">
-                <button
-                  type="button"
-                  className={`flex items-center gap-0.5 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                  }`}
-                >
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[200px] translate-y-1 rounded-lg border border-slate-200 bg-white py-1 shadow-lg opacity-0 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.dropdown.map((d) => {
-                    const label = typeof d === "string" ? d : d.label;
-                    const href = typeof d === "string" ? item.href : d.href;
-                    return (
-                      <Link
-                        key={label}
-                        href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                      >
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`shrink-0 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                  navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a2449] sm:px-5 sm:py-2.5"
-          >
-            Let&apos;s Talk
-          </Link>
-          <button
-            type="button"
-            className="shrink-0 rounded-lg p-2 text-slate-700 lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="border-t border-slate-100 px-4 py-3 lg:hidden">
-          {NAV.map((item) => (
-            <div key={item.label}>
-              {item.dropdown ? (
-                <>
-                  <button
-                    type="button"
-                    className={`flex w-full items-center justify-between py-2 text-left text-base font-semibold ${
-                      navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-900"
-                    }`}
-                    onClick={() => setMobileExpand((e) => (e === item.label ? null : item.label))}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`h-4 w-4 ${mobileExpand === item.label ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {mobileExpand === item.label && (
-                    <div className="ml-2 border-l border-slate-200 pl-3 pb-2">
-                      {item.dropdown.map((d) => {
-                        const label = typeof d === "string" ? d : d.label;
-                        const href = typeof d === "string" ? item.href : d.href;
-                        return (
-                          <Link
-                            key={label}
-                            href={href}
-                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                            onClick={() => setOpen(false)}
-                          >
-                            {label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className={`block py-2 text-base font-medium ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-800"
-                  }`}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </header>
+    <SharedNavbar
+      navItems={NAV}
+      NavbarLogo={NavbarLogo}
+      ChevronIcon={ChevronDown}
+      MenuIcon={Menu}
+      CloseIcon={X}
+      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      logoHref="#top"
+    />
   );
 }
-
 function FloatingChat() {
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:gap-3">
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg"
+        className="hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg sm:flex"
         aria-label="Live chat"
       >
         <MessageCircle className="h-5 w-5" />
@@ -293,7 +154,7 @@ function FloatingChat() {
       </button>
       <button
         type="button"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg sm:h-12 sm:w-12"
         aria-label="Open chat"
       >
         <MessageCircle className="h-6 w-6" />
@@ -334,20 +195,20 @@ function HomeStyleFooter() {
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-end gap-2 text-white">
-                <LogoMark className="h-14 w-14 [&_text]:fill-white" />
+                <img src="/Kloudvault logo.png" alt="Kloudvault" className="h-14 w-auto" />
               </div>
               <p className="mt-4 text-sm font-semibold">Let&apos;s Connect</p>
               <div className="mt-4 flex gap-2">
                 {[
-                  { label: "Facebook", char: "f" },
-                  { label: "X", char: "𝕏" },
-                  { label: "LinkedIn", char: "in" },
-                  { label: "YouTube", char: "▶" },
-                  { label: "Instagram", char: "◎" },
+                  {
+                    label: "LinkedIn",
+                    char: "in",
+                    href: "https://www.linkedin.com/company/kloudrac/posts/?feedView=all",
+                  },
                 ].map((s) => (
                   <a
                     key={s.label}
-                    href="#"
+                    href={s.href}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-xs font-bold text-white hover:bg-sky-500"
                     aria-label={s.label}
                   >
@@ -358,8 +219,8 @@ function HomeStyleFooter() {
             </div>
             <div>
               <h3 className="font-semibold">Email Us</h3>
-              <a href="mailto:contact@360cti.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
-                contact@360cti.com
+              <a href="mailto:contact@Kloudvault.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
+                contact@Kloudvault.com
               </a>
             </div>
             <div>
@@ -400,7 +261,7 @@ function HomeStyleFooter() {
             </div>
           </div>
           <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-            <p>Copyright {new Date().getFullYear()} 360 CTI | All Right Reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Kloudvault | All Right Reserved.</p>
             <p>
               <span className="hover:text-slate-300">→ Our Business</span>{" "}
               <a href="#" className="hover:text-slate-300">
@@ -423,12 +284,12 @@ const AMPLIFY_IMG_PATHS = ["/Amplify Mission.png", "/Amplify-Mission.png", "/Amp
 const COORDINATE_IMG_PATHS = ["/Coordinate.png", "/Coordinate.jpg", "/coordinate.png"];
 
 const statCards = [
-  { big: "13+", small: "Years of Trust" },
-  { big: "Zero", small: "Integration Hassle" },
-  { big: "100%", small: "Free Support" },
-  { big: "No Code", small: "Telephony Solution" },
-  { big: "Salesforce-Native", small: "Telephony" },
-  { big: "100%", small: "Data Security" },
+  { big: "24x7", small: "Donor Response Readiness" },
+  { big: "Zero", small: "Manual Follow-Up Gaps" },
+  { big: "99.9%", small: "Campaign Calling Reliability" },
+  { big: "Smart", small: "Volunteer Coordination Flows" },
+  { big: "Salesforce-Native", small: "Engagement Workflows" },
+  { big: "Enterprise", small: "Data Governance" },
 ];
 
 function statCardClass(i) {
@@ -445,66 +306,66 @@ export default function NonProfit() {
 
   const impactStats = [
     {
-      pct: "39%",
-      title: "Higher Donor Retention",
-      body: "Build trust with personalized, consistent communication that keeps donors engaged and supports long-term giving.",
+      pct: "37%",
+      title: "Higher Donor Re-Engagement",
+      body: "Timely calls and contextual outreach help teams reconnect with past donors and sustain stronger long-term relationships.",
     },
     {
-      pct: "35%",
-      title: "Increase in Fundraising",
-      body: "Expand outreach and maintain donor engagement to increase support and maximize fundraising results.",
+      pct: "34%",
+      title: "Faster Campaign Outreach",
+      body: "Automated dialing and structured follow-ups let fundraisers reach more supporters in less time with better consistency.",
     },
     {
-      pct: "30%",
-      title: "Greater Mission Fulfillment",
-      body: "Accelerate impact by mobilizing volunteers, donors, and resources through timely, targeted communication.",
+      pct: "31%",
+      title: "Improved Volunteer Participation",
+      body: "Clear routing and real-time coordination keep volunteers informed, prepared, and active during high-impact initiatives.",
     },
   ];
 
   const amplifyCards = [
     {
-      title: "Strengthen Donor Relationships",
-      body: "Capture donor sentiment through AI transcripts and reconnect them with the same agent, strengthening trust and fostering lasting donor relationships.",
+      title: "Build Deeper Donor Trust",
+      body: "Give teams full donor context before each call so conversations feel personal, relevant, and aligned with supporter history.",
     },
     {
-      title: "Raise Fundraising Efficiency",
-      body: "Connect with more donors in less time using Power Dialer for bulk dialing, and simplify outreach efforts with Click-to-Dial, boosting fundraising efficiency.",
+      title: "Scale Fundraising Operations",
+      body: "Use guided dialing and CRM-linked workflows to increase outreach volume while keeping campaign execution controlled and measurable.",
     },
     {
-      title: "Run Donor Engagement Programs",
-      body: "Increase responses and engagement through automated follow-ups and voice broadcast campaigns, ensuring consistent donor touchpoints without added effort.",
+      title: "Automate Engagement Journeys",
+      body: "Run structured follow-up journeys that keep every donor touchpoint on schedule without adding manual administrative load.",
     },
   ];
 
   const coordinateCards = [
     {
-      title: "Coordinate with Volunteers",
-      body: "Connect volunteers to the right departments using intelligent call routing, live transfers, and call conferencing with a nonprofit contact center software.",
+      title: "Coordinate Volunteers Efficiently",
+      body: "Route calls by region, role, and campaign so volunteers get connected to the right team quickly during active drives.",
     },
     {
-      title: "Improve Donor Conversations",
-      body: "Enhance donor interactions by monitoring live calls and reviewing call recordings, enabling quicker issue resolution and boosting donor satisfaction.",
+      title: "Improve Conversation Quality",
+      body: "Use call monitoring and outcome tracking to coach teams, refine scripts, and maintain consistent supporter communication quality.",
     },
     {
-      title: "Boost Campaign Outreach",
-      body: "Automate calls to boost participation and engagement with a cloud telephony for nonprofits, driving greater awareness and impact for your mission campaigns.",
+      title: "Increase Campaign Reach",
+      body: "Launch high-volume outreach with confidence and keep campaign momentum strong through timely follow-ups and better visibility.",
     },
   ];
 
   const testimonials = [
     {
-      title: "It is easy to implement and navigate",
+      title: "Smooth adoption across fundraising teams",
       quote:
-        "This app has been great for our team. It is easy to implement and navigate and the 360 team is very responsive in setting up and training. Thank you...",
-      name: "Christina Duncan",
-      role: "Transaction Manager",
+        "Our team moved quickly without complex onboarding. Donor communication is now centralized in Salesforce and campaign coordination feels much more structured.",
+      name: "Ananya Roy",
+      role: "Fundraising Program Lead",
     },
     {
-      title: "Very quick and accurate when answering a call.",
+      title: "Better visibility for mission-critical outreach",
       quote:
-        "Pankaj has been on top of things during the demo, implementation, and testing phases. Any issues we have had were dealt with quickly by top-notc...",
-      name: "Chris Bullion",
-      role: "Engineering Director",
+        "From volunteer follow-ups to donor callbacks, every interaction is easier to track. It helped us improve response quality across distributed teams.",
+      name: "Dev Mehra",
+      role: "Operations Head, Community First Trust",
     },
   ];
 
@@ -532,17 +393,16 @@ export default function NonProfit() {
         <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-4 py-20 text-center sm:px-6 sm:py-24">
           <div className="hero-content-from-left flex w-full max-w-5xl flex-col items-center opacity-0">
             <span className="inline-block rounded-full border border-white/50 bg-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white">
-              360 CTI for Non-Profit
+              Nonprofit Engagement Platform
             </span>
             <div className="mx-auto mt-8 w-full max-w-4xl px-2 sm:px-0">
               <h1 className="text-center text-3xl font-bold leading-snug tracking-tight text-white sm:text-4xl lg:text-5xl lg:leading-tight">
                 <span className="block">Strengthen Donor and Volunteer Engagement with</span>
-                <span className="mt-1 block sm:mt-2">Salesforce CTI</span>
+                <span className="mt-1 block sm:mt-2">AI-Led Kloudvault in Salesforce</span>
               </h1>
             </div>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/95 sm:text-lg">
-              Engage donors, automate outreach, and personalize volunteer interactions to maximize donations and social
-              impact.
+              Unify donor outreach, volunteer communication, and campaign calling workflows so your mission teams can create measurable community impact.
             </p>
             <Link
               href="https://360cti.com/contact/"
@@ -550,67 +410,18 @@ export default function NonProfit() {
               rel="noopener noreferrer"
               className="mt-10 inline-flex rounded-full bg-sky-600 px-10 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-700"
             >
-              Book a 1:1 Demo
+              Request a Nonprofit Demo
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 2 — Trusted + marquee */}
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-w-4xl justify-center">
-            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-800 shadow-sm sm:text-base">
-              <span className="font-medium text-slate-700">Empowering </span>
-              <span className="font-semibold text-sky-600">Top NPOs Worldwide</span>
-            </p>
-          </div>
-          <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
-            <div className="w-full overflow-hidden">
-              <div className="partner-marquee-logos opacity-100">
-                <div className="partner-marquee-track flex w-max">
-                  <div className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-a`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                  <div aria-hidden="true" className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-b`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 3 — Drive impact */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl md:text-4xl">
-            Drive Impact: More Funds, Greater Cause Fulfillment
+            Outcomes That Move Your Mission Forward
           </h2>
           <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
             {impactStats.map((s) => (
@@ -628,11 +439,10 @@ export default function NonProfit() {
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="mx-auto max-w-5xl text-center text-2xl font-bold leading-tight text-slate-900 sm:text-3xl md:text-[2.5rem] md:leading-tight">
-            Amplify Mission Outcomes with AI-Backed Salesforce Calling
+            Power Mission Programs with Salesforce-Native Calling
           </h2>
           <p className="mx-auto mt-5 max-w-3xl text-center text-sm leading-relaxed text-slate-600 sm:text-base">
-            Transform outreach—connect with more supporters, manage conversations efficiently, and strengthen engagement
-            with AI-driven calling in Salesforce.
+            Reach supporters faster, improve campaign coordination, and maintain personalized engagement with one unified communication workflow.
           </p>
           <div className="mt-14 grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
             <div className="hero-content-from-left space-y-4 opacity-0">
@@ -714,7 +524,7 @@ export default function NonProfit() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="flex flex-col items-stretch justify-between gap-6 rounded-2xl bg-[#3B8DEB] px-6 py-8 shadow-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-9">
             <p className="text-center text-lg font-semibold leading-snug text-white sm:max-w-[55%] sm:text-left sm:text-xl">
-              Want to see results from actual use cases?
+              Need a campaign communication strategy template?
             </p>
             <Link
               href="https://360cti.com/contact/"
@@ -722,7 +532,7 @@ export default function NonProfit() {
               rel="noopener noreferrer"
               className="shrink-0 rounded-md bg-white px-5 py-3 text-center text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50 sm:px-6"
             >
-              Download the Case Study Now!
+              Get the Campaign Playbook
             </Link>
           </div>
         </div>
@@ -741,7 +551,7 @@ export default function NonProfit() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-led Connectivity to Boost Community Impact
+            AI-Led Kloudvault for High-Impact Nonprofit Teams
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {statCards.map((s, i) => (
@@ -758,7 +568,7 @@ export default function NonProfit() {
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Trusted by NPOs Globally—Read Their Stories
+            Stories from Mission-Driven Teams
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {testimonials.map((t) => (
@@ -801,11 +611,13 @@ export default function NonProfit() {
         }}
       >
         <div className="mx-auto max-w-4xl px-4 text-center">
-          <h2 className="text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl">
-            More Funds. Engaged Donors. Lasting Community Impact.
+          <h2 className="font-bold tracking-tight text-slate-900 text-[clamp(1rem,3.6vw,1.8rem)] leading-tight">
+            Engage Supporters Better. Coordinate Teams Faster.
+            <br className="sm:hidden" />
+            <span className="sm:ml-1">Deliver More Impact.</span>
           </h2>
           <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-led 360 CTI?
+            Talk to our experts to design a Salesforce communication workflow tailored for your nonprofit programs.
           </p>
           <Link
             href="https://360cti.com/contact/"
@@ -813,7 +625,7 @@ export default function NonProfit() {
             rel="noopener noreferrer"
             className="mt-8 inline-flex rounded-lg bg-sky-500 px-8 py-3 font-semibold text-white hover:bg-sky-600"
           >
-            Contact our Experts
+            Talk to a Nonprofit Specialist
           </Link>
         </div>
       </section>

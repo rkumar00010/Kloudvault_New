@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import SharedNavbar from "./SharedNavbar";
 import {
   Menu,
   X,
@@ -71,8 +71,8 @@ function NavbarLogo() {
   if (useSvg) return <LogoMark className="h-16 w-16" />;
   return (
     <img
-      src="/logo.png"
-      alt="360 CTI"
+      src="/Kloudvault.png"
+      alt="Kloudvault"
       width={200}
       height={64}
       className="h-14 w-auto max-h-16 object-contain sm:h-16"
@@ -82,23 +82,6 @@ function NavbarLogo() {
   );
 }
 
-const partnerLogos = [
-  { src: "/partner-logos/Asset-13.svg", alt: "Bank", w: 46, h: 21 },
-  { src: "/partner-logos/Asset-14.svg", alt: "AMGEN", w: 78, h: 11 },
-  { src: "/partner-logos/Asset-15.svg", alt: "Abbott", w: 28, h: 28 },
-  { src: "/partner-logos/Asset-12.svg", alt: "Liberis", w: 74, h: 16 },
-  { src: "/partner-logos/Asset-11.svg", alt: "INSEAD", w: 67, h: 20 },
-  { src: "/partner-logos/Asset-10.svg", alt: "PageGroup", w: 56, h: 14 },
-  { src: "/partner-logos/Asset-9.svg", alt: "togetherTV", w: 69, h: 17 },
-  { src: "/partner-logos/Asset-8.svg", alt: "Partner 8", w: 71, h: 20 },
-  { src: "/partner-logos/Asset-7.svg", alt: "Partner 7", w: 49, h: 22 },
-  { src: "/partner-logos/Asset-6.svg", alt: "Partner 6", w: 71, h: 15 },
-  { src: "/partner-logos/Asset-5.svg", alt: "Partner 5", w: 84, h: 15 },
-  { src: "/partner-logos/Asset-4.svg", alt: "Partner 4", w: 57, h: 16 },
-  { src: "/partner-logos/Asset-3.svg", alt: "Partner 3", w: 51, h: 31 },
-  { src: "/partner-logos/Asset-2.svg", alt: "Partner 2", w: 55, h: 29 },
-  { src: "/partner-logos/Asset-1.svg", alt: "Partner 1", w: 96, h: 37 },
-];
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -136,8 +119,6 @@ const NAV = [
       { label: "Healthcare", href: "/healthcare" },
     ],
   },
-  { label: "Our Story", href: "/our-story" },
-  { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -159,144 +140,24 @@ function navItemIsActive(item, pathname) {
 }
 
 function Navbar() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [mobileExpand, setMobileExpand] = useState(null);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex min-h-[52px] min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:justify-normal lg:gap-x-6 lg:px-8">
-        <Link href="/" className="relative flex h-14 shrink-0 items-center" onClick={() => setOpen(false)}>
-          <NavbarLogo />
-        </Link>
-
-        <nav className="hidden min-w-0 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="Primary">
-          {NAV.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="group relative shrink-0">
-                <button
-                  type="button"
-                  className={`flex items-center gap-0.5 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                  }`}
-                >
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[200px] translate-y-1 rounded-lg border border-slate-200 bg-white py-1 shadow-lg opacity-0 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.dropdown.map((d) => {
-                    const label = typeof d === "string" ? d : d.label;
-                    const href = typeof d === "string" ? item.href : d.href;
-                    return (
-                      <Link
-                        key={label}
-                        href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                      >
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`shrink-0 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                  navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a2449] sm:px-5 sm:py-2.5"
-          >
-            Let&apos;s Talk
-          </Link>
-          <button
-            type="button"
-            className="shrink-0 rounded-lg p-2 text-slate-700 lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="border-t border-slate-100 px-4 py-3 lg:hidden">
-          {NAV.map((item) => (
-            <div key={item.label}>
-              {item.dropdown ? (
-                <>
-                  <button
-                    type="button"
-                    className={`flex w-full items-center justify-between py-2 text-left text-base font-semibold ${
-                      navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-900"
-                    }`}
-                    onClick={() => setMobileExpand((e) => (e === item.label ? null : item.label))}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`h-4 w-4 ${mobileExpand === item.label ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {mobileExpand === item.label && (
-                    <div className="ml-2 border-l border-slate-200 pl-3 pb-2">
-                      {item.dropdown.map((d) => {
-                        const label = typeof d === "string" ? d : d.label;
-                        const href = typeof d === "string" ? item.href : d.href;
-                        return (
-                          <Link
-                            key={label}
-                            href={href}
-                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                            onClick={() => setOpen(false)}
-                          >
-                            {label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className={`block py-2 text-base font-medium ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-800"
-                  }`}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </header>
+    <SharedNavbar
+      navItems={NAV}
+      NavbarLogo={NavbarLogo}
+      ChevronIcon={ChevronDown}
+      MenuIcon={Menu}
+      CloseIcon={X}
+      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      logoHref="#top"
+    />
   );
 }
-
 function FloatingChat() {
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:gap-3">
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg"
+        className="hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg sm:flex"
         aria-label="Live chat"
       >
         <MessageCircle className="h-5 w-5" />
@@ -304,7 +165,7 @@ function FloatingChat() {
       </button>
       <button
         type="button"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg sm:h-12 sm:w-12"
         aria-label="Open chat"
       >
         <MessageCircle className="h-6 w-6" />
@@ -345,20 +206,20 @@ function HomeStyleFooter() {
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-end gap-2 text-white">
-                <LogoMark className="h-14 w-14 [&_text]:fill-white" />
+                <img src="/Kloudvault logo.png" alt="Kloudvault" className="h-14 w-auto" />
               </div>
               <p className="mt-4 text-sm font-semibold">Let&apos;s Connect</p>
               <div className="mt-4 flex gap-2">
                 {[
-                  { label: "Facebook", char: "f" },
-                  { label: "X", char: "𝕏" },
-                  { label: "LinkedIn", char: "in" },
-                  { label: "YouTube", char: "▶" },
-                  { label: "Instagram", char: "◎" },
+                  {
+                    label: "LinkedIn",
+                    char: "in",
+                    href: "https://www.linkedin.com/company/kloudrac/posts/?feedView=all",
+                  },
                 ].map((s) => (
                   <a
                     key={s.label}
-                    href="#"
+                    href={s.href}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-xs font-bold text-white hover:bg-sky-500"
                     aria-label={s.label}
                   >
@@ -369,8 +230,8 @@ function HomeStyleFooter() {
             </div>
             <div>
               <h3 className="font-semibold">Email Us</h3>
-              <a href="mailto:contact@360cti.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
-                contact@360cti.com
+              <a href="mailto:contact@Kloudvault.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
+                contact@Kloudvault.com
               </a>
             </div>
             <div>
@@ -411,7 +272,7 @@ function HomeStyleFooter() {
             </div>
           </div>
           <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-            <p>Copyright {new Date().getFullYear()} 360 CTI | All Right Reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Kloudvault | All Right Reserved.</p>
             <p>
               <span className="hover:text-slate-300">→ Our Business</span>{" "}
               <a href="#" className="hover:text-slate-300">
@@ -431,28 +292,28 @@ function HomeStyleFooter() {
 
 const faqs = [
   {
-    q: "How does a Salesforce auto dialer improve outbound calling efficiency?",
-    a: "Auto dialers reduce idle time between calls, enforce compliant pacing, and keep agents talking instead of dialing. Lists and dispositions stay in Salesforce so teams scale outreach without losing visibility.",
+    q: "What is an Inbound Call Workflow in Salesforce?",
+    a: "Inbound Call Workflow is the complete process from incoming call to resolution inside Salesforce. It includes call routing, screen pop, call controls, note capture, and automatic logging so every interaction is tracked end-to-end.",
   },
   {
-    q: "How is inbound call routing streamlined inside Salesforce?",
-    a: "Calls can follow skills, queues, and record context so the right agent gets the interaction. Screen pops and CRM data cut lookup time and keep routing aligned with your Salesforce workflows.",
+    q: "How does smart inbound routing reduce missed opportunities?",
+    a: "Smart routing sends callers to the right team based on queue rules, skill tags, or customer context. This minimizes missed calls, avoids unnecessary transfers, and improves first-call resolution for support and sales teams.",
   },
   {
-    q: "What reporting and analytics are available for inbound and outbound calling in Salesforce?",
-    a: "You can track volume, handle times, outcomes, and agent activity alongside CRM fields. That gives managers dashboards and history for coaching, SLAs, and campaign performance without exporting to spreadsheets.",
+    q: "Can agents see customer details before answering inbound calls?",
+    a: "Yes. With screen pop, agents can instantly view relevant lead, contact, account, or case records when a call arrives. This reduces handle time and helps agents respond with full context from the first hello.",
   },
   {
-    q: "How easy is it to set up outbound calling campaigns in Salesforce?",
-    a: "With a native CTI, admins configure telephony and lists inside Salesforce—often without custom code. Teams can launch campaigns faster when dialing, logging, and reporting are already tied to your org.",
+    q: "How are inbound calls logged and tracked in Salesforce?",
+    a: "Inbound calls are automatically logged with key details like duration, timestamps, status, and notes. This ensures accurate reporting, better follow-up, and complete call history without manual data entry.",
   },
   {
-    q: "How can a Salesforce auto dialer reduce agent effort during outbound campaigns?",
-    a: "Click-to-dial, power dialing, and automatic call logging remove repetitive steps. Agents spend less time on manual entry and more time on live conversations while Salesforce stays the system of record.",
+    q: "How does Inbound Call Workflow help supervisors and managers?",
+    a: "Managers get live visibility into queue volume, agent availability, and call outcomes from Salesforce dashboards. This helps them balance workloads quickly, coach teams effectively, and maintain service-level targets.",
   },
   {
-    q: "Why do companies switch from other Salesforce CTI auto dialers?",
-    a: "Teams typically move for better reliability, tighter Salesforce-native behavior, simpler admin, and stronger support. When calls, tasks, and reporting stay in sync, adoption and ROI improve compared to bolt-on tools.",
+    q: "Why is a Salesforce-native inbound workflow better than disconnected tools?",
+    a: "A Salesforce-native workflow keeps telephony and CRM in one system, so data stays clean and processes stay consistent. Teams avoid sync delays, reduce manual updates, and deliver faster, more reliable customer support.",
   },
 ];
 
@@ -473,26 +334,26 @@ export default function InboundOutbound() {
 
   const advancedCards = [
     {
-      title: "Call Management",
-      body: "Manage Inbound/outbound calling with better controls like mute, hold, transfer, and call logging, ensuring seamless, efficient, and productive customer interactions.",
+      title: "Smart Inbound Routing",
+      body: "Route every incoming call to the right queue or agent using IVR choices, skill rules, and availability logic to reduce wait time and improve first-call resolution.",
       icon: PhoneForwarded,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Click-to-Dial for Calling",
-      body: "Salesforce Click-to-Call integration enables agents to dial numbers instantly with a single click, eliminating manual dialing and accelerating customer interactions.",
+      title: "Screen Pop with Caller Context",
+      body: "Show lead, contact, account, or case details instantly when a call arrives so agents can respond with full context from the first second.",
       icon: Smartphone,
       bg: "bg-violet-50/80 border border-violet-100",
     },
     {
-      title: "Salesforce Power Dialer",
-      body: "Automate bulk dialing with Salesforce Power Dialer, an automatic dialer for call centers and beyond, using skip-number and queue-break controls for efficient outreach.",
+      title: "Live Queue & Agent Availability",
+      body: "Track online agents and queue load in real time so supervisors can balance traffic, reduce hold times, and maintain service levels during peak hours.",
       icon: LayoutGrid,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Auto-Call Logging",
-      body: "Automatically log inbound and outbound calls in Salesforce—capturing duration, timestamps, call outcomes, and notes for better tracking and follow-up.",
+      title: "Automatic Inbound Call Logging",
+      body: "Capture duration, timestamps, notes, and call outcomes automatically in Salesforce to ensure complete records, faster follow-up, and better reporting accuracy.",
       icon: RefreshCw,
       bg: "bg-slate-50 border border-slate-200",
     },
@@ -546,7 +407,7 @@ export default function InboundOutbound() {
     {
       title: "Dependability and provides the best native salesforce solution",
       quote:
-        "I have worked with multiple enterprise calling solutions in the past and 360CTI beats them on dependability and provides the best native...",
+        "I have worked with multiple enterprise calling solutions in the past and Kloudvault beats them on dependability and provides the best native...",
       name: "Rachel Reece",
       role: "System Administrator",
     },
@@ -559,9 +420,9 @@ export default function InboundOutbound() {
       {/* 1 — Hero */}
       <section className="bg-slate-50 py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-12">
-            <div>
-              <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] xl:text-6xl">
+          <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:gap-10 lg:px-12">
+            <div className="lg:col-start-1 lg:row-start-1">
+              <h1 className="text-3xl font-semibold leading-[1.05] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.5rem]">
                 Run Every Customer Conversation Natively Inside Salesforce
               </h1>
               <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
@@ -569,20 +430,22 @@ export default function InboundOutbound() {
                 Get real-time call context, faster handling, and cleaner CRM data from first ring to final
                 disposition.
               </p>
+            </div>
+            <div className="mt-1 lg:col-start-1 lg:row-start-2 lg:mt-2">
               <Link
                 href="https://360cti.com/contact/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 inline-flex rounded-lg bg-sky-600 px-8 py-3 text-sm font-semibold text-white hover:bg-sky-700"
+                className="inline-flex rounded-lg bg-sky-600 px-8 py-3 text-sm font-semibold text-white hover:bg-sky-700"
               >
-                Launch Native Calling Assessment
+                Contact our Experts
               </Link>
             </div>
-            <div className="mt-10 flex justify-center lg:mt-0 lg:justify-end">
+            <div className="mt-10 flex justify-center lg:col-start-2 lg:row-start-1 lg:mt-0 lg:h-full lg:justify-end lg:items-stretch">
               <img
                 src="/Inbound.png"
                 alt="Salesforce calling"
-                className="h-auto w-full max-w-xl object-contain sm:max-w-2xl xl:max-w-3xl"
+                className="h-auto w-full max-w-xl object-contain sm:max-w-2xl lg:h-full lg:max-w-none lg:object-contain lg:object-right"
                 loading="eager"
                 decoding="async"
               />
@@ -591,55 +454,6 @@ export default function InboundOutbound() {
         </div>
       </section>
 
-      {/* 2 — Trusted + marquee */}
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-w-3xl justify-center">
-            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-600 shadow-sm sm:text-base">
-              The Most Trusted Modern{" "}
-              <span className="font-semibold text-sky-600">Salesforce CTI</span> Worldwide
-            </p>
-          </div>
-          <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
-            <div className="w-full overflow-hidden">
-              <div className="partner-marquee-logos opacity-100">
-                <div className="partner-marquee-track flex w-max">
-                  <div className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-a`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                  <div aria-hidden="true" className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-b`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 3 — Inbound workflow */}
       <section className="bg-slate-900 py-14 text-white sm:py-20">
@@ -675,9 +489,9 @@ export default function InboundOutbound() {
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative text-center">
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">Advanced Salesforce Calling Capabilities</h2>
+            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">Advanced Inbound Call Workflow Capabilities</h2>
             <p className="mt-2 text-sm text-slate-600 sm:text-base">
-              Configure high-performance inbound and outbound operations without leaving Salesforce
+              Configure high-performance inbound call operations natively inside Salesforce
             </p>
             <div className="pointer-events-none absolute left-1/2 top-full mt-2 hidden h-8 w-px bg-slate-200 lg:block" style={{ marginLeft: "-1px" }} />
             <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-[calc(100%+2.25rem)] hidden h-px bg-slate-200 lg:block" />
@@ -701,7 +515,7 @@ export default function InboundOutbound() {
 
       {/* 5 — Pill CTA */}
       <section className="px-4 pb-10 sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-4xl flex-col items-stretch justify-between gap-4 rounded-full border border-slate-200 bg-white px-6 py-4 shadow-sm sm:flex-row sm:items-center sm:px-8">
+        <div className="mx-auto flex max-w-4xl flex-col items-stretch justify-between gap-4 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm sm:rounded-full sm:px-8 sm:flex-row sm:items-center">
           <p className="text-center text-base font-bold text-slate-900 sm:text-left">
             Compare Native vs Integrated Calling for your team
           </p>
@@ -709,7 +523,7 @@ export default function InboundOutbound() {
             href="https://360cti.com/contact/"
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-8 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#0a2449]"
+            className="w-full rounded-full bg-[#0c2d5c] px-6 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#0a2449] sm:w-auto sm:shrink-0 sm:px-8"
           >
             See the Native Advantage
           </Link>
@@ -866,7 +680,7 @@ export default function InboundOutbound() {
         }}
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:max-w-none lg:whitespace-nowrap lg:text-4xl">
+          <h2 className="mx-auto max-w-4xl text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:max-w-none lg:text-4xl">
             Turn Every Salesforce Call into a Real-Time Revenue Signal.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-pretty text-base text-slate-700 sm:text-lg">

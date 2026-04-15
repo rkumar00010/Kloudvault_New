@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import SharedNavbar from "./SharedNavbar";
 import {
   Menu,
   X,
@@ -72,8 +72,8 @@ function NavbarLogo() {
   if (useSvg) return <LogoMark className="h-16 w-16" />;
   return (
     <img
-      src="/logo.png"
-      alt="360 CTI"
+      src="/Kloudvault.png"
+      alt="Kloudvault"
       width={200}
       height={64}
       className="h-14 w-auto max-h-16 object-contain sm:h-16"
@@ -83,23 +83,6 @@ function NavbarLogo() {
   );
 }
 
-const partnerLogos = [
-  { src: "/partner-logos/Asset-13.svg", alt: "Bank", w: 46, h: 21 },
-  { src: "/partner-logos/Asset-14.svg", alt: "AMGEN", w: 78, h: 11 },
-  { src: "/partner-logos/Asset-15.svg", alt: "Abbott", w: 28, h: 28 },
-  { src: "/partner-logos/Asset-12.svg", alt: "Liberis", w: 74, h: 16 },
-  { src: "/partner-logos/Asset-11.svg", alt: "INSEAD", w: 67, h: 20 },
-  { src: "/partner-logos/Asset-10.svg", alt: "PageGroup", w: 56, h: 14 },
-  { src: "/partner-logos/Asset-9.svg", alt: "togetherTV", w: 69, h: 17 },
-  { src: "/partner-logos/Asset-8.svg", alt: "Partner 8", w: 71, h: 20 },
-  { src: "/partner-logos/Asset-7.svg", alt: "Partner 7", w: 49, h: 22 },
-  { src: "/partner-logos/Asset-6.svg", alt: "Partner 6", w: 71, h: 15 },
-  { src: "/partner-logos/Asset-5.svg", alt: "Partner 5", w: 84, h: 15 },
-  { src: "/partner-logos/Asset-4.svg", alt: "Partner 4", w: 57, h: 16 },
-  { src: "/partner-logos/Asset-3.svg", alt: "Partner 3", w: 51, h: 31 },
-  { src: "/partner-logos/Asset-2.svg", alt: "Partner 2", w: 55, h: 29 },
-  { src: "/partner-logos/Asset-1.svg", alt: "Partner 1", w: 96, h: 37 },
-];
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -137,8 +120,6 @@ const NAV = [
       { label: "Healthcare", href: "/healthcare" },
     ],
   },
-  { label: "Our Story", href: "/our-story" },
-  { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -160,144 +141,24 @@ function navItemIsActive(item, pathname) {
 }
 
 function Navbar() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [mobileExpand, setMobileExpand] = useState(null);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex min-h-[52px] min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:justify-normal lg:gap-x-6 lg:px-8">
-        <Link href="/" className="relative flex h-14 shrink-0 items-center" onClick={() => setOpen(false)}>
-          <NavbarLogo />
-        </Link>
-
-        <nav className="hidden min-w-0 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="Primary">
-          {NAV.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="group relative shrink-0">
-                <button
-                  type="button"
-                  className={`flex items-center gap-0.5 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                  }`}
-                >
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[200px] translate-y-1 rounded-lg border border-slate-200 bg-white py-1 shadow-lg opacity-0 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.dropdown.map((d) => {
-                    const label = typeof d === "string" ? d : d.label;
-                    const href = typeof d === "string" ? item.href : d.href;
-                    return (
-                      <Link
-                        key={label}
-                        href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                      >
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`shrink-0 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                  navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a2449] sm:px-5 sm:py-2.5"
-          >
-            Let&apos;s Talk
-          </Link>
-          <button
-            type="button"
-            className="shrink-0 rounded-lg p-2 text-slate-700 lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="border-t border-slate-100 px-4 py-3 lg:hidden">
-          {NAV.map((item) => (
-            <div key={item.label}>
-              {item.dropdown ? (
-                <>
-                  <button
-                    type="button"
-                    className={`flex w-full items-center justify-between py-2 text-left text-base font-semibold ${
-                      navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-900"
-                    }`}
-                    onClick={() => setMobileExpand((e) => (e === item.label ? null : item.label))}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`h-4 w-4 ${mobileExpand === item.label ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {mobileExpand === item.label && (
-                    <div className="ml-2 border-l border-slate-200 pl-3 pb-2">
-                      {item.dropdown.map((d) => {
-                        const label = typeof d === "string" ? d : d.label;
-                        const href = typeof d === "string" ? item.href : d.href;
-                        return (
-                          <Link
-                            key={label}
-                            href={href}
-                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                            onClick={() => setOpen(false)}
-                          >
-                            {label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className={`block py-2 text-base font-medium ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-800"
-                  }`}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </header>
+    <SharedNavbar
+      navItems={NAV}
+      NavbarLogo={NavbarLogo}
+      ChevronIcon={ChevronDown}
+      MenuIcon={Menu}
+      CloseIcon={X}
+      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      logoHref="#top"
+    />
   );
 }
-
 function FloatingChat() {
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:gap-3">
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg"
+        className="hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg sm:flex"
         aria-label="Live chat"
       >
         <MessageCircle className="h-5 w-5" />
@@ -305,7 +166,7 @@ function FloatingChat() {
       </button>
       <button
         type="button"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg sm:h-12 sm:w-12"
         aria-label="Open chat"
       >
         <MessageCircle className="h-6 w-6" />
@@ -346,20 +207,20 @@ function HomeStyleFooter() {
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-end gap-2 text-white">
-                <LogoMark className="h-14 w-14 [&_text]:fill-white" />
+                <img src="/Kloudvault logo.png" alt="Kloudvault" className="h-14 w-auto" />
               </div>
               <p className="mt-4 text-sm font-semibold">Let&apos;s Connect</p>
               <div className="mt-4 flex gap-2">
                 {[
-                  { label: "Facebook", char: "f" },
-                  { label: "X", char: "𝕏" },
-                  { label: "LinkedIn", char: "in" },
-                  { label: "YouTube", char: "▶" },
-                  { label: "Instagram", char: "◎" },
+                  {
+                    label: "LinkedIn",
+                    char: "in",
+                    href: "https://www.linkedin.com/company/kloudrac/posts/?feedView=all",
+                  },
                 ].map((s) => (
                   <a
                     key={s.label}
-                    href="#"
+                    href={s.href}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-xs font-bold text-white hover:bg-sky-500"
                     aria-label={s.label}
                   >
@@ -370,8 +231,8 @@ function HomeStyleFooter() {
             </div>
             <div>
               <h3 className="font-semibold">Email Us</h3>
-              <a href="mailto:contact@360cti.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
-                contact@360cti.com
+              <a href="mailto:contact@Kloudvault.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
+                contact@Kloudvault.com
               </a>
             </div>
             <div>
@@ -412,7 +273,7 @@ function HomeStyleFooter() {
             </div>
           </div>
           <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-            <p>Copyright {new Date().getFullYear()} 360 CTI | All Right Reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Kloudvault | All Right Reserved.</p>
             <p>
               <span className="hover:text-slate-300">→ Our Business</span>{" "}
               <a href="#" className="hover:text-slate-300">
@@ -434,28 +295,28 @@ const HERO_IMG = "/Sales.jpg";
 
 const faqs = [
   {
-    q: "How does AI-powered Salesforce sales telephony improve sales productivity?",
-    a: "Automated dialing, screen pops, and CTI workflows reduce manual tasks so reps can spend more time selling and less time clicking.",
+    q: "How does Kloudvault help sales teams close deals faster in Salesforce?",
+    a: "Kloudvault combines smart dialing, call context, and automated follow-ups so reps spend more time in quality conversations and less time on manual updates.",
   },
   {
-    q: "What is the difference between a Salesforce Sales Dialer and an AI sales dialer?",
-    a: "An AI sales dialer layers intelligence on top of core dialing—prioritizing leads, suggesting next-best actions, and capturing richer call outcomes.",
+    q: "Can Kloudvault work with our current Salesforce setup and sales process?",
+    a: "Yes. We map to your existing Salesforce objects, lead stages, and workflows so your team can adopt quickly without rebuilding your entire process.",
   },
   {
-    q: "How does Salesforce sales call automation software reduce manual work for reps?",
-    a: "Templates, dispositions, and post-call automations update records, create tasks, and schedule follow-ups without extra data entry.",
+    q: "What dialing modes are available for outbound sales teams?",
+    a: "Depending on your workflow, teams can use click-to-dial and power dialing patterns to improve rep talk time while keeping outreach controlled and compliant.",
   },
   {
-    q: "Can Salesforce AI telephony for sales improve lead conversion rates?",
-    a: "Yes. AI helps reps focus on high-intent leads, tailor conversations with insights, and keep follow-up sequences on track.",
+    q: "Will reps still need to manually log every call and follow-up?",
+    a: "Most repetitive logging can be automated. Call outcomes, notes, and next-step tasks can be pushed into Salesforce with minimal manual effort.",
   },
   {
-    q: "What features should a business look for in AI sales telephony software for Salesforce?",
-    a: "Look for native Salesforce integration, flexible dialing modes, robust analytics, and compliance-ready call handling.",
+    q: "How quickly can we go live with Kloudvault for sales teams?",
+    a: "Go-live timelines depend on your team size, routing complexity, and telephony setup. After discovery, we share a practical rollout plan with clear milestones.",
   },
   {
-    q: "How does Salesforce intelligent sales dialer support high-volume outbound sales teams?",
-    a: "Power dialing, list management, and queue-based routing help teams handle more calls with consistent quality and governance.",
+    q: "Do you provide onboarding and support after implementation?",
+    a: "Yes. We support rollout with onboarding guidance, admin enablement, and ongoing assistance so your team can keep improving performance after launch.",
   },
 ];
 
@@ -464,38 +325,38 @@ export default function Sales() {
 
   const improveCards = [
     {
-      title: "Close Deals Faster",
-      body: "Accelerate deal closures with follow-ups through automated outbound calls, ensuring timely touchpoints without manual tracking or delays.",
+      title: "Shorten Sales Cycles",
+      body: "Speed up your sales process with intelligent automation that ensures every lead is nurtured at the right time. Eliminate delays, stay consistently engaged, and move prospects from interest to decision faster with AI-powered follow-ups.",
       icon: Handshake,
       bg: "bg-sky-50 border border-sky-100",
     },
     {
-      title: "Prioritize High Intent Leads",
-      body: "Leverage AI chat transcripts and sentiment analysis to gauge prospect interest, tailor conversations, and prioritize high-intent leads effectively.",
+      title: "Focus on Ready-to-Convert Prospects",
+      body: "Identify and engage prospects who show strong buying signals using AI-driven insights. Analyze conversations, behaviors, and sentiment to prioritize leads that are most likely to convert, helping your team close deals faster and more efficiently.",
       icon: Target,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Maximize Team Productivity",
-      body: "Speed up outbound calling with Power Dialer, Click-to-Dial, and Call Automation—reducing dialing effort and increasing agent efficiency.",
+      title: "Boost Sales Team Efficiency",
+      body: "Empower your agents with intelligent dialing tools and automated workflows that eliminate repetitive tasks. Enable faster connections, reduce idle time, and help your team focus more on meaningful conversations that drive results.",
       icon: UsersRound,
       bg: "bg-sky-50 border border-sky-100",
     },
     {
-      title: "Maximize Sales Outreach",
-      body: "Reach more prospects in less time using AI voice bot, Power Dialer, and call automation to automate, streamline, and scale your outbound calling efforts.",
+      title: "Scale Your Outreach Effortlessly",
+      body: "Expand your reach with intelligent automation that handles repetitive calling tasks and optimizes contact strategies. Connect with more prospects, maintain consistent engagement, and drive higher response rates without increasing manual workload.",
       icon: PhoneCall,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Turn Leads into Prospects",
-      body: "Improve first-call resolution with call routing to the right agent and timely follow-ups through due date reminders, accelerating lead-to-prospect conversions.",
+      title: "Accelerate Lead Qualification",
+      body: "Streamline the journey from lead to prospect with smart routing and proactive follow-ups. Ensure every inquiry reaches the right agent at the right time, improving response speed and increasing the chances of successful qualification.",
       icon: Bot,
       bg: "bg-sky-50 border border-sky-100",
     },
     {
-      title: "Improve Sales Team Performance",
-      body: "Boost sales team performance with real-time call monitoring and call barging for immediate coaching, empowering agents to handle calls better and close more deals.",
+      title: "Enhance Agent Effectiveness",
+      body: "Equip your sales team with real-time insights and instant coaching tools to improve call quality and performance. Enable managers to guide conversations as they happen, helping agents build confidence, handle objections better, and consistently achieve higher success rates.",
       icon: TrendingUp,
       bg: "bg-white border border-slate-200",
     },
@@ -517,14 +378,14 @@ export default function Sales() {
     {
       title: "Great Solution for Calling.",
       quote:
-        "We recently switched from \"Ameyo\" to \"360 CTI\" and have found the experience largely positive. The overall support from the team has been good...",
+        "We recently switched from \"Ameyo\" to \"Kloudvault\" and have found the experience largely positive. The overall support from the team has been good...",
       name: "Arun Narvekar",
       role: "Developer",
     },
     {
-      title: "360 CTI Simplified Client Follow-Ups and Improved Customer Service!",
+      title: "Kloudvault Simplified Client Follow-Ups and Improved Customer Service!",
       quote:
-        "In the real estate business, staying in touch with clients quickly and efficiently is crucial. With 360 CTI, we’ve seen improvements in both our client...",
+        "In the real estate business, staying in touch with clients quickly and efficiently is crucial. With Kloudvault, we’ve seen improvements in both our client...",
       name: "Anchal Pal",
       role: "Administrator",
     },
@@ -539,12 +400,11 @@ export default function Sales() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-start lg:gap-10 lg:px-12">
             <div className="hero-content-from-left opacity-0">
-              <h1 className="text-[45px] font-bold leading-[1.1] tracking-tight text-slate-900">
-                Close More Deals Faster with AI-led Salesforce Sales Telephony
+              <h1 className="text-3xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-[3.5rem]">
+                Accelerate Sales Success with Smart AI Telephony
               </h1>
               <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
-                Engage leads faster, personalize sales conversations, and automate follow-ups with AI-driven sales
-                telephony directly within Salesforce.
+                Empower your sales team to connect instantly, deliver tailored conversations, and close deals quicker with intelligent AI-powered telephony seamlessly integrated into Salesforce.
               </p>
               <Link
                 href="https://360cti.com/contact/"
@@ -568,64 +428,15 @@ export default function Sales() {
         </div>
       </section>
 
-      {/* 2 — Trusted by + marquee */}
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-w-3xl justify-center">
-            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-600 shadow-sm sm:text-base">
-              Trusted by the <span className="font-semibold text-sky-600">Best</span> Worldwide
-            </p>
-          </div>
-          <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
-            <div className="w-full overflow-hidden">
-              <div className="partner-marquee-logos opacity-100">
-                <div className="partner-marquee-track flex w-max">
-                  <div className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-a`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                  <div aria-hidden="true" className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-b`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 3 — Improve Sales Calls */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Improve Sales Calls with AI-Led Salesforce Telephony
+            Smarter Selling Starts with AI-Powered Salesforce Telephony
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-center text-sm leading-relaxed text-slate-600 sm:text-base">
-            Reimagine outbound sales by prioritizing the right leads, scaling outreach, and coaching reps in real time
-            without leaving Salesforce.
+            Transform your outbound strategy with intelligent lead prioritization, automated outreach, and real-time coaching that empowers reps to close more deals—faster and smarter.
           </p>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {improveCards.map((c) => (
@@ -704,7 +515,9 @@ export default function Sales() {
       <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
-          <p className="mt-3 text-center text-slate-600">FAQs About AI Sales Telephony</p>
+          <p className="mt-3 text-center text-slate-600">
+            Common questions about Kloudvault sales telephony and Salesforce integration
+          </p>
           <div className="mt-10 space-y-3">
             {faqs.map((item, i) => {
               const isOpen = faqOpen === i;
@@ -764,10 +577,10 @@ export default function Sales() {
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
           <h2 className="text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
-            Turn Every Call into a Closed-Won Sale with CTI
+            Convert Conversations into Revenue
           </h2>
           <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-led 360 CTI?
+           Leverage AI-powered CTI to transform every interaction into an opportunity.
           </p>
           <Link
             href="https://360cti.com/contact/"

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import SharedNavbar from "./SharedNavbar";
 import {
   Menu,
   X,
@@ -77,8 +77,8 @@ function NavbarLogo() {
   if (useSvg) return <LogoMark className="h-16 w-16" />;
   return (
     <img
-      src="/logo.png"
-      alt="360 CTI"
+      src="/Kloudvault.png"
+      alt="Kloudvault"
       width={200}
       height={64}
       className="h-14 w-auto max-h-16 object-contain sm:h-16"
@@ -88,23 +88,6 @@ function NavbarLogo() {
   );
 }
 
-const partnerLogos = [
-  { src: "/partner-logos/Asset-13.svg", alt: "Bank", w: 46, h: 21 },
-  { src: "/partner-logos/Asset-14.svg", alt: "AMGEN", w: 78, h: 11 },
-  { src: "/partner-logos/Asset-15.svg", alt: "Abbott", w: 28, h: 28 },
-  { src: "/partner-logos/Asset-12.svg", alt: "Liberis", w: 74, h: 16 },
-  { src: "/partner-logos/Asset-11.svg", alt: "INSEAD", w: 67, h: 20 },
-  { src: "/partner-logos/Asset-10.svg", alt: "PageGroup", w: 56, h: 14 },
-  { src: "/partner-logos/Asset-9.svg", alt: "togetherTV", w: 69, h: 17 },
-  { src: "/partner-logos/Asset-8.svg", alt: "Partner 8", w: 71, h: 20 },
-  { src: "/partner-logos/Asset-7.svg", alt: "Partner 7", w: 49, h: 22 },
-  { src: "/partner-logos/Asset-6.svg", alt: "Partner 6", w: 71, h: 15 },
-  { src: "/partner-logos/Asset-5.svg", alt: "Partner 5", w: 84, h: 15 },
-  { src: "/partner-logos/Asset-4.svg", alt: "Partner 4", w: 57, h: 16 },
-  { src: "/partner-logos/Asset-3.svg", alt: "Partner 3", w: 51, h: 31 },
-  { src: "/partner-logos/Asset-2.svg", alt: "Partner 2", w: 55, h: 29 },
-  { src: "/partner-logos/Asset-1.svg", alt: "Partner 1", w: 96, h: 37 },
-];
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -142,8 +125,6 @@ const NAV = [
       { label: "Healthcare", href: "/healthcare" },
     ],
   },
-  { label: "Our Story", href: "/our-story" },
-  { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -165,144 +146,24 @@ function navItemIsActive(item, pathname) {
 }
 
 function Navbar() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [mobileExpand, setMobileExpand] = useState(null);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex min-h-[52px] min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:justify-normal lg:gap-x-6 lg:px-8">
-        <Link href="/" className="relative flex h-14 shrink-0 items-center" onClick={() => setOpen(false)}>
-          <NavbarLogo />
-        </Link>
-
-        <nav className="hidden min-w-0 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="Primary">
-          {NAV.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="group relative shrink-0">
-                <button
-                  type="button"
-                  className={`flex items-center gap-0.5 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                  }`}
-                >
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[200px] translate-y-1 rounded-lg border border-slate-200 bg-white py-1 shadow-lg opacity-0 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.dropdown.map((d) => {
-                    const label = typeof d === "string" ? d : d.label;
-                    const href = typeof d === "string" ? item.href : d.href;
-                    return (
-                      <Link
-                        key={label}
-                        href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                      >
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`shrink-0 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                  navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a2449] sm:px-5 sm:py-2.5"
-          >
-            Let&apos;s Talk
-          </Link>
-          <button
-            type="button"
-            className="shrink-0 rounded-lg p-2 text-slate-700 lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="border-t border-slate-100 px-4 py-3 lg:hidden">
-          {NAV.map((item) => (
-            <div key={item.label}>
-              {item.dropdown ? (
-                <>
-                  <button
-                    type="button"
-                    className={`flex w-full items-center justify-between py-2 text-left text-base font-semibold ${
-                      navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-900"
-                    }`}
-                    onClick={() => setMobileExpand((e) => (e === item.label ? null : item.label))}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`h-4 w-4 ${mobileExpand === item.label ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {mobileExpand === item.label && (
-                    <div className="ml-2 border-l border-slate-200 pl-3 pb-2">
-                      {item.dropdown.map((d) => {
-                        const label = typeof d === "string" ? d : d.label;
-                        const href = typeof d === "string" ? item.href : d.href;
-                        return (
-                          <Link
-                            key={label}
-                            href={href}
-                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                            onClick={() => setOpen(false)}
-                          >
-                            {label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className={`block py-2 text-base font-medium ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-800"
-                  }`}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </header>
+    <SharedNavbar
+      navItems={NAV}
+      NavbarLogo={NavbarLogo}
+      ChevronIcon={ChevronDown}
+      MenuIcon={Menu}
+      CloseIcon={X}
+      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      logoHref="#top"
+    />
   );
 }
-
 function FloatingChat() {
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:gap-3">
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg"
+        className="hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg sm:flex"
         aria-label="Live chat"
       >
         <MessageCircle className="h-5 w-5" />
@@ -310,7 +171,7 @@ function FloatingChat() {
       </button>
       <button
         type="button"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg sm:h-12 sm:w-12"
         aria-label="Open chat"
       >
         <MessageCircle className="h-6 w-6" />
@@ -351,20 +212,20 @@ function HomeStyleFooter() {
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-end gap-2 text-white">
-                <LogoMark className="h-14 w-14 [&_text]:fill-white" />
+                <img src="/Kloudvault logo.png" alt="Kloudvault" className="h-14 w-auto" />
               </div>
               <p className="mt-4 text-sm font-semibold">Let&apos;s Connect</p>
               <div className="mt-4 flex gap-2">
                 {[
-                  { label: "Facebook", char: "f" },
-                  { label: "X", char: "𝕏" },
-                  { label: "LinkedIn", char: "in" },
-                  { label: "YouTube", char: "▶" },
-                  { label: "Instagram", char: "◎" },
+                  {
+                    label: "LinkedIn",
+                    char: "in",
+                    href: "https://www.linkedin.com/company/kloudrac/posts/?feedView=all",
+                  },
                 ].map((s) => (
                   <a
                     key={s.label}
-                    href="#"
+                    href={s.href}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-xs font-bold text-white hover:bg-sky-500"
                     aria-label={s.label}
                   >
@@ -375,8 +236,8 @@ function HomeStyleFooter() {
             </div>
             <div>
               <h3 className="font-semibold">Email Us</h3>
-              <a href="mailto:contact@360cti.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
-                contact@360cti.com
+              <a href="mailto:contact@Kloudvault.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
+                contact@Kloudvault.com
               </a>
             </div>
             <div>
@@ -417,7 +278,7 @@ function HomeStyleFooter() {
             </div>
           </div>
           <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-            <p>Copyright {new Date().getFullYear()} 360 CTI | All Right Reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Kloudvault | All Right Reserved.</p>
             <p>
               <span className="hover:text-slate-300">→ Our Business</span>{" "}
               <a href="#" className="hover:text-slate-300">
@@ -439,28 +300,28 @@ const HERO_IMG = "/Contact Center.png";
 
 const faqs = [
   {
-    q: "How does Salesforce call center integration improve agent productivity and response times?",
-    a: "Native CTI connects calls to Salesforce records and queues so agents see context instantly, reduce after-call work, and route work to the right skill faster.",
+    q: "How can I reach Kloudvault or book a conversation with your team?",
+    a: "Use the contact options on this page or the link below to reach our experts. Share your Salesforce org size, channels you run today, and what you want to improve—we will route you to the right specialist.",
   },
   {
-    q: "What makes a cloud contact center for Salesforce more scalable than on-premises telephony?",
-    a: "Cloud capacity scales with demand without hardware projects, and you can add channels, queues, and users in Salesforce while keeping governance centralized.",
+    q: "Is Kloudvault built for Salesforce, and how does it connect to my org?",
+    a: "Yes. Kloudvault is designed around Salesforce CTI so voice and digital touchpoints stay tied to cases, leads, and activities. We align with your existing objects, queues, and routing so agents work from one place.",
   },
   {
-    q: "How does Salesforce CTI for contact centers reduce call handling time and manual work?",
-    a: "Screen pop, click-to-dial, and automated disposition reduce lookup time and logging, while workflows can trigger follow-ups without leaving the CRM.",
+    q: "What happens after I get in touch—how long does rollout usually take?",
+    a: "Timelines depend on channels, carriers, and how much you already have in Salesforce. After a short discovery, we outline milestones for telephony setup, testing, and go-live so your team knows what to expect.",
   },
   {
-    q: "Can contact center AI for Salesforce improve routing, coaching, and call outcomes?",
-    a: "Yes. AI can assist with routing suggestions, surfacing insights during calls, and summarizing transcripts for coaching and quality programs.",
+    q: "Can Kloudvault work with our current phone provider or hybrid setup?",
+    a: "In many cases, yes. We discuss your carrier, regions, and compliance needs during scoping so we can recommend the cleanest path—whether that is cloud-first or a phased migration.",
   },
   {
-    q: "What should businesses look for in the best contact center solution for Salesforce?",
-    a: "Look for native Salesforce alignment, reliable telephony, observability, compliance controls, and fast implementation with minimal custom integration.",
+    q: "Do you offer help after go-live for admins and agents?",
+    a: "We focus on sustainable adoption: documentation, training touchpoints, and channels for ongoing questions so your team can troubleshoot routine issues and escalate when something needs engineering attention.",
   },
   {
-    q: "How does a Salesforce cloud telephony contact center handle high call volume spikes?",
-    a: "Carrier-backed cloud capacity scales elastically, while queues, overflow rules, and skills-based routing help distribute load across teams.",
+    q: "What information should I prepare before a demo or technical call?",
+    a: "Helpful details include your Salesforce edition, approximate agent count, inbound versus outbound mix, and any must-have integrations. That lets us show relevant flows instead of a generic walkthrough.",
   },
 ];
 
@@ -498,40 +359,40 @@ export default function Contact() {
 
   const elevateCards = [
     {
-      title: "Resolve Queries Faster",
-      body: "360 CTI accelerates query resolution by smart call routing and automated distribution, directing inquiries to the right agents, minimizing wait times, and enhancing efficiency.",
+      title: "Faster Resolutions, Smarter Routing",
+      body: "Kloudvault ensures every customer query reaches the right agent instantly with intelligent call routing and automation, reducing wait times and improving overall service efficiency.",
       icon: null,
       bg: "bg-sky-50 border border-sky-100",
       custom: "resolve",
     },
     {
-      title: "Get AI-Driven Insights",
-      body: "Enhance customer interactions by leveraging AI-driven insights, enabling agents to provide personalized, relevant, and efficient support, improving satisfaction.",
+      title: "Smarter Decisions with AI Insights",
+      body: "Transform raw data into actionable insights using AI. Help your agents anticipate customer needs, deliver tailored responses, and enhance overall service quality.",
       icon: Bot,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Drive Higher Conversions",
-      body: "Boost conversions by streamlining outreach and follow-ups with automated calls, ensuring timely, consistent engagement that drives customer action and sales.",
+      title: "Maximize Conversion Opportunities",
+      body: "Increase your sales success by automating customer outreach and follow-ups. Deliver the right message at the right time, maintain consistent engagement, and turn more prospects into loyal customers with ease.",
       icon: Funnel,
       bg: "bg-sky-50 border border-sky-100",
     },
     {
-      title: "Improve Agent Productivity & Performance",
-      body: "Enhance agent productivity with call monitoring, Power Dialer, and Click-to-Dial by coaching agents in real-time and reducing manual dialing efforts.",
+      title: "Boost Workforce Efficiency with Smart Automation",
+      body: "Empower your agents to perform at their best with intelligent automation tools like Power Dialer and Click-to-Dial. Minimize repetitive tasks, streamline call workflows.",
       icon: null,
       bg: "bg-white border border-slate-200",
       custom: "productivity",
     },
     {
-      title: "Build Stronger Relationships",
-      body: "Build stronger relationships by enabling personalized conversations with screen popups for customer data and caller history, creating meaningful, tailored customer interactions.",
+      title: "Create Meaningful Customer Connections",
+      body: "Deliver exceptional experiences by equipping agents with real-time customer insights and interaction history, enabling smarter conversations that feel personal, relevant, and impactful every time.",
       icon: Handshake,
       bg: "bg-sky-50 border border-sky-100",
     },
     {
-      title: "Make Data-driven Decisions",
-      body: "Leverage comprehensive call tracking and AI chat transcripts to make data-driven decisions, improving strategies and optimizing customer interactions.",
+      title: "Turn Insights into Action",
+      body: "Harness advanced analytics and conversation intelligence to uncover trends, refine strategies, and continuously enhance customer engagement for better business outcomes.",
       icon: null,
       bg: "bg-white border border-slate-200",
       custom: "data",
@@ -552,17 +413,18 @@ export default function Contact() {
 
   const testimonials = [
     {
-      title: "Better than 5 other apps, A GREAT CTI.!",
-      quote: "I've implemented 5 different CTI solutions for consulting clients— this one is by far my favorite.",
-      name: "Daniel Howell",
-      role: "Systems Administrator",
+      title: "Fast implementation and easy agent adoption",
+      quote:
+        "Our support team switched quickly with minimal training. Agents now handle calls and customer context in one Salesforce workflow, which improved response consistency.",
+      name: "Neha Kapoor",
+      role: "Support Operations Lead",
     },
     {
-      title: "A TIME-SAVING Product and Setup",
+      title: "Noticeable improvement in call handling efficiency",
       quote:
-        "This app is a time saver, keeps everything in line with your follow-up needs, and is not over-complicated",
-      name: "Mike Adams",
-      role: "Founder and President at Smart Stays Inv Smart Stays Inc",
+        "Routing is smoother, follow-ups are cleaner, and supervisors have better visibility into team performance. It made our contact center process far more reliable.",
+      name: "Rahul Mehta",
+      role: "Customer Experience Manager",
     },
   ];
 
@@ -575,12 +437,11 @@ export default function Contact() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-start lg:gap-10 lg:px-12">
             <div className="hero-content-from-left opacity-0">
-              <h1 className="text-[45px] font-bold leading-[1.1] tracking-tight text-slate-900">
-                Deliver Seamless Support with Salesforce Call Center Solutions
+              <h1 className="text-3xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-[3.5rem]">
+                Empower Your Support Team with Smarter Call Center Solutions
               </h1>
               <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
-                Enable agents to manage customer interactions efficiently with Salesforce cloud contact center capabilities
-                and reliable service operations.
+                Streamline customer interactions, improve response times, and deliver exceptional service with a unified cloud-based contact center experience.
               </p>
               <Link
                 href="https://360cti.com/contact/"
@@ -604,65 +465,15 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* 2 — Chosen by + marquee */}
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-w-3xl justify-center">
-            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-600 shadow-sm sm:text-base">
-              Chosen by Forward-Thinking{" "}
-              <span className="font-semibold text-sky-600">Contact Centers</span>
-            </p>
-          </div>
-          <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
-            <div className="w-full overflow-hidden">
-              <div className="partner-marquee-logos opacity-100">
-                <div className="partner-marquee-track flex w-max">
-                  <div className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-a`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                  <div aria-hidden="true" className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-b`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 3 — Elevate */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Elevate Your Salesforce Contact Center with 360 CTI
+           Transform Your Salesforce Contact Center with Kloudvault
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-center text-sm leading-relaxed text-slate-600 sm:text-base">
-            Reimagine customer service by improving agent performance, resolving queries faster, and delivering
-            consistent experiences across your Salesforce call center operations.
+            Deliver faster resolutions and smarter customer interactions with AI-powered insights. Empower your agents to perform better and provide seamless, consistent support across every touchpoint.
           </p>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {elevateCards.map((c) => (
@@ -687,7 +498,7 @@ export default function Contact() {
       <section
         className="py-14 sm:py-20"
         style={{
-          backgroundColor: "#eef2ff",
+          backgroundColor: "#f0f9ff",
           backgroundImage: `
             linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
             linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px)`,
@@ -696,7 +507,7 @@ export default function Contact() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-led 360 CTI, Built to Deliver Results
+            AI-led Kloudvault, Built to Deliver Results
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {statCards.map((s, i) => (
@@ -712,7 +523,9 @@ export default function Contact() {
       {/* 5 — Testimonials */}
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">Hear What Our Customers Say</h2>
+          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
+            Trusted by Customer Support Teams
+          </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {testimonials.map((t) => (
               <article
@@ -746,7 +559,9 @@ export default function Contact() {
       <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
-          <p className="mt-3 text-center text-slate-600">FAQs About Salesforce Contact Center</p>
+          <p className="mt-3 text-center text-slate-600">
+            Common questions about Kloudvault, Salesforce CTI, and working with our team
+          </p>
           <div className="mt-10 space-y-3">
             {faqs.map((item, i) => {
               const isOpen = faqOpen === i;
@@ -806,10 +621,10 @@ export default function Contact() {
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
           <h2 className="text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
-            Power Every Salesforce Call Center Interaction
+            Transform Every Call into a Meaningful Experience
           </h2>
           <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-powered 360 CTI?
+           Discover how AI-powered Kloudvault helps you deliver smarter, faster, and more personalized customer interactions.
           </p>
           <Link
             href="https://360cti.com/contact/"

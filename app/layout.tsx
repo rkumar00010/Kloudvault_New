@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Salesforce Telephony Integration | AI-Powered 360 CTI",
+  title: "Salesforce Telephony Integration | AI-Powered Kloudvault",
   description:
     "Call smarter, convert faster. AI-powered Salesforce telephony with native integration, click-to-dial, power dialer, and live analytics.",
 };

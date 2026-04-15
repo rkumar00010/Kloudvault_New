@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import SharedNavbar from "./SharedNavbar";
 import { Menu, X, ChevronDown, MessageCircle } from "lucide-react";
 
 function LogoMark({ className = "h-16 w-16" }) {
@@ -27,8 +28,8 @@ function NavbarLogo() {
   if (useSvg) return <LogoMark className="h-16 w-16" />;
   return (
     <img
-      src="/logo.png"
-      alt="360 CTI"
+      src="/Kloudvault.png"
+      alt="Kloudvault"
       width={200}
       height={64}
       className="h-14 w-auto max-h-16 object-contain sm:h-16"
@@ -74,97 +75,21 @@ const NAV = [
       { label: "Healthcare", href: "/healthcare" },
     ],
   },
-  { label: "Our Story", href: "/our-story" },
-  { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
 ];
 
 function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [mobileExpand, setMobileExpand] = useState(null);
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex min-h-[52px] min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:gap-x-6 lg:px-8">
-        <Link href="/" className="relative flex h-14 shrink-0 items-center" onClick={() => setOpen(false)}>
-          <NavbarLogo />
-        </Link>
-        <nav className="hidden min-w-0 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="Primary">
-          {NAV.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="group relative shrink-0">
-                <button type="button" className="flex items-center gap-0.5 rounded-md px-2 py-2 text-base font-medium text-slate-700 hover:bg-slate-50 xl:px-2.5">
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[230px] translate-y-1 rounded-lg border border-slate-200 bg-white py-1 shadow-lg opacity-0 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.dropdown.map((d) => {
-                    const label = typeof d === "string" ? d : d.label;
-                    const href = typeof d === "string" ? item.href : d.href;
-                    return (
-                      <Link key={label} href={href} className="block px-4 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600">
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`shrink-0 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${item.label === "Our Story" ? "text-sky-600" : "text-slate-700"}`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-        <div className="flex shrink-0 items-center gap-2">
-          <Link href="https://360cti.com/contact/" target="_blank" rel="noopener noreferrer" className="shrink-0 rounded-full bg-[#0c2d5c] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a2449] sm:px-5 sm:py-2.5">
-            Let&apos;s Talk
-          </Link>
-          <button type="button" className="shrink-0 rounded-lg p-2 text-slate-700 lg:hidden" onClick={() => setOpen((o) => !o)}>
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-      {open && (
-        <div className="border-t border-slate-100 px-4 py-3 lg:hidden">
-          {NAV.map((item) => (
-            <div key={item.label}>
-              {item.dropdown ? (
-                <>
-                  <button type="button" className="flex w-full items-center justify-between py-2 text-left text-base font-semibold text-slate-900" onClick={() => setMobileExpand((e) => (e === item.label ? null : item.label))}>
-                    {item.label}
-                    <ChevronDown className={`h-4 w-4 ${mobileExpand === item.label ? "rotate-180" : ""}`} />
-                  </button>
-                  {mobileExpand === item.label && (
-                    <div className="ml-2 border-l border-slate-200 pl-3 pb-2">
-                      {item.dropdown.map((d) => {
-                        const label = typeof d === "string" ? d : d.label;
-                        const href = typeof d === "string" ? item.href : d.href;
-                        return (
-                          <Link key={label} href={href} className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600" onClick={() => setOpen(false)}>
-                            {label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link href={item.href} {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="block py-2 text-base font-medium text-slate-800" onClick={() => setOpen(false)}>
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </header>
+    <SharedNavbar
+      navItems={NAV}
+      NavbarLogo={NavbarLogo}
+      ChevronIcon={ChevronDown}
+      MenuIcon={Menu}
+      CloseIcon={X}
+      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      logoHref="#top"
+    />
   );
 }
-
 function Footer() {
   return (
     <section className="bg-[#0a1628] text-white">
@@ -197,20 +122,20 @@ function Footer() {
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-end gap-2 text-white">
-                <LogoMark className="h-14 w-14 [&_text]:fill-white" />
+                <img src="/Kloudvault logo.png" alt="Kloudvault" className="h-14 w-auto" />
               </div>
               <p className="mt-4 text-sm font-semibold">Let&apos;s Connect</p>
               <div className="mt-4 flex gap-2">
                 {[
-                  { label: "Facebook", char: "f" },
-                  { label: "X", char: "x" },
-                  { label: "LinkedIn", char: "in" },
-                  { label: "YouTube", char: ">" },
-                  { label: "Instagram", char: "o" },
+                  {
+                    label: "LinkedIn",
+                    char: "in",
+                    href: "https://www.linkedin.com/company/kloudrac/posts/?feedView=all",
+                  },
                 ].map((s) => (
                   <a
                     key={s.label}
-                    href="#"
+                    href={s.href}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-xs font-bold text-white hover:bg-sky-500"
                     aria-label={s.label}
                   >
@@ -221,8 +146,8 @@ function Footer() {
             </div>
             <div>
               <h3 className="font-semibold">Email Us</h3>
-              <a href="mailto:contact@360cti.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
-                contact@360cti.com
+              <a href="mailto:contact@Kloudvault.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
+                contact@Kloudvault.com
               </a>
             </div>
             <div>
@@ -259,7 +184,7 @@ function Footer() {
             </div>
           </div>
           <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-            <p>Copyright {new Date().getFullYear()} 360 CTI | All Right Reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Kloudvault | All Right Reserved.</p>
             <p>
               <span className="hover:text-slate-300">Our Business</span> Privacy, Terms &amp; Condition
             </p>
@@ -300,7 +225,7 @@ export default function OurStoryPage() {
           <h2 className="text-5xl font-bold">Our Story</h2>
           <p className="mt-4 text-lg text-slate-600">360 Degree Cloud began as a five-member team with a clear vision: help businesses get more from Salesforce.</p>
           <p className="mt-4 text-lg text-slate-600">Today, we are a Salesforce Summit Partner with 13+ years of experience and global project success.</p>
-          <p className="mt-4 text-lg text-slate-600">360 CTI is one of our latest breakthroughs-an AI-powered, Salesforce-native telephony solution rated 4.9/5 on AppExchange.</p>
+          <p className="mt-4 text-lg text-slate-600">Kloudvault is one of our latest breakthroughs-an AI-powered, Salesforce-native telephony solution rated 4.9/5 on AppExchange.</p>
         </div>
         <img src="/Our Story.jpg" alt="Our Story" className="h-[360px] w-full rounded-xl bg-white object-contain" />
       </section>
@@ -412,16 +337,16 @@ export default function OurStoryPage() {
             rel="noopener noreferrer"
             className="mt-8 inline-flex rounded-full bg-[#0c2d5c] px-10 py-3 text-lg font-semibold text-white"
           >
-            See 360 CTI in action
+            See Kloudvault in action
           </Link>
         </div>
       </section>
 
       <Footer />
 
-      <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
-        <button type="button" className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg"><MessageCircle className="h-5 w-5" />Live Chat</button>
-        <button type="button" className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"><MessageCircle className="h-6 w-6" /></button>
+      <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:gap-3">
+        <button type="button" className="hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg sm:flex"><MessageCircle className="h-5 w-5" />Live Chat</button>
+        <button type="button" className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg sm:h-12 sm:w-12"><MessageCircle className="h-6 w-6" /></button>
       </div>
     </div>
   );

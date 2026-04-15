@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import SharedNavbar from "./SharedNavbar";
 import { Menu, X, ChevronDown, MessageCircle, Star } from "lucide-react";
 
 function LogoMark({ className = "h-16 w-16" }) {
@@ -60,8 +60,8 @@ function NavbarLogo() {
   if (useSvg) return <LogoMark className="h-16 w-16" />;
   return (
     <img
-      src="/logo.png"
-      alt="360 CTI"
+      src="/Kloudvault.png"
+      alt="Kloudvault"
       width={200}
       height={64}
       className="h-14 w-auto max-h-16 object-contain sm:h-16"
@@ -71,23 +71,6 @@ function NavbarLogo() {
   );
 }
 
-const partnerLogos = [
-  { src: "/partner-logos/Asset-13.svg", alt: "Bank", w: 46, h: 21 },
-  { src: "/partner-logos/Asset-14.svg", alt: "AMGEN", w: 78, h: 11 },
-  { src: "/partner-logos/Asset-15.svg", alt: "Abbott", w: 28, h: 28 },
-  { src: "/partner-logos/Asset-12.svg", alt: "Liberis", w: 74, h: 16 },
-  { src: "/partner-logos/Asset-11.svg", alt: "INSEAD", w: 67, h: 20 },
-  { src: "/partner-logos/Asset-10.svg", alt: "PageGroup", w: 56, h: 14 },
-  { src: "/partner-logos/Asset-9.svg", alt: "togetherTV", w: 69, h: 17 },
-  { src: "/partner-logos/Asset-8.svg", alt: "Partner 8", w: 71, h: 20 },
-  { src: "/partner-logos/Asset-7.svg", alt: "Partner 7", w: 49, h: 22 },
-  { src: "/partner-logos/Asset-6.svg", alt: "Partner 6", w: 71, h: 15 },
-  { src: "/partner-logos/Asset-5.svg", alt: "Partner 5", w: 84, h: 15 },
-  { src: "/partner-logos/Asset-4.svg", alt: "Partner 4", w: 57, h: 16 },
-  { src: "/partner-logos/Asset-3.svg", alt: "Partner 3", w: 51, h: 31 },
-  { src: "/partner-logos/Asset-2.svg", alt: "Partner 2", w: 55, h: 29 },
-  { src: "/partner-logos/Asset-1.svg", alt: "Partner 1", w: 96, h: 37 },
-];
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -125,8 +108,6 @@ const NAV = [
       { label: "Healthcare", href: "/healthcare" },
     ],
   },
-  { label: "Our Story", href: "/our-story" },
-  { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -148,144 +129,24 @@ function navItemIsActive(item, pathname) {
 }
 
 function Navbar() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [mobileExpand, setMobileExpand] = useState(null);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex min-h-[52px] min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:justify-normal lg:gap-x-6 lg:px-8">
-        <Link href="/" className="relative flex h-14 shrink-0 items-center" onClick={() => setOpen(false)}>
-          <NavbarLogo />
-        </Link>
-
-        <nav className="hidden min-w-0 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="Primary">
-          {NAV.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="group relative shrink-0">
-                <button
-                  type="button"
-                  className={`flex items-center gap-0.5 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                  }`}
-                >
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[200px] translate-y-1 rounded-lg border border-slate-200 bg-white py-1 shadow-lg opacity-0 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.dropdown.map((d) => {
-                    const label = typeof d === "string" ? d : d.label;
-                    const href = typeof d === "string" ? item.href : d.href;
-                    return (
-                      <Link
-                        key={label}
-                        href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                      >
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`shrink-0 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                  navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a2449] sm:px-5 sm:py-2.5"
-          >
-            Let&apos;s Talk
-          </Link>
-          <button
-            type="button"
-            className="shrink-0 rounded-lg p-2 text-slate-700 lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="border-t border-slate-100 px-4 py-3 lg:hidden">
-          {NAV.map((item) => (
-            <div key={item.label}>
-              {item.dropdown ? (
-                <>
-                  <button
-                    type="button"
-                    className={`flex w-full items-center justify-between py-2 text-left text-base font-semibold ${
-                      navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-900"
-                    }`}
-                    onClick={() => setMobileExpand((e) => (e === item.label ? null : item.label))}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`h-4 w-4 ${mobileExpand === item.label ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {mobileExpand === item.label && (
-                    <div className="ml-2 border-l border-slate-200 pl-3 pb-2">
-                      {item.dropdown.map((d) => {
-                        const label = typeof d === "string" ? d : d.label;
-                        const href = typeof d === "string" ? item.href : d.href;
-                        return (
-                          <Link
-                            key={label}
-                            href={href}
-                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                            onClick={() => setOpen(false)}
-                          >
-                            {label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className={`block py-2 text-base font-medium ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-800"
-                  }`}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </header>
+    <SharedNavbar
+      navItems={NAV}
+      NavbarLogo={NavbarLogo}
+      ChevronIcon={ChevronDown}
+      MenuIcon={Menu}
+      CloseIcon={X}
+      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      logoHref="#top"
+    />
   );
 }
-
 function FloatingChat() {
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:gap-3">
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg"
+        className="hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg sm:flex"
         aria-label="Live chat"
       >
         <MessageCircle className="h-5 w-5" />
@@ -293,7 +154,7 @@ function FloatingChat() {
       </button>
       <button
         type="button"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg sm:h-12 sm:w-12"
         aria-label="Open chat"
       >
         <MessageCircle className="h-6 w-6" />
@@ -334,20 +195,20 @@ function HomeStyleFooter() {
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-end gap-2 text-white">
-                <LogoMark className="h-14 w-14 [&_text]:fill-white" />
+                <img src="/Kloudvault logo.png" alt="Kloudvault" className="h-14 w-auto" />
               </div>
               <p className="mt-4 text-sm font-semibold">Let&apos;s Connect</p>
               <div className="mt-4 flex gap-2">
                 {[
-                  { label: "Facebook", char: "f" },
-                  { label: "X", char: "𝕏" },
-                  { label: "LinkedIn", char: "in" },
-                  { label: "YouTube", char: "▶" },
-                  { label: "Instagram", char: "◎" },
+                  {
+                    label: "LinkedIn",
+                    char: "in",
+                    href: "https://www.linkedin.com/company/kloudrac/posts/?feedView=all",
+                  },
                 ].map((s) => (
                   <a
                     key={s.label}
-                    href="#"
+                    href={s.href}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-xs font-bold text-white hover:bg-sky-500"
                     aria-label={s.label}
                   >
@@ -358,8 +219,8 @@ function HomeStyleFooter() {
             </div>
             <div>
               <h3 className="font-semibold">Email Us</h3>
-              <a href="mailto:contact@360cti.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
-                contact@360cti.com
+              <a href="mailto:contact@Kloudvault.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
+                contact@Kloudvault.com
               </a>
             </div>
             <div>
@@ -400,7 +261,7 @@ function HomeStyleFooter() {
             </div>
           </div>
           <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-            <p>Copyright {new Date().getFullYear()} 360 CTI | All Right Reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Kloudvault | All Right Reserved.</p>
             <p>
               <span className="hover:text-slate-300">→ Our Business</span>{" "}
               <a href="#" className="hover:text-slate-300">
@@ -431,12 +292,12 @@ const SCHEDULE_IMG_PATHS = [
 ];
 
 const statCards = [
-  { big: "13+", small: "Years of Trust" },
-  { big: "Zero", small: "Integration Hassle" },
-  { big: "100%", small: "Free Support" },
-  { big: "No Code", small: "Telephony Solution" },
-  { big: "Salesforce-Native", small: "Telephony" },
-  { big: "100%", small: "Data Security" },
+  { big: "24x7", small: "Lead Response Window" },
+  { big: "Zero", small: "Missed Follow-Up Hassle" },
+  { big: "99.9%", small: "Calling Reliability" },
+  { big: "Smart", small: "Prospect Prioritization" },
+  { big: "Salesforce-Native", small: "Deal Workflows" },
+  { big: "Enterprise", small: "Data Protection" },
 ];
 
 /** Alternating card colors like reference: pale blue / sky-200 checkerboard (3×2 grid). */
@@ -452,65 +313,66 @@ export default function RealEstate() {
 
   const impactStats = [
     {
-      pct: "35%",
-      title: "More Property Deals Closed",
-      body: "Boosted outreach efficiency, faster follow-ups, smarter buyer targeting, and trust-building conversations lead to more conversions from qualified leads.",
+      pct: "41%",
+      title: "Higher Qualified Conversation Rate",
+      body: "Teams connect with serious buyers faster using context-rich calling, cleaner lead segmentation, and timely outreach from one Salesforce workspace.",
     },
     {
-      pct: "42%",
-      title: "Higher Lead Engagement",
-      body: "Live AI-driven insights, reduced no-shows, and consistent agent interactions keep prospects warm and connected throughout their buyer journey.",
+      pct: "33%",
+      title: "Faster Site-Visit Scheduling",
+      body: "Automated reminders and guided follow-up flows reduce scheduling delays, helping agents move prospects from inquiry to property visits quickly.",
     },
     {
-      pct: "38%",
-      title: "Faster Sales Cycles",
-      body: "Automated scheduling, intelligent call routing, and accelerated property viewings speed up decision-making with less back-and-forth.",
+      pct: "29%",
+      title: "Shorter Deal Closure Timelines",
+      body: "Real-time call visibility and structured next-step tracking keep negotiations moving, reduce drop-offs, and improve closure consistency.",
     },
   ];
 
   const propertiesCards = [
     {
-      title: "Reach More Buyers in Less Time",
-      body: "Reach more buyers in less time by managing bulk dialing with better controls using Salesforce Power Dialer for Real Estate, and boost outreach efficiency.",
+      title: "Connect with High-Intent Buyers First",
+      body: "Prioritize the right leads with Salesforce context so agents spend more time on serious prospects and less on low-value callbacks.",
     },
     {
-      title: "Never Miss Follow-Ups Again",
-      body: "Schedule calls with a communication solution for Real Estate to automate follow-ups, reduce lead drop-off, and generate more property leads.",
+      title: "Automate Follow-Ups Across the Funnel",
+      body: "Keep every inquiry warm with automated call tasks, reminders, and disposition-driven next steps inside your existing CRM flow.",
     },
     {
-      title: "Personalize Buyer Experiences",
-      body: "Connect returning prospects with the same realtor using Sticky Agent for Real Estate in Salesforce to build trust, personalize interactions, and boost deal conversions.",
+      title: "Deliver Personalized Buyer Conversations",
+      body: "Give agents complete history before every call so they can tailor discussions by budget, location preference, and buying timeline.",
     },
   ];
 
   const scheduleCards = [
     {
-      title: "Schedule More Property Visits",
-      body: "Automate scheduling and confirmations with Salesforce IVR for Real Estate Appointments, reducing no-shows and back-and-forth to streamline property visit coordination.",
+      title: "Increase Confirmed Property Visits",
+      body: "Use smart reminders and confirmation workflows to reduce no-shows and keep your site-visit calendar full.",
     },
     {
-      title: "Engage New Leads Instantly with AI",
-      body: "AI voice bots in a telephony solution instantly engage new leads, capture key details, resolve queries, and schedule demos with agents to drive faster deal closures.",
+      title: "Respond to New Leads Instantly",
+      body: "Capture and qualify inbound interest quickly with AI-assisted interactions, then route prospects to the right agent without delay.",
     },
     {
-      title: "Analyze and Nurture Serious Buyers",
-      body: "Unlock a deeper understanding of buyer sentiment with live AI Salesforce Call Insights for Real Estate. Let agents prioritize the right conversations at the right time.",
+      title: "Coach Teams with Call Insights",
+      body: "Track conversation quality, objections, and outcomes to improve scripts, coaching plans, and conversion performance over time.",
     },
   ];
 
   const testimonials = [
     {
-      title: "Awesome tech support",
-      quote: "Always quick, & friendly. Ashutosh & Mayank went above & beyond. Thanks",
-      name: "Gerald Maguire",
-      role: "Sr Mortgage Advisor",
+      title: "Stronger pipeline visibility for our brokers",
+      quote:
+        "We now track every buyer interaction in Salesforce, so follow-ups are timely and team handoffs are smooth. It significantly improved our conversion discipline.",
+      name: "Karan Bhatia",
+      role: "Sales Director, UrbanNest Realty",
     },
     {
-      title: "Dependability and provides the best native salesforce solution",
+      title: "Reliable calling setup across multiple projects",
       quote:
-        "I have worked with multiple enterprise calling solutions in the past and 360CTI beats them on dependability and provides the best native...",
-      name: "Rachel Reece",
-      role: "System Administrator",
+        "From first response to final negotiation calls, our agents work faster with less manual effort. The Salesforce-native flow is a big operational win.",
+      name: "Sneha Arora",
+      role: "CRM Manager, PrimeHomes Group",
     },
   ];
 
@@ -537,13 +399,13 @@ export default function RealEstate() {
         <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-4 py-20 text-center sm:px-6 sm:py-24">
           <div className="hero-content-from-left flex w-full max-w-5xl flex-col items-center opacity-0">
             <span className="inline-block rounded-full border border-white/50 bg-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white">
-              360 CTI for Real Estate
+              Real Estate Cloud Telephony
             </span>
-            <h1 className="mx-auto mt-8 max-w-4xl text-[45px] font-bold leading-[1.12] tracking-tight text-white">
-              Close More Property Deals with AI-led Salesforce CTI
+            <h1 className="mx-auto mt-8 max-w-4xl text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-[45px]">
+              Convert More Property Leads with AI-Led Kloudvault
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/95 sm:text-lg">
-              Automate outreach, personalize every call, and manage property conversations seamlessly within Salesforce.
+              Unify calling, follow-ups, and buyer context in Salesforce so your teams can respond faster and close with confidence.
             </p>
             <Link
               href="https://360cti.com/contact/"
@@ -551,66 +413,18 @@ export default function RealEstate() {
               rel="noopener noreferrer"
               className="mt-10 inline-flex rounded-full bg-sky-600 px-10 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-700"
             >
-              Book a 1:1 Demo
+              Schedule a Live Demo
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 2 — Trusted + marquee */}
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-w-4xl justify-center">
-            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-800 shadow-sm sm:text-base">
-              Trusted by <span className="font-semibold text-sky-600">Leading Real Estate</span> Brands
-            </p>
-          </div>
-          <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
-            <div className="w-full overflow-hidden">
-              <div className="partner-marquee-logos opacity-100">
-                <div className="partner-marquee-track flex w-max">
-                  <div className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-a`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                  <div aria-hidden="true" className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-b`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 3 — Driving impact */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl md:text-4xl">
-            Driving Impact: Close More. Sell Faster
+            Real Estate Outcomes You Can Measure
           </h2>
           <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
             {impactStats.map((s) => (
@@ -627,13 +441,12 @@ export default function RealEstate() {
       {/* 4 — Close properties faster + image right */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mx-auto max-w-5xl text-center text-[45px] font-bold leading-tight text-slate-900">
-            Close Properties Faster with{" "}
-            <span className="text-sky-600">AI-led Salesforce Telephony</span>
+          <h2 className="mx-auto max-w-5xl text-center text-3xl font-bold leading-tight text-slate-900 sm:text-4xl lg:text-[45px]">
+            Build a Faster Buyer Journey with{" "}
+            <span className="text-sky-600">Salesforce-Native Calling</span>
           </h2>
           <p className="mx-auto mt-5 max-w-3xl text-center text-sm leading-relaxed text-slate-600 sm:text-base">
-            Transform client outreach—connect with more buyers, handle inbound and outbound calls efficiently, and move
-            deals faster using AI-driven calling inside Salesforce.
+            Run smarter outreach, reduce lead leakage, and help agents close deals sooner with a single communication layer inside Salesforce.
           </p>
           <div className="mt-14 grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
             <div className="hero-content-from-left space-y-4 opacity-0">
@@ -670,13 +483,13 @@ export default function RealEstate() {
                   key={SCHEDULE_IMG_PATHS[scheduleImgIndex]}
                   src={encodeURI(SCHEDULE_IMG_PATHS[scheduleImgIndex])}
                   alt="Schedule more property visits with Salesforce"
-                  className="h-auto w-full max-w-md rounded-2xl object-contain sm:max-w-lg"
+                  className="h-auto w-full max-w-xl rounded-2xl object-contain sm:max-w-2xl"
                   loading="lazy"
                   decoding="async"
                   onError={() => setScheduleImgIndex((i) => i + 1)}
                 />
               ) : (
-                <div className="flex min-h-[200px] w-full max-w-md flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center text-sm text-slate-600">
+                <div className="flex min-h-[200px] w-full max-w-xl flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center text-sm text-slate-600 sm:max-w-2xl">
                   <LogoMark className="h-12 w-12 opacity-40" />
                   <p>
                     Add image as{" "}
@@ -709,7 +522,7 @@ export default function RealEstate() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="flex flex-col items-stretch justify-between gap-6 rounded-2xl bg-[#3B8DEB] px-6 py-8 shadow-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-9">
             <p className="text-center text-lg font-semibold leading-snug text-white sm:max-w-[55%] sm:text-left sm:text-xl">
-              Want to see results from actual use cases?
+              Want to see a real estate implementation blueprint?
             </p>
             <Link
               href="https://360cti.com/contact/"
@@ -717,7 +530,7 @@ export default function RealEstate() {
               rel="noopener noreferrer"
               className="shrink-0 rounded-md bg-white px-5 py-3 text-center text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50 sm:px-6"
             >
-              Download the Case Study Now!
+              Get the Use-Case Deck
             </Link>
           </div>
         </div>
@@ -736,7 +549,7 @@ export default function RealEstate() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            AI-led Salesforce 360 CTI for Real Estate Closures
+            AI-Led Kloudvault Built for Real Estate Teams
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {statCards.map((s, i) => (
@@ -756,7 +569,7 @@ export default function RealEstate() {
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Hear From Our Esteemed Real Estate Clients
+            Trusted by Real Estate Revenue Teams
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {testimonials.map((t) => (
@@ -798,17 +611,12 @@ export default function RealEstate() {
           backgroundSize: "24px 24px",
         }}
       >
-        <div className="mx-auto max-w-[100vw] px-4 text-center">
-          <div className="flex justify-center overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <h2
-              className="whitespace-nowrap font-bold tracking-tight text-slate-900"
-              style={{ fontSize: "clamp(0.7rem, 2.35vw, 2.25rem)" }}
-            >
-              Smarter Outreach. Stronger Client Conversations. Faster Closures.
-            </h2>
-          </div>
+        <div className="mx-auto max-w-6xl px-4 text-center">
+          <h2 className="font-bold tracking-tight text-slate-900 text-2xl leading-tight sm:text-3xl lg:text-4xl">
+            Smarter Outreach. Stronger Client Conversations.
+          </h2>
           <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-led 360 CTI?
+            Talk to our team to design a Salesforce telephony workflow tailored for your brokerage operations.
           </p>
           <Link
             href="https://360cti.com/contact/"
@@ -816,7 +624,7 @@ export default function RealEstate() {
             rel="noopener noreferrer"
             className="mt-8 inline-flex rounded-lg bg-sky-500 px-8 py-3 font-semibold text-white hover:bg-sky-600"
           >
-            Contact our Experts
+            Talk to a Real Estate Specialist
           </Link>
         </div>
       </section>

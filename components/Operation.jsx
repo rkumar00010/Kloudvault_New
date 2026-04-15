@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import SharedNavbar from "./SharedNavbar";
 import {
   Menu,
   X,
@@ -72,8 +72,8 @@ function NavbarLogo() {
   if (useSvg) return <LogoMark className="h-16 w-16" />;
   return (
     <img
-      src="/logo.png"
-      alt="360 CTI"
+      src="/Kloudvault.png"
+      alt="Kloudvault"
       width={200}
       height={64}
       className="h-14 w-auto max-h-16 object-contain sm:h-16"
@@ -83,23 +83,6 @@ function NavbarLogo() {
   );
 }
 
-const partnerLogos = [
-  { src: "/partner-logos/Asset-13.svg", alt: "Bank", w: 46, h: 21 },
-  { src: "/partner-logos/Asset-14.svg", alt: "AMGEN", w: 78, h: 11 },
-  { src: "/partner-logos/Asset-15.svg", alt: "Abbott", w: 28, h: 28 },
-  { src: "/partner-logos/Asset-12.svg", alt: "Liberis", w: 74, h: 16 },
-  { src: "/partner-logos/Asset-11.svg", alt: "INSEAD", w: 67, h: 20 },
-  { src: "/partner-logos/Asset-10.svg", alt: "PageGroup", w: 56, h: 14 },
-  { src: "/partner-logos/Asset-9.svg", alt: "togetherTV", w: 69, h: 17 },
-  { src: "/partner-logos/Asset-8.svg", alt: "Partner 8", w: 71, h: 20 },
-  { src: "/partner-logos/Asset-7.svg", alt: "Partner 7", w: 49, h: 22 },
-  { src: "/partner-logos/Asset-6.svg", alt: "Partner 6", w: 71, h: 15 },
-  { src: "/partner-logos/Asset-5.svg", alt: "Partner 5", w: 84, h: 15 },
-  { src: "/partner-logos/Asset-4.svg", alt: "Partner 4", w: 57, h: 16 },
-  { src: "/partner-logos/Asset-3.svg", alt: "Partner 3", w: 51, h: 31 },
-  { src: "/partner-logos/Asset-2.svg", alt: "Partner 2", w: 55, h: 29 },
-  { src: "/partner-logos/Asset-1.svg", alt: "Partner 1", w: 96, h: 37 },
-];
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -137,8 +120,6 @@ const NAV = [
       { label: "Healthcare", href: "/healthcare" },
     ],
   },
-  { label: "Our Story", href: "/our-story" },
-  { label: "360CTI on AppExchange", href: "https://appexchange.salesforce.com", external: true },
 ];
 
 function navItemIsActive(item, pathname) {
@@ -160,144 +141,24 @@ function navItemIsActive(item, pathname) {
 }
 
 function Navbar() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [mobileExpand, setMobileExpand] = useState(null);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex min-h-[52px] min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:justify-normal lg:gap-x-6 lg:px-8">
-        <Link href="/" className="relative flex h-14 shrink-0 items-center" onClick={() => setOpen(false)}>
-          <NavbarLogo />
-        </Link>
-
-        <nav className="hidden min-w-0 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="Primary">
-          {NAV.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="group relative shrink-0">
-                <button
-                  type="button"
-                  className={`flex items-center gap-0.5 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                  }`}
-                >
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[200px] translate-y-1 rounded-lg border border-slate-200 bg-white py-1 shadow-lg opacity-0 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.dropdown.map((d) => {
-                    const label = typeof d === "string" ? d : d.label;
-                    const href = typeof d === "string" ? item.href : d.href;
-                    return (
-                      <Link
-                        key={label}
-                        href={href}
-                        className="block px-3 py-2 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                      >
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`shrink-0 rounded-md px-2 py-2 text-base font-medium hover:bg-slate-50 xl:px-2.5 ${
-                  navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-700"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            href="https://360cti.com/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-[#0c2d5c] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a2449] sm:px-5 sm:py-2.5"
-          >
-            Let&apos;s Talk
-          </Link>
-          <button
-            type="button"
-            className="shrink-0 rounded-lg p-2 text-slate-700 lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="border-t border-slate-100 px-4 py-3 lg:hidden">
-          {NAV.map((item) => (
-            <div key={item.label}>
-              {item.dropdown ? (
-                <>
-                  <button
-                    type="button"
-                    className={`flex w-full items-center justify-between py-2 text-left text-base font-semibold ${
-                      navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-900"
-                    }`}
-                    onClick={() => setMobileExpand((e) => (e === item.label ? null : item.label))}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`h-4 w-4 ${mobileExpand === item.label ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {mobileExpand === item.label && (
-                    <div className="ml-2 border-l border-slate-200 pl-3 pb-2">
-                      {item.dropdown.map((d) => {
-                        const label = typeof d === "string" ? d : d.label;
-                        const href = typeof d === "string" ? item.href : d.href;
-                        return (
-                          <Link
-                            key={label}
-                            href={href}
-                            className="block py-1 text-base text-slate-600 hover:bg-sky-50 hover:text-sky-600"
-                            onClick={() => setOpen(false)}
-                          >
-                            {label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className={`block py-2 text-base font-medium ${
-                    navItemIsActive(item, pathname) ? "text-sky-600" : "text-slate-800"
-                  }`}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </header>
+    <SharedNavbar
+      navItems={NAV}
+      NavbarLogo={NavbarLogo}
+      ChevronIcon={ChevronDown}
+      MenuIcon={Menu}
+      CloseIcon={X}
+      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      logoHref="#top"
+    />
   );
 }
-
 function FloatingChat() {
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:gap-3">
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg"
+        className="hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-lg sm:flex"
         aria-label="Live chat"
       >
         <MessageCircle className="h-5 w-5" />
@@ -305,7 +166,7 @@ function FloatingChat() {
       </button>
       <button
         type="button"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg sm:h-12 sm:w-12"
         aria-label="Open chat"
       >
         <MessageCircle className="h-6 w-6" />
@@ -346,20 +207,20 @@ function HomeStyleFooter() {
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-end gap-2 text-white">
-                <LogoMark className="h-14 w-14 [&_text]:fill-white" />
+                <img src="/Kloudvault logo.png" alt="Kloudvault" className="h-14 w-auto" />
               </div>
               <p className="mt-4 text-sm font-semibold">Let&apos;s Connect</p>
               <div className="mt-4 flex gap-2">
                 {[
-                  { label: "Facebook", char: "f" },
-                  { label: "X", char: "𝕏" },
-                  { label: "LinkedIn", char: "in" },
-                  { label: "YouTube", char: "▶" },
-                  { label: "Instagram", char: "◎" },
+                  {
+                    label: "LinkedIn",
+                    char: "in",
+                    href: "https://www.linkedin.com/company/kloudrac/posts/?feedView=all",
+                  },
                 ].map((s) => (
                   <a
                     key={s.label}
-                    href="#"
+                    href={s.href}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-xs font-bold text-white hover:bg-sky-500"
                     aria-label={s.label}
                   >
@@ -370,8 +231,8 @@ function HomeStyleFooter() {
             </div>
             <div>
               <h3 className="font-semibold">Email Us</h3>
-              <a href="mailto:contact@360cti.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
-                contact@360cti.com
+              <a href="mailto:contact@Kloudvault.com" className="mt-2 block text-sm text-slate-300 hover:text-white">
+                contact@Kloudvault.com
               </a>
             </div>
             <div>
@@ -412,7 +273,7 @@ function HomeStyleFooter() {
             </div>
           </div>
           <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-            <p>Copyright {new Date().getFullYear()} 360 CTI | All Right Reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Kloudvault | All Right Reserved.</p>
             <p>
               <span className="hover:text-slate-300">→ Our Business</span>{" "}
               <a href="#" className="hover:text-slate-300">
@@ -434,32 +295,28 @@ const HERO_IMG = "/Operation.jpg";
 
 const faqs = [
   {
-    q: "How do Salesforce call center operations improve efficiency for large support teams?",
-    a: "Centralized CTI, queue management, and real-time visibility help supervisors balance workloads, reduce handle time, and keep SLAs on track across large teams.",
+    q: "How does Kloudvault improve day-to-day call center operations in Salesforce?",
+    a: "Kloudvault brings routing, agent workflows, and call activity into one Salesforce-native flow so teams can reduce delays, increase visibility, and handle more interactions consistently.",
   },
   {
-    q: "How does AI-powered call center operations in Salesforce reduce operational overhead?",
-    a: "Automation for routing, dispositioning, and follow-ups cuts manual steps, while AI insights help prioritize work so managers spend less time firefighting.",
+    q: "Can operations managers track queue and agent performance in real time?",
+    a: "Yes. Supervisors can monitor queue pressure, agent availability, and activity trends to make faster staffing and workflow decisions during peak periods.",
   },
   {
-    q: "What role does AI CTI play in call centre operations within Salesforce?",
-    a: "AI CTI brings screen pops, summaries, and intelligent routing into Salesforce so agents stay in one system with context for every call.",
+    q: "Does Kloudvault help reduce manual handoffs and repetitive admin tasks?",
+    a: "Automation can handle routine call logging, task creation, and follow-up triggers so teams spend less time on repetitive updates and more time on customer outcomes.",
   },
   {
-    q: "How does AI-driven call handling in Salesforce improve first-call resolution?",
-    a: "Calls reach the right skill group faster, agents see customer history instantly, and guided workflows reduce transfers and repeat contacts.",
+    q: "How does the platform support better first-call resolution?",
+    a: "Intelligent routing and full Salesforce context help connect customers to the right team faster, reducing transfers and improving resolution quality on the first interaction.",
   },
   {
-    q: "Can automated call center operations in Salesforce support high call volumes reliably?",
-    a: "Yes. Cloud telephony with Salesforce-native CTI scales with your queues and users, with failover and monitoring built for peak traffic.",
+    q: "Can Kloudvault handle high-volume periods without hurting service quality?",
+    a: "It is designed for scalable cloud operations, with queue controls and flexible routing that help teams maintain response standards even during demand spikes.",
   },
   {
-    q: "How do intelligent call center operations in Salesforce help operations managers?",
-    a: "Managers get live and historical dashboards for queues, agents, and outcomes—so they can coach, adjust staffing, and improve processes with data.",
-  },
-  {
-    q: "What should businesses look for in Salesforce call operations solutions?",
-    a: "Look for native Salesforce integration, flexible routing, strong reporting, compliance features, and a vendor that supports onboarding and ongoing success.",
+    q: "What does onboarding look like for operations and support teams?",
+    a: "After discovery, we define rollout stages, admin enablement, and adoption support so your operation can go live smoothly and continue improving after launch.",
   },
 ];
 
@@ -469,38 +326,38 @@ export default function Operation() {
 
   const operationCards = [
     {
-      title: "Ensure Balanced Call Loads",
-      body: "Distribute calls evenly among agents to prevent overload, reduce caller wait times, and ensure consistent service quality across the team.",
+      title: "Optimize Call Routing Efficiency",
+      body: "Route every call intelligently using AI-based distribution, ensuring customers connect with the most suitable agents quickly, improving resolution rates and overall experience..",
       icon: Network,
       bg: "bg-sky-50 border border-sky-100",
     },
     {
-      title: "Ensure Quality Conversations",
-      body: "Monitor live calls to identify gaps, provide instant feedback, and maintain high service standards across all customer interactions for better call outcomes.",
+      title: "Deliver Consistent Call Excellence",
+      body: "Maintain high-quality interactions with real-time call insights, enabling supervisors to guide agents proactively and ensure every conversation meets your service standards.",
       icon: MessagesSquare,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Resolve Issues Faster",
-      body: "Streamline operations by routing calls to the right team or agent instantly, reducing internal handoffs and accelerating resolution across departments.",
+      title: "Minimize Resolution Time",
+      body: "Accelerate issue handling with intelligent workflows that connect customers to the right resources instantly, eliminating delays and improving first-call resolution rates.",
       icon: Handshake,
       bg: "bg-sky-50 border border-sky-100",
     },
     {
-      title: "Offer Self-Service for Common Queries",
-      body: "Configure IVR and allow customers or internal teams to access routine information (order status, delivery updates, etc.) without agent involvement, reducing workload.",
+      title: "Empower Customers with Instant Answers",
+      body: "Enable users to quickly resolve common queries through automated menus and voice prompts, reducing dependency on agents while improving response speed and satisfaction.",
       icon: MousePointerClick,
       bg: "bg-white border border-slate-200",
     },
     {
-      title: "Connect Callers with Agents Faster",
-      body: "Reduce caller wait times by routing calls based on real-time agent availability status—Online, Away, or Offline—for uninterrupted service delivery.",
+      title: "Enable Real-Time Call Connections",
+      body: "Instantly connect callers to available agents using dynamic status tracking, minimizing hold times and ensuring faster, seamless communication.",
       icon: Headphones,
       bg: "bg-sky-50 border border-sky-100",
     },
     {
-      title: "Deliver Uninterrupted Quality Service",
-      body: "Ensure uninterrupted operations by auto-forwarding calls across teams or fallback numbers, minimizing missed calls, and maintaining consistent service delivery.",
+      title: "Ensure Continuous Call Availability",
+      body: "Maintain seamless communication by automatically rerouting calls during peak times or agent unavailability, ensuring no customer query goes unanswered.",
       icon: ShieldCheck,
       bg: "bg-white border border-slate-200",
     },
@@ -544,15 +401,14 @@ export default function Operation() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-3xl bg-[#f4f2f8] px-6 py-10 shadow-sm sm:px-10 sm:py-12 lg:grid lg:grid-cols-2 lg:items-start lg:gap-10 lg:px-12">
             <div className="hero-content-from-left opacity-0">
-              <h1 className="text-[45px] font-bold leading-[1.1] tracking-tight text-slate-900">
-                Transform Salesforce Call Center Operations with AI-Powered CTI
+              <h1 className="text-3xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-[3.5rem]">
+                Optimize Call Center Efficiency with Smart CTI
               </h1>
               <p className="mt-5 max-w-lg text-sm leading-snug text-slate-600 lg:max-w-[28rem]">
-                Leverage centralized call controls, automation, and unified dashboards to reduce manual effort and
-                support efficient Salesforce call center operations.
+                Streamline your Salesforce call center with intelligent automation, centralized controls, and real-time visibility. Reduce operational complexity, enhance agent productivity, and deliver faster, more consistent customer experiences at scale.
               </p>
               <Link
-                href="https://360cti.com/contact/"
+                href="https://360cti.com/contact/"  
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-8 inline-flex rounded-lg bg-sky-600 px-8 py-3 text-sm font-semibold text-white hover:bg-sky-700"
@@ -584,60 +440,12 @@ export default function Operation() {
         </div>
       </section>
 
-      {/* 2 — Partners */}
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-w-4xl justify-center">
-            <p className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-600 shadow-sm sm:text-base">
-              Partnered with the Most <span className="font-semibold text-sky-600">Customer-Centric Brands</span>
-            </p>
-          </div>
-          <div className="mt-8 flex min-h-[60px] items-center justify-center overflow-hidden">
-            <div className="w-full overflow-hidden">
-              <div className="partner-marquee-logos opacity-100">
-                <div className="partner-marquee-track flex w-max">
-                  <div className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-a`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                  <div aria-hidden="true" className="flex w-max items-center gap-x-6 sm:gap-x-12">
-                    {partnerLogos.map((logo, idx) => (
-                      <a key={`${logo.src}-${idx}-b`} href="#" className="flex items-center justify-center">
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={logo.w}
-                          height={logo.h}
-                          className="block"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 3 — Feature grid */}
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Transform Call Center Operations with AI CTI
+            Revolutionize Call Center Performance with AI CTI
           </h2>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {operationCards.map((c) => (
@@ -716,7 +524,9 @@ export default function Operation() {
       <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">FAQs</h2>
-          <p className="mt-3 text-center text-slate-600">FAQs About Call Center Operations</p>
+          <p className="mt-3 text-center text-slate-600">
+            Common questions about Kloudvault operations workflows and Salesforce integration
+          </p>
           <div className="mt-10 space-y-3">
             {faqs.map((item, i) => {
               const isOpen = faqOpen === i;
@@ -776,10 +586,10 @@ export default function Operation() {
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
           <h2 className="text-balance text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl">
-            Power Operations. Efficient Teams. Effortless Service.
+            Streamline Operations. Empower Teams. Deliver Better Service.
           </h2>
           <p className="mt-4 text-lg text-slate-700">
-            Have questions or want to know more about AI-led 360 CTI?
+            Have questions or want to explore how AI-led Kloudvault can optimize your operations?
           </p>
           <Link
             href="https://360cti.com/contact/"
