@@ -112,7 +112,7 @@ function DashboardPreview() {
         <p className="max-w-md text-sm text-slate-600">
           Dashboard image missing or invalid. Add your file as{" "}
           <span className="rounded bg-white px-1.5 py-0.5 font-mono text-xs text-slate-800">
-            my-app/public/Dashboard.gif
+            my-app/public/Dashboard.png
           </span>{" "}
           and refresh.
         </p>
@@ -121,7 +121,7 @@ function DashboardPreview() {
   }
   return (
     <img
-      src="/Dashboard.gif"
+      src="/Dashboard.png"
       alt="Kloudvault dashboard"
       className="h-auto w-full object-cover object-top"
       onError={() => setFailed(true)}
@@ -339,7 +339,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2 & 3 — Dashboard preview (image: public/Dashboard.gif) */}
+      {/* 2 & 3 — Dashboard preview (image: public/Dashboard.png) */}
       <section className="bg-sky-100/60 py-12 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl">
