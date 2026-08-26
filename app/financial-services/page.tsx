@@ -1,5 +1,5 @@
-import FinancialServices from "@/components/FinancialServices";
+import { redirect } from "next/navigation";
 
 export default function FinancialServicesPage() {
-  return <FinancialServices />;
+  redirect("/industry/financial-services/kloudconnect");
 }

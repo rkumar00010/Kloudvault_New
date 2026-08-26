@@ -1,5 +1,6 @@
 "use client";
 
+import { INDUSTRIES_NAV_DROPDOWN } from "@/lib/industries/navDropdown";
 import { useState } from "react";
 import Link from "next/link";
 import SharedNavbar from "./SharedNavbar";
@@ -92,6 +93,23 @@ function NavbarLogo() {
 const NAV = [
   { label: "Home", href: "/" },
   {
+    label: "Product",
+    href: "/#products",
+    dropdown: [
+      {
+        label: "KloudData",
+        children: [
+          { label: "Backup and Recovery", href: "/klouddata/backup-and-recovery" },
+          { label: "Archival", href: "/klouddata/archival" },
+          { label: "Metadata Backup", href: "/klouddata/metadata-backup" },
+        ],
+      },
+      { label: "KloudConnect", href: "/kloudconnect" },
+      { label: "KloudScan", href: "/kloudscan" },
+      { label: "Kloudfiles", href: "/kloudfiles" },
+    ],
+  },
+  {
     label: "Features",
     href: "/#capabilities",
     dropdown: [
@@ -116,33 +134,30 @@ const NAV = [
   {
     label: "Industries",
     href: "/#testimonials",
-    dropdown: [
-      { label: "Real Estate", href: "/real-estate" },
-      { label: "Non Profit", href: "/non-profit" },
-      { label: "Financial Services", href: "/financial-services" },
-      { label: "Education", href: "/education" },
-      { label: "Professional Services", href: "/professional-services" },
-      { label: "Healthcare", href: "/healthcare" },
-    ],
+    dropdown: INDUSTRIES_NAV_DROPDOWN,
   },
 ];
+
+function pathMatches(href, pathname) {
+  if (typeof href !== "string" || href.startsWith("http")) return false;
+  const pathPart = href.split("#")[0].split("?")[0];
+  if (!pathPart) return false;
+  if (pathPart === "/" && href.includes("#")) return false;
+  return pathname === pathPart || pathname.startsWith(`${pathPart}/`);
+}
 
 function navItemIsActive(item, pathname) {
   if (item.external) return false;
   if (item.dropdown) {
     return item.dropdown.some((d) => {
+      if (typeof d !== "string" && d.children) {
+        return d.children.some((child) => pathMatches(child.href, pathname));
+      }
       const href = typeof d === "string" ? item.href : d.href;
-      if (typeof href !== "string" || href.startsWith("http")) return false;
-      const pathPart = href.split("#")[0].split("?")[0];
-      if (!pathPart) return false;
-      if (pathPart === "/" && href.includes("#")) return false;
-      return pathname === pathPart || pathname.startsWith(`${pathPart}/`);
+      return pathMatches(href, pathname);
     });
   }
-  const href = item.href;
-  if (typeof href !== "string" || href.startsWith("http")) return false;
-  const pathPart = href.split("#")[0].split("?")[0];
-  return pathname === pathPart || pathname.startsWith(`${pathPart}/`);
+  return pathMatches(item.href, pathname);
 }
 
 function Navbar() {

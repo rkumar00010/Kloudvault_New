@@ -1,5 +1,6 @@
 "use client";
 
+import { INDUSTRIES_NAV_DROPDOWN } from "@/lib/industries/navDropdown";
 import { useState } from "react";
 import Link from "next/link";
 import SharedNavbar from "./SharedNavbar";
@@ -111,14 +112,7 @@ const NAV = [
   {
     label: "Industries",
     href: "/#testimonials",
-    dropdown: [
-      { label: "Real Estate", href: "/real-estate" },
-      { label: "Non Profit", href: "/non-profit" },
-      { label: "Financial Services", href: "/financial-services" },
-      { label: "Education", href: "/education" },
-      { label: "Professional Services", href: "/professional-services" },
-      { label: "Healthcare", href: "/healthcare" },
-    ],
+    dropdown: INDUSTRIES_NAV_DROPDOWN,
   },
 ];
 

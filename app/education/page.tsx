@@ -1,5 +1,5 @@
-import Education from "@/components/Education";
+import { redirect } from "next/navigation";
 
 export default function EducationPage() {
-  return <Education />;
+  redirect("/industry/education/kloudconnect");
 }

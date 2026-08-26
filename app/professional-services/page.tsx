@@ -1,5 +1,5 @@
-import ProfessionalService from "@/components/ProfessionalService";
+import { redirect } from "next/navigation";
 
 export default function ProfessionalServicesPage() {
-  return <ProfessionalService />;
+  redirect("/industry/professional-services/kloudconnect");
 }

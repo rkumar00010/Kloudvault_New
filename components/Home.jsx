@@ -1,5 +1,6 @@
 "use client";
 
+import { INDUSTRIES_NAV_DROPDOWN } from "@/lib/industries/navDropdown";
 import { useState } from "react";
 import Link from "next/link";
 import SharedNavbar from "./SharedNavbar";
@@ -134,6 +135,23 @@ function DashboardPreview() {
 const NAV = [
   { label: "Home", href: "#top" },
   {
+    label: "Product",
+    href: "#products",
+    dropdown: [
+      {
+        label: "KloudData",
+        children: [
+          { label: "Backup and Recovery", href: "/klouddata/backup-and-recovery" },
+          { label: "Archival", href: "/klouddata/archival" },
+          { label: "Metadata Backup", href: "/klouddata/metadata-backup" },
+        ],
+      },
+      { label: "KloudConnect", href: "/kloudconnect" },
+      { label: "KloudScan", href: "/kloudscan" },
+      { label: "Kloudfiles", href: "/kloudfiles" },
+    ],
+  },
+  {
     label: "Features",
     href: "#capabilities",
     dropdown: [
@@ -158,14 +176,7 @@ const NAV = [
   {
     label: "Industries",
     href: "#testimonials",
-    dropdown: [
-      { label: "Real Estate", href: "/real-estate" },
-      { label: "Non Profit", href: "/non-profit" },
-      { label: "Financial Services", href: "/financial-services" },
-      { label: "Education", href: "/education" },
-      { label: "Professional Services", href: "/professional-services" },
-      { label: "Healthcare", href: "/healthcare" },
-    ],
+    dropdown: INDUSTRIES_NAV_DROPDOWN,
   },
 ];
 
