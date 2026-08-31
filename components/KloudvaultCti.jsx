@@ -423,9 +423,9 @@ export default function KloudvaultCti() {
               className="mt-1 block text-5xl text-transparent sm:mt-2 sm:text-6xl lg:text-7xl xl:text-8xl"
               style={{ WebkitTextStroke: "2px rgb(56 189 248)" }}
             >
-              Archive.
+              Connect.
             </span>
-            <span className="mt-1 block text-5xl sm:mt-2 sm:text-6xl lg:text-7xl xl:text-8xl">Defend.</span>
+            <span className="mt-1 block text-5xl sm:mt-2 sm:text-6xl lg:text-7xl xl:text-8xl">Grow.</span>
           </h1>
 
           <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-slate-600 sm:mt-10 sm:text-lg">
