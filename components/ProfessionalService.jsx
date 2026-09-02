@@ -1,6 +1,6 @@
 "use client";
 
-import { navItemIsActive } from "@/lib/navUtils";
+import { navItemIsActive, PRODUCT_NAV_ITEM } from "@/lib/navUtils";
 import { INDUSTRIES_NAV_DROPDOWN } from "@/lib/industries/navDropdown";
 import { useState } from "react";
 import Link from "next/link";
@@ -76,6 +76,7 @@ function NavbarLogo() {
 
 const NAV = [
   { label: "Home", href: "/" },
+  PRODUCT_NAV_ITEM,
   {
     label: "Features",
     href: "/#capabilities",

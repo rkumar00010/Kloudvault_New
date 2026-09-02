@@ -119,7 +119,7 @@ function NavbarLogo() {
 const IMPACT_STATS = [
   { value: "500+", unit: "PB", label: "Data Protected", icon: Database },
   { value: "99.99", unit: "%", label: "Platform Uptime", icon: Shield },
-  { value: "2,400", unit: "+", label: "Enterprise Clients", icon: Users },
+  { value: "50", unit: "+", label: "Enterprise Clients", icon: Users },
   { value: "180", unit: "+", label: "Countries Served", icon: Globe },
   { value: "2", unit: "T+", label: "Daily Signals Processed", icon: Activity },
 ];
@@ -286,8 +286,6 @@ const WHY_PILLARS = [
 const COMPLIANCE_BADGES = [
   "SOC 2 Type II",
   "ISO 27001",
-  "FedRAMP",
-  "HIPAA",
   "GDPR",
   "PCI DSS",
   "NIST CSF",

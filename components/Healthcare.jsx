@@ -1,5 +1,7 @@
 "use client";
 
+import { PRODUCT_NAV_ITEM } from "@/lib/navUtils";
+
 import { useState } from "react";
 import Link from "next/link";
 import SharedNavbar from "./SharedNavbar";
@@ -74,6 +76,7 @@ function NavbarLogo() {
 
 const NAV = [
   { label: "Home", href: "/" },
+  PRODUCT_NAV_ITEM,
   {
     label: "Features",
     href: "/#capabilities",

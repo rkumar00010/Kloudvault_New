@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronDown, MessageCircle, Star } from "lucide-react";
-import { navItemIsActive } from "@/lib/navUtils";
+import { navItemIsActive, PRODUCT_NAV_ITEM } from "@/lib/navUtils";
 import { INDUSTRIES_NAV_DROPDOWN } from "@/lib/industries/navDropdown";
 import SharedNavbar from "@/components/SharedNavbar";
 
@@ -11,6 +11,7 @@ const CONTACT = "https://360cti.com/contact/";
 
 const NAV = [
   { label: "Home", href: "/" },
+  PRODUCT_NAV_ITEM,
   {
     label: "Features",
     href: "/#capabilities",
