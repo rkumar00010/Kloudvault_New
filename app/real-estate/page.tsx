@@ -1,5 +1,5 @@
-import RealEstate from "@/components/RealEstate";
+import { redirect } from "next/navigation";
 
 export default function RealEstatePage() {
-  return <RealEstate />;
+  redirect("/industry/real-estate/kloudconnect");
 }

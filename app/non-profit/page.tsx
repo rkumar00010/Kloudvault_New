@@ -1,5 +1,5 @@
-import NonProfit from "@/components/NonProfit";
+import { redirect } from "next/navigation";
 
 export default function NonProfitPage() {
-  return <NonProfit />;
+  redirect("/industry/non-profit/kloudconnect");
 }

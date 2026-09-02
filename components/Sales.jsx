@@ -1,5 +1,8 @@
 "use client";
 
+import { PRODUCT_NAV_ITEM } from "@/lib/navUtils";
+
+import { INDUSTRIES_NAV_DROPDOWN } from "@/lib/industries/navDropdown";
 import { useState } from "react";
 import Link from "next/link";
 import SharedNavbar from "./SharedNavbar";
@@ -86,6 +89,7 @@ function NavbarLogo() {
 
 const NAV = [
   { label: "Home", href: "/" },
+  PRODUCT_NAV_ITEM,
   {
     label: "Features",
     href: "/#capabilities",
@@ -111,14 +115,7 @@ const NAV = [
   {
     label: "Industries",
     href: "/#testimonials",
-    dropdown: [
-      { label: "Real Estate", href: "/real-estate" },
-      { label: "Non Profit", href: "/non-profit" },
-      { label: "Financial Services", href: "/financial-services" },
-      { label: "Education", href: "/education" },
-      { label: "Professional Services", href: "/professional-services" },
-      { label: "Healthcare", href: "/healthcare" },
-    ],
+    dropdown: INDUSTRIES_NAV_DROPDOWN,
   },
 ];
 

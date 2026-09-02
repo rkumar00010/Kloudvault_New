@@ -1,5 +1,7 @@
 "use client";
 
+import { PRODUCT_NAV_ITEM } from "@/lib/navUtils";
+
 import { useState } from "react";
 import Link from "next/link";
 import SharedNavbar from "./SharedNavbar";
@@ -74,6 +76,7 @@ function NavbarLogo() {
 
 const NAV = [
   { label: "Home", href: "/" },
+  PRODUCT_NAV_ITEM,
   {
     label: "Features",
     href: "/#capabilities",
@@ -100,33 +103,17 @@ const NAV = [
     label: "Industries",
     href: "/#testimonials",
     dropdown: [
-      { label: "Real Estate", href: "/real-estate" },
-      { label: "Non Profit", href: "/non-profit" },
-      { label: "Financial Services", href: "/financial-services" },
-      { label: "Education", href: "/education" },
-      { label: "Professional Services", href: "/professional-services" },
-      { label: "Healthcare", href: "/healthcare" },
+      { label: "Real Estate", href: "/industry/real-estate/kloudconnect" },
+      { label: "Non Profit", href: "/industry/non-profit/kloudconnect" },
+      { label: "Financial Services", href: "/industry/financial-services/kloudconnect" },
+      { label: "Education", href: "/industry/education/kloudconnect" },
+      { label: "Professional Services", href: "/industry/professional-services/kloudconnect" },
+      { label: "Healthcare", href: "/industry/healthcare/kloudconnect" },
     ],
   },
 ];
 
-function navItemIsActive(item, pathname) {
-  if (item.external) return false;
-  if (item.dropdown) {
-    return item.dropdown.some((d) => {
-      const href = typeof d === "string" ? item.href : d.href;
-      if (typeof href !== "string" || href.startsWith("http")) return false;
-      const pathPart = href.split("#")[0].split("?")[0];
-      if (!pathPart) return false;
-      if (pathPart === "/" && href.includes("#")) return false;
-      return pathname === pathPart || pathname.startsWith(`${pathPart}/`);
-    });
-  }
-  const href = item.href;
-  if (typeof href !== "string" || href.startsWith("http")) return false;
-  const pathPart = href.split("#")[0].split("?")[0];
-  return pathname === pathPart || pathname.startsWith(`${pathPart}/`);
-}
+
 
 function Navbar() {
   return (
@@ -136,7 +123,7 @@ function Navbar() {
       ChevronIcon={ChevronDown}
       MenuIcon={Menu}
       CloseIcon={X}
-      navItemIsActive={typeof navItemIsActive === "function" ? navItemIsActive : undefined}
+      navItemIsActive={navItemIsActive}
       logoHref="#top"
     />
   );
@@ -372,7 +359,6 @@ export default function Healthcare() {
   return (
     <div id="top" className="min-h-screen bg-white text-slate-900">
       <Navbar />
-
       {/* 1 — Hero */}
       <section className="relative flex min-h-[min(85vh,640px)] items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-slate-950" aria-hidden />

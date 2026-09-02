@@ -1,5 +1,5 @@
-import Healthcare from "@/components/Healthcare";
+import { redirect } from "next/navigation";
 
 export default function HealthcarePage() {
-  return <Healthcare />;
+  redirect("/industry/healthcare/kloudconnect");
 }
