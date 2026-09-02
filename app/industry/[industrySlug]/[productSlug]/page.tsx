@@ -3,7 +3,11 @@ import IndustryGenericProductPage from "@/components/industries/IndustryGenericP
 import { getIndustryProductContent } from "@/lib/industries/productContent";
 import { KLOUDCONNECT_COMPONENTS, isValidIndustryProduct } from "@/lib/industries/registry";
 
-export default async function IndustryProductRoutePage({ params }) {
+export default async function IndustryProductRoutePage({
+  params,
+}: {
+  params: Promise<{ industrySlug: string; productSlug: string }>;
+}) {
   const { industrySlug, productSlug } = await params;
 
   if (!isValidIndustryProduct(industrySlug, productSlug)) {
@@ -11,7 +15,10 @@ export default async function IndustryProductRoutePage({ params }) {
   }
 
   if (productSlug === "kloudconnect") {
-    const ConnectComponent = KLOUDCONNECT_COMPONENTS[industrySlug];
+    const ConnectComponent =
+      KLOUDCONNECT_COMPONENTS[
+        industrySlug as keyof typeof KLOUDCONNECT_COMPONENTS
+      ];
     if (ConnectComponent) return <ConnectComponent />;
   }
 
